@@ -6,8 +6,11 @@ import { Stack } from "@mui/system"
 import { TextField } from "@mui/material"
 import { useField, useFormikContext } from "formik"
 import { format } from "date-fns"
+import { useTranslation } from "react-i18next"
 
 const FDatePicker = ({ name, ...otherProps }) => {
+  const { t } = useTranslation()
+
   const { setFieldValue } = useFormikContext()
 
   const [field, meta] = useField(name)
@@ -22,7 +25,7 @@ const FDatePicker = ({ name, ...otherProps }) => {
     helperText: "",
     ...(isError && {
       error: true,
-      helperText: meta.error,
+      helperText: t(meta.error),
     }),
   }
 

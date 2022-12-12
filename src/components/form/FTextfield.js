@@ -1,7 +1,9 @@
 import { TextField } from "@mui/material"
 import { useField } from "formik"
+import { useTranslation } from "react-i18next"
 
 const FTextfield = ({ name, ...otherProps }) => {
+  const { t } = useTranslation()
   const [field, meta] = useField(name)
 
   if (!field.value) {
@@ -17,7 +19,7 @@ const FTextfield = ({ name, ...otherProps }) => {
     ...otherProps,
     ...(isError && {
       error: true,
-      helperText: meta.error,
+      helperText: t(meta.error),
     }),
   }
 

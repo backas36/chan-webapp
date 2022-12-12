@@ -1,24 +1,47 @@
 import * as Yup from "yup"
+export const forgotPwdSchema = () => {
+  const schema = {
+    email: Yup.string().email("emailInValid").required("emailRequire"),
+  }
+  return Yup.object().shape(schema)
+}
+
+export const activateSchema = () => {
+  const schema = {
+    password: Yup.string()
+      .required("pwdRequired")
+      .matches(
+        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "pwdInValid"
+      ),
+    okPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "pwdNotMatch")
+      .required("notEmpty")
+      .matches(
+        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "pwdInValid"
+      ),
+  }
+  return Yup.object().shape(schema)
+}
 
 export const LoginSchema = (isRegister) => {
   const schema = {
-    email: Yup.string()
-      .email("Provide a valid email address")
-      .required("Email is required"),
+    email: Yup.string().email("emailInValid").required("emailRequire"),
     password: Yup.string()
-      .required("Password is required")
+      .required("pwdRequired")
       .matches(
         /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        "At least 8 characters, and must includes numbers and special characters"
+        "pwdInValid"
       ),
     ...(isRegister && {
-      name: Yup.string().required("Name is required"),
+      name: Yup.string().required("notEmpty"),
       okPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
-        .required("Please enter new password again.")
+        .oneOf([Yup.ref("password"), null], "pwdNotMatch")
+        .required("notEmpty")
         .matches(
           /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-          "At least 8 characters, and must includes numbers and special characters"
+          "pwdInValid"
         ),
     }),
   }

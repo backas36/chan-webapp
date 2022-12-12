@@ -1,6 +1,7 @@
 export { default as RequireAuth } from "./components/RequireAuth"
 export { default as VerifyLogin } from "./components/VerifyLogin"
 export { default as LoginForm } from "./components/LoginForm"
+export { default as RequireAdmin } from "./components/RequireAdmin"
 
 export {
   authApiSlice,

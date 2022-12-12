@@ -41,5 +41,11 @@
   "setUpPwdFormTitle": "Please enter your new password here.",
   "forbiddenAccess": "Forbidden Access",
   "activateAcc": "Activate Account",
-  "setPwdToAcc": "Please set up your password to activate your account."
+  "setPwdToAcc": "Please set up your password to activate your account.",
+  "emailRequire": "Email is required",
+  "emailInValid": "Provide a valid email address.",
+  "pwdRequired": "Password is required",
+  "pwdInValid": "At least 8 characters, and must includes numbers and special characters",
+  "pwdNotMatch": "Passwords must match",
+  "notEmpty": "Cannot be empty"
 }

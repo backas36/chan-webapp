@@ -41,5 +41,11 @@
   "setUpPwdFormTitle": "請輸入你的新密碼",
   "forbiddenAccess": "禁止訪問",
   "activateAcc": "啟用帳號",
-  "setPwdToAcc": "建立密碼以啟用您的帳號"
+  "setPwdToAcc": "建立密碼以啟用您的帳號",
+  "emailRequire": "Email 為必填",
+  "emailInValid": "請填寫有效的 email",
+  "pwdRequired": "密碼為必填",
+  "pwdInValid": "密碼須包含至少8個字，且須混合數字與特殊字元",
+  "pwdNotMatch": "密碼不相符",
+  "notEmpty": "請填寫完整必填欄位"
 }

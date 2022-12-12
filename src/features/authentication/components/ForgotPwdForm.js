@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
 import { useForgetPwdMutation } from "../services/authApiSlice"
-import { forgotPwdSchema } from "../utils/forgotPwdSchema"
+import { forgotPwdSchema } from "../utils/schema"
 import { customToast } from "../../../components/notify/NotifyToast"
 import { FLoadingBtn, FTextfield } from "../../../components/form"
 

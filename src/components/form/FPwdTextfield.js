@@ -1,6 +1,7 @@
 import { TextField, InputAdornment, IconButton } from "@mui/material"
 import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material"
 import { useField } from "formik"
+import { useTranslation } from "react-i18next"
 
 const FPwdTextfield = ({
   name,
@@ -10,6 +11,7 @@ const FPwdTextfield = ({
 }) => {
   //const [field, meta, helpers] = useField(name)
   const [field, meta] = useField(name)
+  const { t } = useTranslation()
 
   if (!field.value) {
     field.value = ""
@@ -24,7 +26,7 @@ const FPwdTextfield = ({
     variant: "standard",
     ...(isError && {
       error: true,
-      helperText: meta.error,
+      helperText: t(meta.error),
     }),
   }
 

@@ -7,7 +7,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { customToast } from "../../../components/notify/NotifyToast"
 import useToggle from "../../../hooks/useToggle"
 import { FLoadingBtn, FPwdTextfield } from "../../../components/form"
-import { activateSchema } from "../utils/activateSchema"
+import { activateSchema } from "../utils/schema"
 import { useActivateMutation, useSendResetPwdMutation } from ".."
 import { useTranslation } from "react-i18next"
 const initLoginValue = {

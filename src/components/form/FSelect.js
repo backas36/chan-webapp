@@ -1,10 +1,12 @@
 import React from "react"
 import { TextField, MenuItem } from "@mui/material"
 import { useField, useFormikContext } from "formik"
+import { useTranslation } from "react-i18next"
 
 const FSelect = ({ name, options, ...otherProps }) => {
   const { setFieldValue } = useFormikContext()
   const [field, meta] = useField(name)
+  const { t } = useTranslation()
 
   if (!field.value) {
     field.value = ""
@@ -26,7 +28,7 @@ const FSelect = ({ name, options, ...otherProps }) => {
     ...otherProps,
     ...(isError && {
       error: true,
-      helperText: meta.error,
+      helperText: t(meta.error),
     }),
   }
 
