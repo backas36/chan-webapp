@@ -1,0 +1,11 @@
+export { default as Cart } from "./Front/Cart"
+export { default as Contacts } from "./Front/Contacts"
+export { default as Favorite } from "./Front/Favorite"
+export { default as FrontMain } from "./Front/FrontMain"
+export { default as Products } from "./Front/Products"
+
+export { default as Login } from "./Shared/Login"
+export { default as ForgetPwd } from "./Shared/ForgetPwd"
+export { default as ActivateAccount } from "./Shared/ActivateAccount"
+export { default as Profile } from "./Shared/Profile"
+export { default as SetUpPwd } from "./Shared/SetUpPwd"

@@ -1,0 +1,5 @@
+.Toastify__toast-container,
+.Toastify__toast,
+.Toastify__progress-bar {
+  opacity: 0.9 !important;
+}
