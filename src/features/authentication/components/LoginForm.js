@@ -56,7 +56,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      customToast.success("Pleas Login With new account")
+      customToast.success("loginWithNewAcc")
       setIsRegister(false)
       navigate("/login")
     }

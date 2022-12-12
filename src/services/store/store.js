@@ -5,11 +5,11 @@ import {
   initMessageListener,
 } from "redux-state-sync"
 
+import { apiSlice, rtkQueryErrorMiddleware } from "../api/apiSlice"
 import { authReducer, tokensMiddleware } from "../../features/authentication"
 import { langReducer } from "../../features/lang"
 import { meReducer } from "../../features/me"
 import { uiReducer } from "../../features/ui"
-import { apiSlice, rtkQueryErrorMiddleware } from "../api/apiSlice"
 import { listenerMiddleware } from "../middleware/listenerMiddleware"
 
 const syncConfig = {

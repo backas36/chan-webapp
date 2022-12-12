@@ -72,7 +72,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
           }
         } catch (err) {
           console.log("verify failed")
-          await dispatch(apiSlice.endpoints.logout.initiate())
+          //await dispatch(apiSlice.endpoints.logout.initiate())
         }
       },
     }),

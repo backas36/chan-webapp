@@ -1,4 +1,3 @@
-import { styled } from "@mui/system"
 import {
   Lock,
   Favorite as Heart,
@@ -12,39 +11,13 @@ import { Link, useNavigate } from "react-router-dom"
 
 import { selectIsLogin } from "../../features/authentication"
 import MAvatar from "../Avatar/MAvatar"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { selectCurrentUser, UserMenu } from "../../features/me"
 import { getAllowRoles } from "../../utils/constants"
 
 import { ToggleLang } from "../../features/lang"
 import { ToggleTheme } from "../../features/ui"
-
-const MBox = styled(Box)(({ theme }) => {
-  return {
-    flexGrow: {
-      xs: 1,
-      md: 0,
-    },
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-  }
-})
-
-const menuList = [
-  {
-    title: "Dashboard",
-    pathname: "/admin/main",
-    icon: <Dashboard fontSize="small" />,
-    allowRoles: getAllowRoles(true),
-  },
-  {
-    title: "Profile",
-    pathname: "user-profile",
-    icon: <ManageAccounts fontSize="small" />,
-    allowRoles: getAllowRoles(false),
-  },
-]
+import { MBox } from "./styled"
 
 const FrontTopBarActions = () => {
   const navigate = useNavigate()
@@ -52,6 +25,24 @@ const FrontTopBarActions = () => {
   const [openDialogName, setOpenDialogName] = useState(null)
   const isLogin = useSelector(selectIsLogin)
   const currentUser = useSelector(selectCurrentUser)
+
+  const menuList = useMemo(
+    () => [
+      {
+        title: "Dashboard",
+        pathname: "/admin/main",
+        icon: <Dashboard fontSize="small" />,
+        allowRoles: getAllowRoles(true),
+      },
+      {
+        title: "Profile",
+        pathname: "user-profile",
+        icon: <ManageAccounts fontSize="small" />,
+        allowRoles: getAllowRoles(false),
+      },
+    ],
+    []
+  )
 
   let isMenuOpen = Boolean(anchorUserMenu)
 

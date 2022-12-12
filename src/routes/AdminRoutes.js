@@ -1,8 +1,9 @@
 import { useRoutes } from "react-router-dom"
 import AdminLayout from "../layout/AdminLayout"
 import { RequireAuth, RequireAdminAuth } from "../features/authentication"
-import { AdminMain } from "../pages/index "
-import { Profile, Users } from "../pages"
+import AdminMain from "../pages/Admin/AdminMain"
+import Users from "../pages/Admin/Users"
+import Profile from "../pages/Shared/Profile"
 
 const AdminRoutes = () => {
   const routes = useRoutes([

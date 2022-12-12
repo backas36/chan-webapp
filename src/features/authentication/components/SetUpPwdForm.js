@@ -49,7 +49,7 @@ const SetUpPwdForm = ({ subTitle, isForgetPwd = false }) => {
 
   useEffect(() => {
     if (isSuccess || resetSuccess) {
-      customToast.success("You can login now!")
+      customToast.success("canLoginNow")
       navigate("/login")
     }
   }, [isSuccess, navigate, resetSuccess])

@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { selectCurrentUser } from "../services/meSlice"
 import { useUpdateMyProfileMutation } from "../services/meApiSlice"
-import { useEffect, useMemo } from "react"
+import { useMemo } from "react"
 import { customToast } from "../../../components/notify/NotifyToast"
 import {
   FDatePicker,
@@ -67,13 +67,13 @@ const UserProfileDetail = ({ isCreate }) => {
       if (currentUser) {
         await updateMyProfile(values)
       }
-      customToast.success("Updated profile")
+      customToast.success("updatedSuccess")
     },
   })
 
   //useEffect(() => {
   //  if (isSuccess) {
-  //    customToast.success("Create User Success")
+  //    customToast.success("createdSuccess")
   //    navigate(-1)
   //  }
   //}, [isSuccess, navigate])

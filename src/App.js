@@ -2,11 +2,11 @@ import { ThemeProvider } from "@emotion/react"
 import { CssBaseline } from "@mui/material"
 import { Routes, Route } from "react-router-dom"
 
-import FrontRoutes from "./routes/FrontRoutes"
-//import AdminRoutes from "./routes/AdminRoutes"
 import { VerifyLogin } from "./features/authentication"
 import NotifyToast from "./components/notify/NotifyToast"
 import useCustomTheme from "./hooks/useCustomTheme"
+import AdminRoutes from "./routes/AdminRoutes"
+import FrontRoutes from "./routes/FrontRoutes"
 import "./assets/styles/global.css"
 
 const App = () => {
@@ -19,7 +19,7 @@ const App = () => {
         <Route element={<VerifyLogin />}>
           <Route path="/*" element={<FrontRoutes />} />
 
-          {/*<Route path="/admin/*" element={<AdminRoutes />} />*/}
+          <Route path="/admin/*" element={<AdminRoutes />} />
         </Route>
       </Routes>
       <NotifyToast />

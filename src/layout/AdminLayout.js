@@ -1,4 +1,12 @@
+import AdminTopBar from "../components/AdminTopBar/AdminTopBar"
+import AdminFooter from "../components/Footer/AdminFooter"
+
 const AdminLayout = () => {
-  return <div>AdminLayout</div>
+  return (
+    <>
+      <AdminTopBar />
+      <AdminFooter />
+    </>
+  )
 }
 export default AdminLayout

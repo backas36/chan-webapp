@@ -47,5 +47,11 @@
   "pwdRequired": "Password is required",
   "pwdInValid": "At least 8 characters, and must includes numbers and special characters",
   "pwdNotMatch": "Passwords must match",
-  "notEmpty": "Cannot be empty"
+  "notEmpty": "Cannot be empty",
+  "checkMailBox": "Please check Your mail box!",
+  "loginWithNewAcc": "Pleas Login With new account",
+  "canLoginNow": "You can login now!",
+  "updatedSuccess": "Updated Successfully",
+  "createdSuccess": "Created Successfully",
+  "Users": "Users"
 }

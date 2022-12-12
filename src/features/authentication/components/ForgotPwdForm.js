@@ -29,7 +29,7 @@ const ForgotPwdForm = () => {
   }
   useEffect(() => {
     if (isSuccess) {
-      customToast.success("Please check Your mail box!")
+      customToast.success("checkMailBox")
       navigate("/")
     }
   }, [isSuccess, navigate])

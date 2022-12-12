@@ -47,5 +47,11 @@
   "pwdRequired": "密碼為必填",
   "pwdInValid": "密碼須包含至少8個字，且須混合數字與特殊字元",
   "pwdNotMatch": "密碼不相符",
-  "notEmpty": "請填寫完整必填欄位"
+  "notEmpty": "請填寫完整必填欄位",
+  "checkMailBox": "請至你的郵箱收信吧!",
+  "loginWithNewAcc": "請使用新帳戶登入",
+  "canLoginNow": "您可以登入了",
+  "updatedSuccess": "更新成功",
+  "createdSuccess": "新增成功",
+  "Users": "全部用戶"
 }

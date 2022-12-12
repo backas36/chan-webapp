@@ -23,6 +23,7 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReAuth = async (args, api, extraOptions) => {
   await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
+
   if (result?.error?.status === 403) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
@@ -39,12 +40,13 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
           api,
           extraOptions
         )
-        if (refreshResult?.data) {
+        if (refreshResult?.data?.success) {
           api.dispatch(postLogin(refreshResult.data))
 
           result = await baseQuery(args, api, extraOptions)
         } else {
           console.log("refresh token failed")
+
           api.dispatch(postLogout())
         }
       } finally {
