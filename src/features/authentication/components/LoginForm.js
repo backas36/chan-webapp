@@ -1,11 +1,11 @@
 import { Box } from "@mui/system"
 import { Form, Formik } from "formik"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button, Stack, Typography, Link as MuiLink } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
-import { useLoginMutation } from "../services/authApiSlice"
+import { useLoginMutation, useRegisterMutation } from "../services/authApiSlice"
 import { LoginSchema } from "../utils/schema"
 import initLoginVal from "../utils/initLoginVal"
 import {
@@ -15,10 +15,11 @@ import {
 } from "../../../components/form"
 import useToggle from "../../../hooks/useToggle"
 import GoogleOneTapLogin from "./GoogleOneTapLogin"
+import { customToast } from "../../../components/notify/NotifyToast"
 
 const LoginForm = () => {
   const { t } = useTranslation()
-
+  const navigate = useNavigate()
   const [isRegister, setIsRegister] = useState(false)
   const {
     multiViable: showPassword,
@@ -29,18 +30,38 @@ const LoginForm = () => {
   })
 
   const [login] = useLoginMutation()
+  const [register, { isSuccess }] = useRegisterMutation()
 
   const formikConfig = {
     initialValues: initLoginVal,
     enableReinitialize: true,
     validationSchema: LoginSchema(isRegister),
-    onSubmit: async (values) => {
-      await login({
-        email: values.email,
-        password: values.password,
-      })
+
+    onSubmit: async (values, { resetForm }) => {
+      if (isRegister) {
+        await register({
+          email: values.email,
+          name: values.name,
+          password: values.password,
+        })
+      } else {
+        await login({
+          email: values.email,
+          password: values.password,
+        })
+      }
+      resetForm()
     },
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      customToast.success("Pleas Login With new account")
+      setIsRegister(false)
+      navigate("/login")
+    }
+  }, [isSuccess, navigate])
+
   return (
     <Formik {...formikConfig}>
       <Form autoComplete="off">

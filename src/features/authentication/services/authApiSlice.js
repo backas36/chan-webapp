@@ -97,6 +97,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+    register: builder.mutation({
+      query: (body) => ({
+        url: "/register",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 })
 
@@ -108,4 +115,5 @@ export const {
   useForgetPwdMutation,
   useSendResetPwdMutation,
   useLoginWithGoogleMutation,
+  useRegisterMutation,
 } = authApiSlice

@@ -21,6 +21,7 @@ import { selectCurrentUser } from "../services/meSlice"
 import { checkUserIdentityType } from "../utils/checkUserIdentityType"
 import deleteFile from "../../../services/firebase/deleteFile"
 import { uploadUserPhoto } from "../../../services/firebase/uploadFile"
+import { AUTH_OPTIONS, checkIdentityType } from "../../../utils/constants"
 
 const UserAvatar = () => {
   const { t } = useTranslation()
@@ -28,14 +29,16 @@ const UserAvatar = () => {
   const currentUser = useSelector(selectCurrentUser)
   const [updateMyProfile] = useUpdateMyProfileMutation()
   const { photoUrl, name, email, id } = currentUser
-  const hasPhoto = !!photoUrl
+  const isAllowEditPhoto =
+    !!photoUrl &&
+    checkIdentityType(AUTH_OPTIONS.chanchan, currentUser.identityType)
   const handleFileChange = async (e) => {
     const file = e.target.files[0]
     if (file) {
       URL.createObjectURL(file)
       try {
         setLoading(true)
-        if (hasPhoto) {
+        if (isAllowEditPhoto) {
           const imageName = photoUrl
             ?.split(`${currentUser?.id}%2F`)[1]
             ?.split("?")[0]
@@ -54,7 +57,7 @@ const UserAvatar = () => {
     try {
       setLoading(true)
 
-      if (hasPhoto) {
+      if (isAllowEditPhoto) {
         const imageName = photoUrl
           ?.split(`${currentUser?.id}%2F`)[1]
           ?.split("?")[0]
@@ -85,7 +88,7 @@ const UserAvatar = () => {
               badgeContent={
                 <Avatar
                   sx={{
-                    display: hasPhoto ? "flex" : "none",
+                    display: isAllowEditPhoto ? "flex" : "none",
                     width: 30,
                     height: 30,
                     bgcolor: (theme) => theme.palette.success.light,
@@ -106,7 +109,7 @@ const UserAvatar = () => {
                   bgcolor: (theme) => theme.palette.success.dark,
                 }}
               >
-                {!hasPhoto && name.charAt(0).toUpperCase()}
+                {!isAllowEditPhoto && name.charAt(0).toUpperCase()}
               </MAvatar>
             </Badge>
             <Typography

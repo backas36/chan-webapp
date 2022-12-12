@@ -16,6 +16,10 @@ export const getAllowRoles = (onlyAdmin, onlyEditor = false) => {
   ]
 }
 
+export const checkIdentityType = (identityType, userRole) => {
+  return identityType === userRole
+}
+
 export const AUTH_OPTIONS = {
   google: "google",
   chanchan: "chanchan-api",

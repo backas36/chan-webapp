@@ -12,6 +12,7 @@ export {
   useForgetPwdMutation,
   useSendResetPwdMutation,
   useLoginWithGoogleMutation,
+  useRegisterMutation,
 } from "./services/authApiSlice"
 
 export {
