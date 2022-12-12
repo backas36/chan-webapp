@@ -11,11 +11,13 @@ import { validTokenTime } from "../../utils/validTokenTime"
 const SetUpPwd = () => {
   const { t } = useTranslation()
   useTitle("Set Up Password")
-  let [token] = useSearchParams()
+  let [params] = useSearchParams()
+  const token = params.get("token")
+
   let tokenIsValid = false
 
-  if (token.get("token")) {
-    tokenIsValid = validTokenTime(token.get("token"))
+  if (token) {
+    tokenIsValid = validTokenTime(token)
   }
 
   return tokenIsValid ? (
