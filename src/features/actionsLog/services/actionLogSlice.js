@@ -1,7 +1,4 @@
-import { getGridStringOperators } from "@mui/x-data-grid"
 import { createSlice } from "@reduxjs/toolkit"
-import { formatDateTime } from "../../../utils/dateTimeManger"
-import renderCellExpand from "../components/renderCellExpand"
 
 const initialState = {
   page: 0,
@@ -9,38 +6,6 @@ const initialState = {
   sort: "",
   search: "",
   filters: "",
-  columns: [
-    {
-      field: "relatedUserName",
-      headerName: "relatedUser",
-      width: 150,
-      editable: false,
-      filterable: true,
-      sortable: true,
-    },
-    {
-      field: "type",
-      headerName: "activityType",
-      width: 170,
-      filterable: true,
-      editable: false,
-      sortable: true,
-    },
-    {
-      field: "content",
-      headerName: "activityContent",
-      width: 500,
-      sortable: false,
-      filterable: false,
-      editable: false,
-    },
-    {
-      field: "createdAt",
-      headerName: "activityCreatedAt",
-      width: 150,
-      filterable: false,
-    },
-  ],
 }
 
 const actionLogSlice = createSlice({

@@ -48,7 +48,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const SearchBar = ({ setSearchInput, handleSearch, searchInput }) => {
   return (
     <SearchWrapper>
-      <SearchIconWrapper onClick={handleSearch}>
+      <SearchIconWrapper
+        onClick={() => {
+          const inputValue = searchInput.trim()
+          handleSearch(inputValue)
+        }}
+      >
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
@@ -56,7 +61,8 @@ const SearchBar = ({ setSearchInput, handleSearch, searchInput }) => {
         onChange={(e) => setSearchInput(e.target.value)}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
-            handleSearch()
+            const inputValue = e.target.value.trim()
+            handleSearch(inputValue)
           }
         }}
         placeholder="Search…"

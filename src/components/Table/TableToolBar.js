@@ -1,4 +1,4 @@
-import { Add, RestartAlt } from "@mui/icons-material"
+import { RestartAlt } from "@mui/icons-material"
 import { Box, Button } from "@mui/material"
 import {
   GridToolbarContainer,
@@ -7,21 +7,15 @@ import {
   useGridApiContext,
 } from "@mui/x-data-grid"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
-import SearchBar from "../../../components/SearchBar/SearchBar"
+import SearchBar from "../SearchBar/SearchBar"
+
 const TableToolBar = (props) => {
   const { t } = useTranslation()
   const apiRef = useGridApiContext()
 
-  const { searchInput, setSearchInput, setSearch, handleResetTable } = props
-  const navigate = useNavigate()
-
-  const handleSearch = () => {
-    setSearch(searchInput)
-  }
+  const { searchInput, setSearchInput, handleResetTable, handleSearch } = props
 
   const resetTable = () => {
-    console.log(apiRef.current.state)
     //console.log("🐑 ~ apiRef", apiRef.current.getSortModel())
     setSearchInput("")
     apiRef.current.setSortModel([])
@@ -45,15 +39,6 @@ const TableToolBar = (props) => {
             justifyContent: "flex-start",
           }}
         >
-          {/*<Button
-            color="primary"
-            variant="contained"
-            startIcon={<Add />}
-            onClick={handleClick}
-            sx={{ mr: 1 }}
-          >
-            Create
-          </Button>*/}
           <GridToolbarFilterButton sx={{ mr: 1 }} />
           <GridToolbarColumnsButton sx={{}} />
         </Box>
@@ -88,9 +73,3 @@ const TableToolBar = (props) => {
   )
 }
 export default TableToolBar
-
-/**
- *
- *
- *
- */

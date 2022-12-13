@@ -1,6 +1,5 @@
 import { Paper, Popper, Typography } from "@mui/material"
 import { Box } from "@mui/system"
-import { useGridApiContext } from "@mui/x-data-grid"
 import React, { useEffect, useRef, useState } from "react"
 
 function isOverflown(element) {
@@ -13,7 +12,7 @@ function isOverflown(element) {
 const TableCellExpand = React.memo((props) => {
   let { width, value } = props
   if (value) {
-    value = JSON.stringify(value)
+    value = typeof value === "object" ? JSON.stringify(value) : value
   } else {
     value = "-"
   }
