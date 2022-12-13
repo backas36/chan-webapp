@@ -81,5 +81,18 @@
   "columnsPanelHideAllButton": "Hide All",
   "columnsPanelShowAllButton": "Show All",
   "columnsPanelTextFieldLabel": "Column",
-  "columnsPanelTextFieldPlaceholder": "Column title"
+  "columnsPanelTextFieldPlaceholder": "Column title",
+  "manageUsers": "Manage Users",
+  "actions": "Actions",
+  "avatar": "Avatar",
+  "status": "Status",
+  "identityType": "Identity Type",
+  "userCreatedAt": "Created At",
+  "filterOperatorIs": "is",
+  "create": "create",
+  "phoneInvalid": "Phone Number is not valid",
+  "dateValid": "Must be a valid date",
+  "roleRequired": "Role is required",
+  "statusRequired": "Status is required",
+  "nameRequired": "Name is required"
 }

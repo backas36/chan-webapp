@@ -81,5 +81,18 @@
   "columnsPanelHideAllButton": "隱藏全部",
   "columnsPanelShowAllButton": "顯示全部",
   "columnsPanelTextFieldLabel": "搜尋欄位",
-  "columnsPanelTextFieldPlaceholder": "欄位名稱"
+  "columnsPanelTextFieldPlaceholder": "欄位名稱",
+  "manageUsers": "用戶管理",
+  "actions": "動作",
+  "avatar": "頭像",
+  "status": "狀態",
+  "identityType": "註冊類型",
+  "userCreatedAt": "註冊時間",
+  "filterOperatorIs": "等於",
+  "create": "新增",
+  "phoneInvalid": "手機號碼錯誤",
+  "dateValid": "請輸入正確日期",
+  "roleRequired": "帳戶權限為必填",
+  "statusRequired": "帳戶狀態為必填",
+  "nameRequired": "姓名為必填"
 }

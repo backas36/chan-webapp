@@ -28,6 +28,7 @@ const useActionLogTableColumn = () => {
         filterable: true,
         editable: false,
         sortable: true,
+        renderCell: renderCellExpand,
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "contains"
         ),

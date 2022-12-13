@@ -1,4 +1,3 @@
-import { useGetActionLogListQuery } from "../services/actionLogApiSlice"
 import { useDispatch, useSelector } from "react-redux"
 import {
   resetActionsTable,
@@ -9,14 +8,16 @@ import {
   setSearch,
   setSort,
 } from "../services/actionLogSlice"
+import { useGetActionLogListQuery } from "../services/actionLogApiSlice"
 import useActionLogTableColumn from "../hook/useActionLogTableColumn"
 import BaseTable from "../../../components/Table/BaseTable"
+import { useEffect } from "react"
 const ActionsLogTable = () => {
   const dispatch = useDispatch()
   const logsTableConfig = useSelector(selectLogTableConfig)
   const { page, pageSize, sort, search, filters } = logsTableConfig
 
-  const startIndex = page > 0 ? pageSize * page : 0 //s
+  const startIndex = page > 0 ? pageSize * page : 0
   const order = sort && `${sort.field}:${sort.sort}`
 
   const tableColumns = useActionLogTableColumn()
@@ -43,11 +44,11 @@ const ActionsLogTable = () => {
     columns: tableColumns,
     isLoading,
     totalLength: actionsLogData?.totalLength,
-    rowsPerPageOptions: [pageSize, pageSize * 2, pageSize * 3],
+    rowsPerPageOptions: [15, 30, 45],
     page,
     pageSize,
     handlePageChange: (newPage) => dispatch(setPage(newPage)),
-    handlePageSize: (newSize) => dispatch(setPageSize(newSize)),
+    handlePageSizeChange: (newSize) => dispatch(setPageSize(newSize)),
     handleSortChange: (newSort) => dispatch(setSort(newSort)),
     handleFiltersChange: (newFilter) => dispatch(setFilters(newFilter)),
     handleSearch: (value) => {

@@ -1,4 +1,5 @@
 import * as Yup from "yup"
+
 export const forgotPwdSchema = () => {
   const schema = {
     email: Yup.string().email("emailInValid").required("emailRequire"),

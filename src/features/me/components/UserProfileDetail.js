@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { selectCurrentUser } from "../services/meSlice"
 import { useUpdateMyProfileMutation } from "../services/meApiSlice"
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import { customToast } from "../../../components/notify/NotifyToast"
 import {
   FDatePicker,
@@ -19,20 +19,20 @@ import {
   FSelect,
   FTextfield,
 } from "../../../components/form"
-import { USER_ROLES } from "../../../utils/constants"
+import { USER_ROLES, USER_STATUS } from "../../../utils/constants"
 import { checkUserIdentityType } from "../utils/checkUserIdentityType"
 import { formatISODate, formatLocaleTime } from "../../../utils/dateTimeManger"
 import { initUserVal } from "../utils/initUserVal"
-import profileSchema from "../utils/profileSchema"
+import { profileSchema } from "../utils/schema"
 import { useTranslation } from "react-i18next"
+import { useAddUserMutation } from "../../users"
 
 const UserProfileDetail = ({ isCreate }) => {
   const { t } = useTranslation()
-
   const navigate = useNavigate()
   const currentUser = useSelector(selectCurrentUser)
   const [updateMyProfile] = useUpdateMyProfileMutation()
-  //const [createUser, { isSuccess }] = useAddUserMutation()
+  const [createUser, { isSuccess }] = useAddUserMutation()
 
   const getUserValue = useMemo(() => {
     const actionUser = currentUser
@@ -57,7 +57,7 @@ const UserProfileDetail = ({ isCreate }) => {
       }
 
       if (isCreate) {
-        //await createUser(values)
+        await createUser(values)
         return
       }
 
@@ -68,12 +68,12 @@ const UserProfileDetail = ({ isCreate }) => {
     },
   })
 
-  //useEffect(() => {
-  //  if (isSuccess) {
-  //    customToast.success("createdSuccess")
-  //    navigate(-1)
-  //  }
-  //}, [isSuccess, navigate])
+  useEffect(() => {
+    if (isSuccess) {
+      customToast.success("createdSuccess")
+      navigate(-1)
+    }
+  }, [isSuccess, navigate])
   return (
     <Grid item xs={12} md={isCreate ? 12 : 6}>
       <FormikProvider value={formik}>
@@ -150,6 +150,18 @@ const UserProfileDetail = ({ isCreate }) => {
                       variant="outlined"
                       disabled={true}
                     />
+                  )}
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  {isCreate && (
+                    <>
+                      <FSelect
+                        label={t("status")}
+                        name="status"
+                        options={USER_STATUS}
+                        required={true}
+                      />
+                    </>
                   )}
                 </Grid>
                 {!isCreate && (

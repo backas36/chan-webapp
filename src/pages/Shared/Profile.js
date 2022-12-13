@@ -7,7 +7,7 @@ import { UserAvatar, UserProfileDetail } from "../../features/me"
 import useTitle from "../../hooks/useTitle"
 
 const Profile = ({ isCreate = false }) => {
-  useTitle("Profile")
+  useTitle(isCreate ? "Create Users" : "Profile")
 
   const { t } = useTranslation()
   const navigate = useNavigate()

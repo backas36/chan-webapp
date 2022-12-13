@@ -1,4 +1,4 @@
-import { RestartAlt } from "@mui/icons-material"
+import { Add, RestartAlt } from "@mui/icons-material"
 import { Box, Button } from "@mui/material"
 import {
   GridToolbarContainer,
@@ -13,14 +13,18 @@ const TableToolBar = (props) => {
   const { t } = useTranslation()
   const apiRef = useGridApiContext()
 
-  const { searchInput, setSearchInput, handleResetTable, handleSearch } = props
+  const {
+    searchInput,
+    setSearchInput,
+    handleResetTable,
+    handleSearch,
+    handleCreate,
+  } = props
 
   const resetTable = () => {
-    //console.log("🐑 ~ apiRef", apiRef.current.getSortModel())
     setSearchInput("")
     apiRef.current.setSortModel([])
     apiRef.current.setFilterModel({ items: [] })
-
     handleResetTable()
   }
   return (
@@ -39,6 +43,15 @@ const TableToolBar = (props) => {
             justifyContent: "flex-start",
           }}
         >
+          <Button
+            color="primary"
+            variant="contained"
+            startIcon={<Add />}
+            onClick={() => handleCreate()}
+            sx={{ mr: 1 }}
+          >
+            {t("create")}
+          </Button>
           <GridToolbarFilterButton sx={{ mr: 1 }} />
           <GridToolbarColumnsButton sx={{}} />
         </Box>

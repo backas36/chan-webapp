@@ -12,6 +12,7 @@ import { meReducer } from "../../features/me"
 import { uiReducer } from "../../features/ui"
 import { listenerMiddleware } from "../middleware/listenerMiddleware"
 import { actionLogReducer } from "../../features/actionsLog"
+import { usersReducer } from "../../features/users"
 
 const syncConfig = {
   whitelist: [
@@ -31,6 +32,7 @@ const store = configureStore({
     auth: authReducer,
     me: meReducer,
     actionLog: actionLogReducer,
+    users: usersReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(

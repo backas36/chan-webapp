@@ -13,7 +13,7 @@ import {
 import useToggle from "../../../hooks/useToggle"
 import { FPwdTextfield, FLoadingBtn } from "../../../components/form"
 import { useUpdateMyPwdMutation } from "../services/meApiSlice"
-import { pwdSchema } from "../utils/pwdSchema"
+import { pwdSchema } from "../utils/schema"
 import MDialog from "../../../components/dialog/MDialog"
 import initPassword from "../utils/initPassword"
 import { useTranslation } from "react-i18next"

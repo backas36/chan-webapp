@@ -16,7 +16,7 @@ export const timeDistance = (dateTime) => {
 export const formatDateTime = (value) =>
   format(new Date(value), "yyyy-MM-dd HH:mm")
 
-export const formatDate = (value) => format(value, "yyyy-MM-dd")
+export const formatDate = (value) => format(new Date(value), "yyyy-MM-dd")
 
 export const formatISODate = (value, representation) =>
   formatISO(new Date(value), {
