@@ -14,19 +14,23 @@ import renderCellExpand from "./renderCellExpand"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { selectLang } from "../../lang"
+import { selectLogTableConfig } from "../services/actionLogSlice"
 const ActionsLogTable = () => {
   const { t } = useTranslation()
+  const tableConfig = useSelector(selectLogTableConfig)
+
+  console.log("🐑 ~ tableConfig", tableConfig)
 
   const [rowError, setRowError] = useState(null)
 
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(15) //n
-  const [sort, setSort] = useState({ field: "createdAt", sort: "desc" }) //order
+  const [sort, setSort] = useState("") //order
   const [search, setSearch] = useState("") //q
   const [filters, setFilters] = useState("") //filter
   const [searchInput, setSearchInput] = useState("")
   const startIndex = page > 0 ? pageSize * page : 0 //s
-  const order = `${sort.field}:${sort.sort}`
+  const order = sort && `${sort.field}:${sort.sort}`
 
   const columns = useMemo(() => {
     return [
@@ -74,6 +78,7 @@ const ActionsLogTable = () => {
       },
     ]
   }, [t])
+
   const localizedTextMap = useMemo(
     () => ({
       toolbarFilters: t("toolbarFilters"),
@@ -104,7 +109,7 @@ const ActionsLogTable = () => {
   const handleResetTable = () => {
     setPage(0)
     setPageSize(15)
-    setSort({ field: "createdAt", sort: "desc" })
+    setSort("")
     setSearch("")
     setFilters("")
     setSearchInput("")
@@ -162,10 +167,11 @@ const ActionsLogTable = () => {
           onPageChange={(newPage) => setPage(newPage)}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           onSortModelChange={(newSortModel) => {
+            console.log(newSortModel)
             if (newSortModel.length > 0) {
               setSort(...newSortModel)
             } else {
-              setSort({ field: "createdAt", sort: "desc" })
+              setSort("")
             }
           }}
           onFilterModelChange={(newFilterModel) => {
