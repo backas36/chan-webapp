@@ -65,5 +65,21 @@
   "driedStrawberries": "Dried Strawberries",
   "milk": "Milk",
   "egg": "Egg",
-  "actionsLog": "Actions Log"
+  "actionsLog": "Actions Log",
+  "relatedUser": "Related User",
+  "activityType": "Type",
+  "activityContent": "Content",
+  "activityCreatedAt": "Created At",
+  "resetTable": "Reset",
+  "toolbarFilters": "Filters",
+  "toolbarColumns": "Columns",
+  "filterPanelColumns": "Columns",
+  "filterPanelOperators": "Operators",
+  "filterPanelInputLabel": "Filter values",
+  "filterOperatorContains": "Contains",
+  "pageSize": "Rows per page",
+  "columnsPanelHideAllButton": "Hide All",
+  "columnsPanelShowAllButton": "Show All",
+  "columnsPanelTextFieldLabel": "Column",
+  "columnsPanelTextFieldPlaceholder": "Column title"
 }

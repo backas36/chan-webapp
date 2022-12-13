@@ -6,9 +6,11 @@ import {
   GridToolbarFilterButton,
   useGridApiContext,
 } from "@mui/x-data-grid"
+import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import SearchBar from "../../../components/SearchBar/SearchBar"
 const TableToolBar = (props) => {
+  const { t } = useTranslation()
   const apiRef = useGridApiContext()
 
   const { searchInput, setSearchInput, setSearch, handleResetTable } = props
@@ -79,7 +81,7 @@ const TableToolBar = (props) => {
             />
           }
         >
-          Reset
+          {t("resetTable")}
         </Button>
       </Box>
     </GridToolbarContainer>

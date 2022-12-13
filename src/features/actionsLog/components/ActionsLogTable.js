@@ -11,8 +11,12 @@ import { formatDateTime } from "../../../utils/dateTimeManger"
 import { useGetActionLogListQuery } from "../services/actionLogApiSlice"
 import TableToolBar from "./TableToolBar"
 import renderCellExpand from "./renderCellExpand"
-
+import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
+import { selectLang } from "../../lang"
 const ActionsLogTable = () => {
+  const { t } = useTranslation()
+
   const [rowError, setRowError] = useState(null)
 
   const [page, setPage] = useState(0)
@@ -28,7 +32,7 @@ const ActionsLogTable = () => {
     return [
       {
         field: "relatedUserName",
-        headerName: "Related User",
+        headerName: t("relatedUser"),
         width: 150,
         editable: false,
         filterable: true,
@@ -39,7 +43,7 @@ const ActionsLogTable = () => {
       },
       {
         field: "type",
-        headerName: "Type",
+        headerName: t("activityType"),
         width: 170,
         filterable: true,
         editable: false,
@@ -50,7 +54,7 @@ const ActionsLogTable = () => {
       },
       {
         field: "content",
-        headerName: "Content",
+        headerName: t("activityContent"),
         width: 500,
         sortable: false,
         filterable: false,
@@ -63,14 +67,28 @@ const ActionsLogTable = () => {
       },
       {
         field: "createdAt",
-        headerName: "Created At",
+        headerName: t("activityCreatedAt"),
         width: 150,
         filterable: false,
         renderCell: (params) => formatDateTime(params?.row.createdAt),
       },
     ]
-  }, [])
-
+  }, [t])
+  const localizedTextMap = useMemo(
+    () => ({
+      toolbarFilters: t("toolbarFilters"),
+      filterPanelColumns: t("filterPanelColumns"),
+      filterPanelOperators: t("filterPanelOperators"),
+      filterPanelInputLabel: t("filterPanelInputLabel"),
+      filterOperatorContains: t("filterOperatorContains"),
+      toolbarColumns: t("toolbarColumns"),
+      columnsPanelHideAllButton: t("columnsPanelHideAllButton"),
+      columnsPanelShowAllButton: t("columnsPanelShowAllButton"),
+      columnsPanelTextFieldLabel: t("columnsPanelTextFieldLabel"),
+      columnsPanelTextFieldPlaceholder: t("columnsPanelTextFieldPlaceholder"),
+    }),
+    [t]
+  )
   const {
     data: actionsLogData,
     isLoading,
@@ -173,6 +191,9 @@ const ActionsLogTable = () => {
               setSearch,
               handleResetTable,
             },
+            pagination: {
+              labelRowsPerPage: t("pageSize"),
+            },
             //footer: {
             //  handleResetTable,
             //},
@@ -190,6 +211,7 @@ const ActionsLogTable = () => {
           }}
           //checkboxSelection
           disableSelectionOnClick
+          localeText={localizedTextMap}
         />
       </Box>
     </>

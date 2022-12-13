@@ -65,5 +65,21 @@
   "driedStrawberries": "草莓乾",
   "milk": "牛奶",
   "egg": "雞蛋",
-  "actionsLog": "系統日誌"
+  "actionsLog": "系統日誌",
+  "relatedUser": "相關用戶",
+  "activityType": "事件類型",
+  "activityContent": "相關內容",
+  "activityCreatedAt": "事件時間",
+  "resetTable": "重置列表",
+  "toolbarFilters": "過濾",
+  "toolbarColumns": "欄位",
+  "filterPanelColumns": "欄位",
+  "filterPanelOperators": "條件",
+  "filterPanelInputLabel": "內容",
+  "filterOperatorContains": "包含",
+  "pageSize": "每頁筆數",
+  "columnsPanelHideAllButton": "隱藏全部",
+  "columnsPanelShowAllButton": "顯示全部",
+  "columnsPanelTextFieldLabel": "搜尋欄位",
+  "columnsPanelTextFieldPlaceholder": "欄位名稱"
 }

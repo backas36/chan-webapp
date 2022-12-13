@@ -9,7 +9,6 @@ const langSlice = createSlice({
   initialState,
   reducers: {
     setLang: (state, action) => {
-      console.log(action)
       i18n.changeLanguage(action.payload)
       state.defaultLang = action.payload
     },
