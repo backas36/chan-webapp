@@ -53,5 +53,17 @@
   "canLoginNow": "您可以登入了",
   "updatedSuccess": "更新成功",
   "createdSuccess": "新增成功",
-  "Users": "全部用戶"
+  "Users": "全部用戶",
+  "recentlyActivities": "最新活動",
+  "totalUsers": "用戶總數",
+  "totalProducts": "產品總數",
+  "totalIngredients": "材料總數",
+  "totalSuppliers": "廠商總數",
+  "stocksChart": "庫存圖表",
+  "inventory": "庫存",
+  "butter": "奶油",
+  "driedStrawberries": "草莓乾",
+  "milk": "牛奶",
+  "egg": "雞蛋",
+  "actionsLog": "系統日誌"
 }

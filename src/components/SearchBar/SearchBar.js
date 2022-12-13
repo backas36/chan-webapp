@@ -4,20 +4,23 @@ import { alpha, Box, InputBase, styled } from "@mui/material"
 const SearchWrapper = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.white, 0.35),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.white, 0.55),
   },
   marginLeft: 0,
   //marginRight: 10,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
   },
+  [theme.breakpoints.down("sm")]: {
+    width: "60%",
+    marginLeft: theme.spacing(1),
+  },
+  transition: theme.transitions.create("width"),
 }))
 const SearchIconWrapper = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(0, 2),
+  padding: theme.spacing(0, 1.5),
   height: "100%",
   position: "absolute",
   //pointerEvents: "none",

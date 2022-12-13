@@ -1,10 +1,9 @@
-import { Dashboard, ManageAccounts } from "@mui/icons-material"
 import { IconButton, Tooltip } from "@mui/material"
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { useSelector } from "react-redux"
 
 import MAvatar from "../../../components/Avatar/MAvatar"
-import { getAllowRoles } from "../../../utils/constants"
+import useMenuList from "../../../hooks/useMenuList"
 import { selectCurrentUser } from "../services/meSlice"
 import UserMenu from "./UserMenu"
 
@@ -16,23 +15,8 @@ const AdminTopBarMenuItems = () => {
 
   let isMenuOpen = Boolean(anchorUserMenu)
 
-  const menuList = useMemo(
-    () => [
-      {
-        title: "Dashboard",
-        pathname: "/admin/main",
-        icon: <Dashboard fontSize="small" />,
-        allowRoles: getAllowRoles(true),
-      },
-      {
-        title: "Profile",
-        pathname: "user-profile",
-        icon: <ManageAccounts fontSize="small" />,
-        allowRoles: getAllowRoles(false),
-      },
-    ],
-    []
-  )
+  const menuList = useMenuList()
+
   const handleMenuClick = (e) => {
     setAnchorUserMenu(e.currentTarget)
   }

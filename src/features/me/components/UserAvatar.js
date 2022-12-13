@@ -56,16 +56,15 @@ const UserAvatar = () => {
   const handleDeleteAvatar = async () => {
     try {
       setLoading(true)
-
       if (isAllowEditPhoto) {
         const imageName = photoUrl
           ?.split(`${currentUser?.id}%2F`)[1]
           ?.split("?")[0]
         await deleteFile(`profile/${id}/${imageName}`)
       }
-      await updateMyProfile({ ...currentUser, photoUrl: null })
     } catch (err) {
     } finally {
+      await updateMyProfile({ ...currentUser, photoUrl: null })
       setLoading(false)
     }
   }

@@ -32,8 +32,17 @@ const AdminTopBar = () => {
         <AdminSideBar />
       </MuiDrawer>
 
-      <Box component="main" sx={{ flexGrow: 1, px: 3 }}>
-        <Toolbar sx={{ mb: "30px" }} />
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          px: 3,
+          py: 6,
+        }}
+      >
+        <Toolbar
+        //sx={{ mb: "30px" }}
+        />
         <Outlet />
       </Box>
     </Box>

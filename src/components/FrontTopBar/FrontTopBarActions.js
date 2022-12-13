@@ -1,23 +1,17 @@
-import {
-  Lock,
-  Favorite as Heart,
-  ShoppingCart,
-  Dashboard,
-  ManageAccounts,
-} from "@mui/icons-material"
-import { Box, IconButton, Tooltip } from "@mui/material"
+import { Lock, Favorite as Heart, ShoppingCart } from "@mui/icons-material"
+import { IconButton, Tooltip } from "@mui/material"
 import { useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 
 import { selectIsLogin } from "../../features/authentication"
 import MAvatar from "../Avatar/MAvatar"
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { selectCurrentUser, UserMenu } from "../../features/me"
-import { getAllowRoles } from "../../utils/constants"
 
 import { ToggleLang } from "../../features/lang"
 import { ToggleTheme } from "../../features/ui"
 import { MBox } from "./styled"
+import useMenuList from "../../hooks/useMenuList"
 
 const FrontTopBarActions = () => {
   const navigate = useNavigate()
@@ -26,23 +20,7 @@ const FrontTopBarActions = () => {
   const isLogin = useSelector(selectIsLogin)
   const currentUser = useSelector(selectCurrentUser)
 
-  const menuList = useMemo(
-    () => [
-      {
-        title: "Dashboard",
-        pathname: "/admin/main",
-        icon: <Dashboard fontSize="small" />,
-        allowRoles: getAllowRoles(true),
-      },
-      {
-        title: "Profile",
-        pathname: "user-profile",
-        icon: <ManageAccounts fontSize="small" />,
-        allowRoles: getAllowRoles(false),
-      },
-    ],
-    []
-  )
+  const menuList = useMenuList()
 
   let isMenuOpen = Boolean(anchorUserMenu)
 

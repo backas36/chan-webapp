@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"
-console.log(JSON.parse(localStorage.getItem("isDarkMode")))
 const initialState = {
   isDarkMode: !!JSON.parse(localStorage.getItem("isDarkMode")),
   isSideBarOpen: false,

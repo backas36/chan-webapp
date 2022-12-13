@@ -4,6 +4,7 @@ import { RequireAuth, RequireAdminAuth } from "../features/authentication"
 import AdminMain from "../pages/Admin/AdminMain"
 import Users from "../pages/Admin/Users"
 import Profile from "../pages/Shared/Profile"
+import ActionsLog from "../pages/Admin/ActionsLog"
 
 const AdminRoutes = () => {
   const routes = useRoutes([
@@ -24,6 +25,10 @@ const AdminRoutes = () => {
                 { path: "user-profile", element: <Profile /> },
                 { path: "users", element: <Users /> },
                 { path: "create-user", element: <Profile isCreate={true} /> },
+                {
+                  path: "actions-log",
+                  element: <ActionsLog />,
+                },
               ],
             },
           ],

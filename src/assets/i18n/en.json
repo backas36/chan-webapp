@@ -53,5 +53,17 @@
   "canLoginNow": "You can login now!",
   "updatedSuccess": "Updated Successfully",
   "createdSuccess": "Created Successfully",
-  "Users": "Users"
+  "Users": "Users",
+  "recentlyActivities": "Recently Activities",
+  "totalUsers": "Total Users",
+  "totalProducts": "Total Products",
+  "totalIngredients": "Total Ingredient",
+  "totalSuppliers": "Total Suppliers",
+  "stocksChart": "Stocks Chart",
+  "inventory": "Inventory",
+  "butter": "Butter",
+  "driedStrawberries": "Dried Strawberries",
+  "milk": "Milk",
+  "egg": "Egg",
+  "actionsLog": "Actions Log"
 }

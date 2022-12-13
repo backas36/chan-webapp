@@ -1,4 +1,3 @@
-import { formatISO } from "date-fns"
 import { Form, FormikProvider, useFormik } from "formik"
 import {
   Box,
@@ -22,7 +21,7 @@ import {
 } from "../../../components/form"
 import { USER_ROLES } from "../../../utils/constants"
 import { checkUserIdentityType } from "../utils/checkUserIdentityType"
-import { formatLocaleTime } from "../../../utils/dateTimeManger"
+import { formatISODate, formatLocaleTime } from "../../../utils/dateTimeManger"
 import { initUserVal } from "../utils/initUserVal"
 import profileSchema from "../utils/profileSchema"
 import { useTranslation } from "react-i18next"
@@ -52,9 +51,7 @@ const UserProfileDetail = ({ isCreate }) => {
       //console.log("🐑 ~ values", values)
 
       if (values?.birthDate) {
-        values.birthDate = formatISO(new Date(values?.birthDate), {
-          representation: "date",
-        })
+        values.birthDate = formatISODate(values?.birthDate, "date")
       } else {
         values.birthDate = null
       }

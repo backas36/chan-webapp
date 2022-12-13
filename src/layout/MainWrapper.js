@@ -5,8 +5,8 @@ const MainWrapper = ({ children, ...otherProps }) => {
   const boxConfig = {
     display: "flex",
     justifyContent: "center",
-    pt: theme.spacing(4),
-    pb: theme.spacing(10),
+    //pt: theme.spacing(0),
+    //pb: theme.spacing(10),
     ...otherProps,
   }
   return <Box {...boxConfig}>{children}</Box>

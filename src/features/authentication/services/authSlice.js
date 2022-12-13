@@ -4,6 +4,9 @@ const initialState = {
   verifiedUser: null,
   isLogin: !!localStorage.getItem("accessToken"),
 }
+
+console.log(!!localStorage.getItem("accessToken"))
+
 const authSlice = createSlice({
   name: "auth",
   initialState,

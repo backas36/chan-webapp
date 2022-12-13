@@ -1,12 +1,11 @@
-import React from "react"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 import { Stack } from "@mui/system"
 import { TextField } from "@mui/material"
 import { useField, useFormikContext } from "formik"
-import { format } from "date-fns"
 import { useTranslation } from "react-i18next"
+import { formatDate } from "../../utils/dateTimeManger"
 
 const FDatePicker = ({ name, ...otherProps }) => {
   const { t } = useTranslation()
@@ -42,7 +41,7 @@ const FDatePicker = ({ name, ...otherProps }) => {
             openTo="year"
             inputFormat="yyyy-MM-dd"
             onChange={(newValue) => {
-              setFieldValue(name, format(newValue, "yyyy-MM-dd"))
+              setFieldValue(name, formatDate(newValue, "yyyy-MM-dd"))
             }}
             {...otherProps}
             renderInput={(params) => {

@@ -1,4 +1,4 @@
-import { Dashboard, PeopleAlt } from "@mui/icons-material"
+import { Dashboard, ListAlt, PeopleAlt } from "@mui/icons-material"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import {
   Divider,
@@ -6,7 +6,6 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  styled,
 } from "@mui/material"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -32,6 +31,11 @@ const AdminSideBar = () => {
         title: "Users",
         icon: <PeopleAlt />,
         path: "users",
+      },
+      {
+        title: "actionsLog",
+        icon: <ListAlt />,
+        path: "Actions-log",
       },
     ],
     []
