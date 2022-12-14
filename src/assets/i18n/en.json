@@ -94,5 +94,10 @@
   "dateValid": "Must be a valid date",
   "roleRequired": "Role is required",
   "statusRequired": "Status is required",
-  "nameRequired": "Name is required"
+  "nameRequired": "Name is required",
+  "sendMail": "Send mail ?",
+  "sendActivateMailDesc": "Are you sure you want to send activate mail to this account ?",
+  "delConfirm": "Delete this ?",
+  "delAccDesc": "Are you sure you want to delete this account ?",
+  "sendSuccess": "Send success"
 }

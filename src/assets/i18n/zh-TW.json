@@ -94,5 +94,10 @@
   "dateValid": "請輸入正確日期",
   "roleRequired": "帳戶權限為必填",
   "statusRequired": "帳戶狀態為必填",
-  "nameRequired": "姓名為必填"
+  "nameRequired": "姓名為必填",
+  "sendMail": "確定發送嗎？",
+  "sendActivateMailDesc": "確定發送啟用帳號信件到這個用戶嗎",
+  "delConfirm": "確定刪除嗎?",
+  "delAccDesc": "確定要刪除這個用戶嗎",
+  "sendSuccess": "發送成功"
 }

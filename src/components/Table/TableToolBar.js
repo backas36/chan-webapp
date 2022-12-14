@@ -1,12 +1,13 @@
 import { Add, RestartAlt } from "@mui/icons-material"
 import { Box, Button } from "@mui/material"
+import { useTranslation } from "react-i18next"
+
 import {
   GridToolbarContainer,
   GridToolbarColumnsButton,
   GridToolbarFilterButton,
   useGridApiContext,
 } from "@mui/x-data-grid"
-import { useTranslation } from "react-i18next"
 import SearchBar from "../SearchBar/SearchBar"
 
 const TableToolBar = (props) => {
@@ -23,7 +24,15 @@ const TableToolBar = (props) => {
 
   const resetTable = () => {
     setSearchInput("")
+
+    const currentState = apiRef?.current?.state
+
+    apiRef.current.setState({
+      ...currentState,
+      editRows: {},
+    })
     apiRef.current.setSortModel([])
+
     apiRef.current.setFilterModel({ items: [] })
     handleResetTable()
   }
@@ -49,7 +58,7 @@ const TableToolBar = (props) => {
               variant="contained"
               startIcon={<Add />}
               onClick={() => handleCreate()}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, px: 1 }}
             >
               {t("create")}
             </Button>

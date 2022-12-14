@@ -4,6 +4,8 @@ import { useEffect } from "react"
 import { useGridApiContext, GridRowModes } from "@mui/x-data-grid"
 import { IconButton } from "@mui/material"
 import { Cancel, Loop, Delete, Edit, Save, Send } from "@mui/icons-material"
+import { useTranslation } from "react-i18next"
+
 import {
   useDeleteUserMutation,
   useSendActivateMailMutation,
@@ -14,8 +16,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectRowModesModel, setRowModesModel } from "../services/usersSlice"
 import useToggle from "../../../hooks/useToggle"
 import ConfirmDialog from "../../../components/dialog/ConfirmDialog"
+import { te } from "date-fns/locale"
 
 const TableActions = (props) => {
+  const { t } = useTranslation()
   const { row } = props
   const dispatch = useDispatch()
   const rowModesModel = useSelector(selectRowModesModel)
@@ -26,6 +30,7 @@ const TableActions = (props) => {
     })
   const { id } = row
   const isEditedMode = rowModesModel?.[id]?.mode === GridRowModes.Edit
+
   const [deleteUser, { isLoading: delLoading }] = useDeleteUserMutation()
   const [sendActivate, { isLoading: sendLoading, isSuccess: sendSuccess }] =
     useSendActivateMailMutation()
@@ -65,7 +70,7 @@ const TableActions = (props) => {
 
   useEffect(() => {
     if (sendSuccess) {
-      customToast.success("Send success")
+      customToast.success("sendSuccess")
     }
   }, [sendSuccess])
 
@@ -89,8 +94,8 @@ const TableActions = (props) => {
           <ConfirmDialog
             open={dialogOpen.sendDialog}
             handleClose={() => setDialogOpen("sendDialog")}
-            title="Send activate mail ?"
-            desc="Are you sure you want to send activate mail to this account ?"
+            title={t("sendMail")}
+            desc={t("sendActivateMailDesc")}
             handleConfirm={handleSendActivate}
           >
             <IconButton
@@ -109,8 +114,8 @@ const TableActions = (props) => {
         <ConfirmDialog
           open={dialogOpen.delDialog}
           handleClose={() => setDialogOpen("delDialog")}
-          title="Delete this Account ?"
-          desc="Are you sure you want to delete this account ?"
+          title={t("delConfirm")}
+          desc={t("delAccDesc")}
           handleConfirm={handleDeleteClick}
         >
           <IconButton

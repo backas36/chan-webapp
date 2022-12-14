@@ -18,6 +18,7 @@ const SearchWrapper = styled("div")(({ theme }) => ({
     marginLeft: theme.spacing(1),
   },
   transition: theme.transitions.create("width"),
+  flex: "auto",
 }))
 const SearchIconWrapper = styled(Box)(({ theme }) => ({
   padding: theme.spacing(0, 1.5),
