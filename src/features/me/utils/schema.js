@@ -3,7 +3,7 @@ import * as Yup from "yup"
 const phoneRegExp =
   /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/
 
-export const profileSchema = (isCreate = false, isUpdate = false) => {
+export const profileSchema = (createdByAdmin = false) => {
   let schema = {
     name: Yup.string().required("nameRequired"),
 
@@ -12,11 +12,9 @@ export const profileSchema = (isCreate = false, isUpdate = false) => {
     lineId: Yup.string().nullable(),
     birthDate: Yup.date("dateValid").nullable(),
 
-    mobile: Yup.string().matches(phoneRegExp, "phoneInvalid").nullable(),
-    ...(isCreate && {
+    mobile: Yup.string().nullable().matches(phoneRegExp, "phoneInvalid"),
+    ...(createdByAdmin && {
       role: Yup.string().required("roleRequired"),
-    }),
-    ...(isUpdate && {
       status: Yup.string().required("statusRequired"),
     }),
   }
@@ -41,4 +39,8 @@ export const pwdSchema = () => {
         "pwdInValid"
       ),
   })
+}
+
+export const validateOneInAccount = (field, value) => {
+  return Yup.reach(profileSchema(true), field).validate(value)
 }

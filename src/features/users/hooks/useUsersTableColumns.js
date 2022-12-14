@@ -1,10 +1,7 @@
-import {
-  getGridSingleSelectOperators,
-  getGridStringOperators,
-} from "@mui/x-data-grid"
+import { getGridSingleSelectOperators } from "@mui/x-data-grid"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import MAvatar from "../../../components/Avatar/MAvatar"
 import renderCellExpand from "../../../components/Table/renderCellExpand"
 import renderDateCell from "../../../components/Table/renderDateCell"
@@ -15,7 +12,7 @@ import {
   USER_STATUS,
 } from "../../../utils/constants"
 import { formatDate, formatDateTime } from "../../../utils/dateTimeManger"
-import { selectCurrentUser } from "../../me"
+import { selectCurrentUser, validateOneInAccount } from "../../me"
 import renderUsersActions from "../components/renderUsersActions"
 
 const useUsersTableColumns = () => {
@@ -57,6 +54,15 @@ const useUsersTableColumns = () => {
         editable: isAllowedEdit,
         filterable: false,
         renderCell: renderCellExpand,
+        preProcessEditCellProps: async (params) => {
+          const { props } = params
+          try {
+            await validateOneInAccount("name", props.value)
+          } catch (err) {
+            return { ...params.props, error: true }
+          }
+          return { ...params.props, error: false }
+        },
       },
       {
         field: "email",
@@ -70,7 +76,7 @@ const useUsersTableColumns = () => {
         headerName: t("role"),
         valueOptions: Object.values(USER_ROLES).map((value) => {
           return {
-            label: value.toUpperCase(),
+            label: value,
             value,
           }
         }),
@@ -80,6 +86,15 @@ const useUsersTableColumns = () => {
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
         ),
+        preProcessEditCellProps: async (params) => {
+          const { props } = params
+          try {
+            await validateOneInAccount("role", props.value)
+          } catch (err) {
+            return { ...params.props, error: true }
+          }
+          return { ...params.props, error: false }
+        },
       },
       {
         field: "status",
@@ -88,7 +103,7 @@ const useUsersTableColumns = () => {
         type: "singleSelect",
         valueOptions: Object.values(USER_STATUS).map((value) => {
           return {
-            label: value.toUpperCase(),
+            label: value,
             value,
           }
         }),
@@ -96,6 +111,15 @@ const useUsersTableColumns = () => {
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
         ),
+        preProcessEditCellProps: async (params) => {
+          const { props } = params
+          try {
+            await validateOneInAccount("status", props.value)
+          } catch (err) {
+            return { ...params.props, error: true }
+          }
+          return { ...params.props, error: false }
+        },
       },
       {
         field: "birthDate",
@@ -110,6 +134,15 @@ const useUsersTableColumns = () => {
           return birthDate ? formatDate(birthDate) : "-"
         },
         filterable: false,
+        preProcessEditCellProps: async (params) => {
+          const { props } = params
+          try {
+            await validateOneInAccount("birthDate", props.value)
+          } catch (err) {
+            return { ...params.props, error: true }
+          }
+          return { ...params.props, error: false }
+        },
       },
       {
         field: "mobile",
@@ -118,6 +151,19 @@ const useUsersTableColumns = () => {
         editable: isAllowedEdit,
         filterable: false,
         renderCell: renderCellExpand,
+        preProcessEditCellProps: async (params) => {
+          const { props } = params
+          try {
+            if (props.value.length > 0) {
+              await validateOneInAccount("mobile", props.value)
+            }
+          } catch (err) {
+            console.log("🐑 ~ err", err)
+
+            return { ...params.props, error: true }
+          }
+          return { ...params.props, error: false }
+        },
       },
       {
         field: "lineId",
@@ -134,6 +180,15 @@ const useUsersTableColumns = () => {
         editable: isAllowedEdit,
         filterable: false,
         renderCell: renderCellExpand,
+        preProcessEditCellProps: async (params) => {
+          const { props } = params
+          try {
+            await validateOneInAccount("address", props.value)
+          } catch (err) {
+            return { ...params.props, error: true }
+          }
+          return { ...params.props, error: false }
+        },
       },
       {
         field: "identityType",

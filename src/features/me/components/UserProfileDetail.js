@@ -27,7 +27,7 @@ import { profileSchema } from "../utils/schema"
 import { useTranslation } from "react-i18next"
 import { useAddUserMutation } from "../../users"
 
-const UserProfileDetail = ({ isCreate }) => {
+const UserProfileDetail = ({ createByAdmin }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const currentUser = useSelector(selectCurrentUser)
@@ -44,9 +44,9 @@ const UserProfileDetail = ({ isCreate }) => {
   }, [currentUser])
 
   const formik = useFormik({
-    initialValues: isCreate ? initUserVal : getUserValue,
+    initialValues: createByAdmin ? initUserVal : getUserValue,
     enableReinitialize: true,
-    validationSchema: profileSchema(isCreate),
+    validationSchema: profileSchema(createByAdmin),
     onSubmit: async (values) => {
       //console.log("🐑 ~ values", values)
 
@@ -56,7 +56,7 @@ const UserProfileDetail = ({ isCreate }) => {
         values.birthDate = null
       }
 
-      if (isCreate) {
+      if (createByAdmin) {
         await createUser(values)
         return
       }
@@ -75,7 +75,7 @@ const UserProfileDetail = ({ isCreate }) => {
     }
   }, [isSuccess, navigate])
   return (
-    <Grid item xs={12} md={isCreate ? 12 : 6}>
+    <Grid item xs={12} md={createByAdmin ? 12 : 6}>
       <FormikProvider value={formik}>
         <Form autoComplete="on" noValidate>
           <Card>
@@ -85,14 +85,14 @@ const UserProfileDetail = ({ isCreate }) => {
             />
             <CardContent>
               <Grid container spacing={3}>
-                {isCreate && (
+                {createByAdmin && (
                   <Grid item md={12} xs={12}>
                     <FTextfield
                       label={t("email")}
                       name="email"
                       variant="outlined"
                       required={true}
-                      disabled={!isCreate}
+                      disabled={!createByAdmin}
                     />
                   </Grid>
                 )}
@@ -134,7 +134,7 @@ const UserProfileDetail = ({ isCreate }) => {
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  {isCreate ? (
+                  {createByAdmin ? (
                     <>
                       <FSelect
                         label={t("role")}
@@ -153,7 +153,7 @@ const UserProfileDetail = ({ isCreate }) => {
                   )}
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  {isCreate && (
+                  {createByAdmin && (
                     <>
                       <FSelect
                         label={t("status")}
@@ -164,7 +164,7 @@ const UserProfileDetail = ({ isCreate }) => {
                     </>
                   )}
                 </Grid>
-                {!isCreate && (
+                {!createByAdmin && (
                   <Grid item md={6} xs={12}>
                     <FTextfield
                       label={t("lastLoginAt")}

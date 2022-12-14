@@ -24,7 +24,10 @@ const AdminRoutes = () => {
                 },
                 { path: "user-profile", element: <Profile /> },
                 { path: "users", element: <Users /> },
-                { path: "create-user", element: <Profile isCreate={true} /> },
+                {
+                  path: "create-user",
+                  element: <Profile createByAdmin={true} />,
+                },
                 {
                   path: "actions-log",
                   element: <ActionsLog />,

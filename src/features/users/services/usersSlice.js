@@ -7,7 +7,6 @@ const initialState = {
   search: "",
   filters: "",
   rowModesModel: {},
-  inputError: false,
 }
 const usersSlice = createSlice({
   name: "users",
@@ -34,9 +33,6 @@ const usersSlice = createSlice({
     setRowModesModel: (state, action) => {
       state.rowModesModel = action.payload
     },
-    setInputError: (state, action) => {
-      state.inputError = action.payload
-    },
   },
 })
 
@@ -48,7 +44,6 @@ export const {
   setFilters,
   setSearch,
   setRowModesModel,
-  setInputError,
 } = usersSlice.actions
 export default usersSlice.reducer
 export const selectUsersTableConfig = (state) => state.users

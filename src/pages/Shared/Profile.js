@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom"
 import { UserAvatar, UserProfileDetail } from "../../features/me"
 import useTitle from "../../hooks/useTitle"
 
-const Profile = ({ isCreate = false }) => {
-  useTitle(isCreate ? "Create Users" : "Profile")
+const Profile = ({ createByAdmin = false }) => {
+  useTitle(createByAdmin ? "Create Users" : "Profile")
 
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ const Profile = ({ isCreate = false }) => {
         }}
       >
         <Typography variant="h4" fontWeight={500}>
-          {isCreate ? t("createNewAccount") : t("manageProfile")}
+          {createByAdmin ? t("createNewAccount") : t("manageProfile")}
         </Typography>
         <Button
           onClick={() => navigate(-1)}
@@ -34,8 +34,8 @@ const Profile = ({ isCreate = false }) => {
         </Button>
       </Box>
       <Grid container spacing={3}>
-        {!isCreate && <UserAvatar />}
-        <UserProfileDetail isCreate={isCreate} />
+        {!createByAdmin && <UserAvatar />}
+        <UserProfileDetail createByAdmin={createByAdmin} />
       </Grid>
     </Container>
   )

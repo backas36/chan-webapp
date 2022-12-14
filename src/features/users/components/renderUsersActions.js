@@ -2,13 +2,7 @@ import React from "react"
 import { Box } from "@mui/system"
 import { useEffect } from "react"
 import { useGridApiContext, GridRowModes } from "@mui/x-data-grid"
-import {
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  IconButton,
-} from "@mui/material"
+import { IconButton } from "@mui/material"
 import { Cancel, Loop, Delete, Edit, Save, Send } from "@mui/icons-material"
 import {
   useDeleteUserMutation,
@@ -16,10 +10,10 @@ import {
 } from "../services/usersApiSlice"
 import { customToast } from "../../../components/notify/NotifyToast"
 import { USER_STATUS } from "../../../utils/constants"
-import MDialog from "../../../components/dialog/MDialog"
 import { useDispatch, useSelector } from "react-redux"
 import { selectRowModesModel, setRowModesModel } from "../services/usersSlice"
 import useToggle from "../../../hooks/useToggle"
+import ConfirmDialog from "../../../components/dialog/ConfirmDialog"
 
 const TableActions = (props) => {
   const { row } = props
@@ -92,65 +86,41 @@ const TableActions = (props) => {
     content = (
       <>
         {row.status === USER_STATUS.temporary && (
-          <MDialog
+          <ConfirmDialog
             open={dialogOpen.sendDialog}
             handleClose={() => setDialogOpen("sendDialog")}
             title="Send activate mail ?"
-            dialogBtn={
-              <IconButton
-                disabled={sendLoading}
-                onClick={() => setDialogOpen("sendDialog")}
-                color="warning"
-              >
-                {sendLoading ? <Loop /> : <Send />}
-              </IconButton>
-            }
+            desc="Are you sure you want to send activate mail to this account ?"
+            handleConfirm={handleSendActivate}
           >
-            <DialogContent>
-              <DialogContentText>
-                Are you sure you want to send activate mail to this account ?
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={() => setDialogOpen("sendDialog")}>
-                Cancel
-              </Button>
-              <Button color="error" onClick={handleSendActivate} autoFocus>
-                Confirm
-              </Button>
-            </DialogActions>
-          </MDialog>
+            <IconButton
+              disabled={sendLoading}
+              onClick={() => setDialogOpen("sendDialog")}
+              color="warning"
+            >
+              {sendLoading ? <Loop /> : <Send />}
+            </IconButton>
+          </ConfirmDialog>
         )}
 
         <IconButton onClick={handleEditClick} color="textPrimary">
           <Edit />
         </IconButton>
-        <MDialog
+        <ConfirmDialog
           open={dialogOpen.delDialog}
           handleClose={() => setDialogOpen("delDialog")}
           title="Delete this Account ?"
-          dialogBtn={
-            <IconButton
-              disabled={delLoading}
-              onClick={() => setDialogOpen("delDialog")}
-              color="textPrimary"
-            >
-              {delLoading ? <Loop /> : <Delete />}
-            </IconButton>
-          }
+          desc="Are you sure you want to delete this account ?"
+          handleConfirm={handleDeleteClick}
         >
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete this account ?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setDialogOpen("delDialog")}>Cancel</Button>
-            <Button color="error" onClick={handleDeleteClick} autoFocus>
-              Confirm
-            </Button>
-          </DialogActions>
-        </MDialog>
+          <IconButton
+            disabled={delLoading}
+            onClick={() => setDialogOpen("delDialog")}
+            color="textPrimary"
+          >
+            {delLoading ? <Loop /> : <Delete />}
+          </IconButton>
+        </ConfirmDialog>
       </>
     )
   }

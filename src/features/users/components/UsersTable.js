@@ -1,8 +1,6 @@
-import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import BaseTable from "../../../components/Table/BaseTable"
-import { profileSchema } from "../../me"
 import useUsersTableColumns from "../hooks/useUsersTableColumns"
 import {
   useGetAllUsersQuery,
@@ -13,7 +11,6 @@ import {
   selectRowModesModel,
   selectUsersTableConfig,
   setFilters,
-  setInputError,
   setPage,
   setPageSize,
   setRowModesModel,
@@ -23,10 +20,9 @@ import {
 
 const UsersTable = () => {
   const navigate = useNavigate()
-  const { t } = useTranslation()
   const dispatch = useDispatch()
   const usersTableConfig = useSelector(selectUsersTableConfig)
-  const { page, pageSize, sort, search, filters, inputError } = usersTableConfig
+  const { page, pageSize, sort, search, filters } = usersTableConfig
 
   const startIndex = page > 0 ? pageSize * page : 0
   const order = sort && `${sort.field}:${sort.sort}`
@@ -46,47 +42,48 @@ const UsersTable = () => {
   })
   const [updateUser, { isLoading: updateLoading }] = useUpdateUserMutation()
 
-  const handleUpdateUser = async (processRow, oldRow) => {
+  const handleUpdateUser = async (processRow) => {
     try {
-      const valid = await profileSchema(false, true).validate(processRow, {
-        abortEarly: false,
-      })
-      if (valid) {
-        return await updateUser(processRow).unwrap()
-      } else {
-        return Promise.reject(false)
-      }
+      return await updateUser(processRow).unwrap()
     } catch (err) {
-      const { errors } = err
-      dispatch(setInputError(errors))
       return Promise.reject(false)
     }
   }
 
+  const handleSortModelChange = (newSortModel) => {
+    if (newSortModel.length > 0) {
+      dispatch(setSort(...newSortModel))
+    } else {
+      dispatch(setSort({ field: "createdAt", sort: "desc" }))
+    }
+  }
+
+  const handleFilterModelChange = (newFilterModel) => {
+    if (newFilterModel.items.length > 0 && newFilterModel.items[0].value) {
+      const { columnField, value } = newFilterModel.items[0]
+      dispatch(setFilters(`${columnField}:${value}`))
+    } else {
+      dispatch(setFilters(""))
+    }
+  }
   const handleResetTable = () => {
     dispatch(resetUsersTable())
     refetch()
   }
 
   const tableConfig = {
-    rows: usersData?.data,
+    rows: usersData?.data || [],
     columns: tableColumns,
     isLoading: isLoading || !usersData?.data || updateLoading,
-    totalLength: usersData?.totalLength,
-    rowError: inputError,
+    rowCount: usersData?.totalLength || 0,
     rowsPerPageOptions: [15, 30, 45],
     page,
     pageSize,
-    handlePageChange: (newPage) => dispatch(setPage(newPage)),
-    handlePageSizeChange: (newSize) => {
-      console.log(newSize)
-      dispatch(setPageSize(newSize))
-    },
-    handleSortChange: (newSort) => dispatch(setSort(newSort)),
-    handleFiltersChange: (newFilter) => dispatch(setFilters(newFilter)),
-    handleSearch: (value) => {
-      dispatch(setSearch(value))
-    },
+    onPageChange: (newPage) => dispatch(setPage(newPage)),
+    onPageSizeChange: (newSize) => dispatch(setPageSize(newSize)),
+    onSortModelChange: handleSortModelChange,
+    onFilterModelChange: handleFilterModelChange,
+    handleSearch: (value) => dispatch(setSearch(value)),
     handleResetTableConfig: handleResetTable,
     onRowModesModelChange: (newModeModel) =>
       dispatch(setRowModesModel(newModeModel)),

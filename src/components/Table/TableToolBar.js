@@ -43,15 +43,18 @@ const TableToolBar = (props) => {
             justifyContent: "flex-start",
           }}
         >
-          <Button
-            color="primary"
-            variant="contained"
-            startIcon={<Add />}
-            onClick={() => handleCreate()}
-            sx={{ mr: 1 }}
-          >
-            {t("create")}
-          </Button>
+          {!!handleCreate && (
+            <Button
+              color="primary"
+              variant="contained"
+              startIcon={<Add />}
+              onClick={() => handleCreate()}
+              sx={{ mr: 1 }}
+            >
+              {t("create")}
+            </Button>
+          )}
+
           <GridToolbarFilterButton sx={{ mr: 1 }} />
           <GridToolbarColumnsButton sx={{}} />
         </Box>
