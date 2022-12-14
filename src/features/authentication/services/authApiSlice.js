@@ -12,6 +12,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
+          console.log("login mutation", data)
           dispatch(postLogin(data))
         } catch (err) {
           console.log(err)
@@ -68,6 +69,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled
           if (data?.success && data?.verifiedUser) {
+            console.log("verify query", data)
+
             dispatch(checkLogin(data?.verifiedUser))
           }
         } catch (err) {
@@ -91,6 +94,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
           await queryFulfilled
         } finally {
           dispatch(postLogout())
+          console.log("logout mutation resetAPiState")
           setTimeout(() => {
             dispatch(apiSlice.util.resetApiState())
           }, 1000)

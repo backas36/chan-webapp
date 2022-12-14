@@ -1,8 +1,18 @@
+import { Container } from "@mui/material"
+import { useTranslation } from "react-i18next"
 import useTitle from "../../hooks/useTitle"
 
 const Cart = () => {
-  useTitle("Cart")
+  const { t } = useTranslation()
 
-  return <div>Cart</div>
+  useTitle(t("Cart"))
+
+  return (
+    <Container maxWidth="lg" sx={{ pt: 6 }}>
+      {/* Top sell */}
+      {/* Category */}
+      Carts
+    </Container>
+  )
 }
 export default Cart

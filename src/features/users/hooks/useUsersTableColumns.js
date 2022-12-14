@@ -101,12 +101,18 @@ const useUsersTableColumns = () => {
         headerName: t("status"),
         width: 80,
         type: "singleSelect",
-        valueOptions: Object.values(USER_STATUS).map((value) => {
-          return {
-            label: value,
-            value,
+        valueOptions: ({ row }) => {
+          if (row.status === USER_STATUS.temporary) {
+            return [USER_STATUS.temporary]
+          } else {
+            Object.values(USER_STATUS).map((value) => {
+              return {
+                label: value,
+                value,
+              }
+            })
           }
-        }),
+        },
         editable: isAllowedEdit,
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"

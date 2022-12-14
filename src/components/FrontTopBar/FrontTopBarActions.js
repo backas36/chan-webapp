@@ -66,7 +66,6 @@ const FrontTopBarActions = () => {
                 sx={{
                   width: 36,
                   height: 36,
-                  bgcolor: (theme) => theme.palette.success.dark,
                 }}
                 source={currentUser?.photoUrl}
               >

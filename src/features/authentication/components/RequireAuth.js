@@ -16,10 +16,12 @@ const RequireAuth = () => {
   const currentUser = useSelector(selectCurrentUser)
 
   useEffect(() => {
+    console.log("RequireAuth isLogin", isLogin)
+    console.log("RequireAuth isLogin", currentUser)
     if (!isLogin) {
       navigate("/login", { replace: true })
     }
-  }, [isLogin, navigate, dispatch])
+  }, [isLogin, navigate, dispatch, currentUser])
 
   let content
   if (isLogin && !currentUser) {

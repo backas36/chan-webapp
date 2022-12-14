@@ -160,6 +160,7 @@ const UserProfileDetail = ({ createByAdmin }) => {
                         name="status"
                         options={USER_STATUS}
                         required={true}
+                        disabled={true}
                       />
                     </>
                   )}

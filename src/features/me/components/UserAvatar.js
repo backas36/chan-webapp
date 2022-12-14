@@ -90,9 +90,9 @@ const UserAvatar = () => {
                     display: isAllowEditPhoto ? "flex" : "none",
                     width: 30,
                     height: 30,
-                    bgcolor: (theme) => theme.palette.success.light,
+                    bgcolor: (theme) => theme.palette.secondary.dark,
                     border: (theme) =>
-                      `2px solid ${theme.palette.background.paper}`,
+                      `3px solid ${theme.palette.background.paper}`,
                   }}
                 >
                   {loading ? <RestartAlt /> : <Delete color="error" />}
@@ -105,7 +105,6 @@ const UserAvatar = () => {
                   height: 120,
                   mb: 2,
                   width: 120,
-                  bgcolor: (theme) => theme.palette.success.dark,
                 }}
               >
                 {!isAllowEditPhoto && name.charAt(0).toUpperCase()}

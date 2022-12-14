@@ -16,18 +16,19 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectRowModesModel, setRowModesModel } from "../services/usersSlice"
 import useToggle from "../../../hooks/useToggle"
 import ConfirmDialog from "../../../components/dialog/ConfirmDialog"
-import { te } from "date-fns/locale"
 
-const TableActions = (props) => {
+const TableActions = React.memo((props) => {
   const { t } = useTranslation()
   const { row } = props
   const dispatch = useDispatch()
   const rowModesModel = useSelector(selectRowModesModel)
+
   const { multiViable: dialogOpen, handleSetMultiVisibility: setDialogOpen } =
     useToggle({
       sendDialog: false,
       delDialog: false,
     })
+
   const { id } = row
   const isEditedMode = rowModesModel?.[id]?.mode === GridRowModes.Edit
 
@@ -134,7 +135,7 @@ const TableActions = (props) => {
       {content}
     </Box>
   )
-}
+})
 
 const renderUsersActions = (params) => {
   return <TableActions row={params.row} />

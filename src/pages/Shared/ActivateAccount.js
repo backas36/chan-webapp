@@ -11,7 +11,7 @@ import SetUpPwdForm from "../../features/authentication/components/SetUpPwdForm"
 
 const ActivateAccount = () => {
   const { t } = useTranslation()
-  useTitle("Activate Account")
+  useTitle(t("activateAcc"))
   let [params] = useSearchParams()
   const token = params.get("token")
 

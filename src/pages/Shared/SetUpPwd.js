@@ -10,7 +10,7 @@ import { validTokenTime } from "../../utils/validTokenTime"
 
 const SetUpPwd = () => {
   const { t } = useTranslation()
-  useTitle("Set Up Password")
+  useTitle(t("setUpPwd"))
   let [params] = useSearchParams()
   const token = params.get("token")
 

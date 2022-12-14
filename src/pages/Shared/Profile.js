@@ -3,13 +3,14 @@ import { Box, Button, Grid, Typography } from "@mui/material"
 import { Container } from "@mui/system"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
+import PageTItle from "../../components/title/PageTItle"
 import { UserAvatar, UserProfileDetail } from "../../features/me"
 import useTitle from "../../hooks/useTitle"
 
 const Profile = ({ createByAdmin = false }) => {
-  useTitle(createByAdmin ? "Create Users" : "Profile")
-
   const { t } = useTranslation()
+  useTitle(createByAdmin ? t("createNewAccount") : t("Profile"))
+
   const navigate = useNavigate()
 
   return (
@@ -23,9 +24,10 @@ const Profile = ({ createByAdmin = false }) => {
           justifyContent: "space-between",
         }}
       >
-        <Typography variant="h4" fontWeight={500}>
-          {createByAdmin ? t("createNewAccount") : t("manageProfile")}
-        </Typography>
+        <PageTItle
+          title={createByAdmin ? t("createNewAccount") : t("manageProfile")}
+        />
+
         <Button
           onClick={() => navigate(-1)}
           startIcon={<ArrowBack size="medium" color="primary" />}

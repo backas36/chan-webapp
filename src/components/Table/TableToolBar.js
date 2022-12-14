@@ -36,6 +36,7 @@ const TableToolBar = (props) => {
     apiRef.current.setFilterModel({ items: [] })
     handleResetTable()
   }
+
   return (
     <GridToolbarContainer>
       <Box
@@ -58,7 +59,7 @@ const TableToolBar = (props) => {
               variant="contained"
               startIcon={<Add />}
               onClick={() => handleCreate()}
-              sx={{ mr: 1, px: 1 }}
+              sx={{ mr: 2, px: 1 }}
             >
               {t("create")}
             </Button>

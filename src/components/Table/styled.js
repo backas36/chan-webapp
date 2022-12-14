@@ -20,7 +20,10 @@ export const dataGridStyles = () => {
   return {
     borderRadius: "10px",
     [`& .${gridClasses.row}`]: {
-      bgcolor: (theme) => theme.palette.grey["A100"],
+      bgcolor: (theme) =>
+        theme.palette.mode === "dark"
+          ? theme.palette.background.paper
+          : theme.palette.grey["A100"],
     },
     "& .MuiDataGrid-cell--editing": {
       backgroundColor: "rgb(255,215,115, 0.19)",
@@ -30,7 +33,7 @@ export const dataGridStyles = () => {
     },
     "& .Mui-error": {
       backgroundColor: (theme) =>
-        `rgb(126,10,15, ${theme.palette.mode === "dark" ? 0 : 0.1})`,
+        `rgb(126,10,15, ${theme.palette.mode === "dark" ? 0.1 : 0.2})`,
       border: (theme) => `1px solid ${theme.palette.error.main}`,
     },
   }

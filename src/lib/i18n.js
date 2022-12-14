@@ -12,7 +12,6 @@ const resources = {
     translation: zhTW,
   },
 }
-
 i18n.use(initReactI18next).init({
   lng: localStorage.getItem("lang") || "en",
   fallbackLng: "zh-TW",
@@ -20,7 +19,7 @@ i18n.use(initReactI18next).init({
   interpolation: {
     escapeValue: false,
   },
-  debug: true,
+  debug: process.env.NODE_ENV === "development" && true,
 })
 
 export default i18n

@@ -7,7 +7,7 @@ import { Box } from "@mui/system"
 
 const ForgetPwd = () => {
   const { t } = useTranslation()
-  useTitle("Forget Password")
+  useTitle(t("forgotPwdTitle"))
 
   return (
     <>

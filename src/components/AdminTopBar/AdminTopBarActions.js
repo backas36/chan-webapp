@@ -28,7 +28,6 @@ const AdminTopBarActions = ({ children }) => {
           sx={{
             width: 36,
             height: 36,
-            bgColor: (theme) => theme.palette.primary.dark,
             cursor: "pointer",
           }}
           onClick={() => navigate("/login")}
