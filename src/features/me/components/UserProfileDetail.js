@@ -48,8 +48,6 @@ const UserProfileDetail = ({ createByAdmin }) => {
     enableReinitialize: true,
     validationSchema: profileSchema(createByAdmin),
     onSubmit: async (values) => {
-      //console.log("🐑 ~ values", values)
-
       if (values?.birthDate) {
         values.birthDate = formatISODate(values?.birthDate, "date")
       } else {

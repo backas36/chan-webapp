@@ -11,11 +11,8 @@ export const meApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
-          console.log("getMe query", data)
           dispatch(setCurrentUser(data))
         } catch (err) {
-          console.log("getMe failed , and trigger logout query")
-
           await dispatch(apiSlice.endpoints.logout.initiate())
         }
       },

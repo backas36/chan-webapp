@@ -164,8 +164,6 @@ const useUsersTableColumns = () => {
               await validateOneInAccount("mobile", props.value)
             }
           } catch (err) {
-            console.log("🐑 ~ err", err)
-
             return { ...params.props, error: true }
           }
           return { ...params.props, error: false }

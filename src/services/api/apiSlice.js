@@ -29,8 +29,6 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
       const release = await mutex.acquire()
       try {
         const refreshToken = localStorage.getItem("refreshToken") || null
-        console.log("sending refresh token", refreshToken)
-
         const refreshResult = await baseQuery(
           {
             url: "/auth/refresh",
@@ -40,14 +38,11 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
           api,
           extraOptions
         )
-        console.log("get new refresh token", refreshResult?.data)
         if (refreshResult?.data?.success) {
           api.dispatch(postLogin(refreshResult.data))
 
           result = await baseQuery(args, api, extraOptions)
         } else {
-          console.log("refresh token failed")
-
           api.dispatch(postLogout())
         }
       } finally {

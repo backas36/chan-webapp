@@ -19,11 +19,6 @@ const VerifyLogin = () => {
     skip: !verifiedUser || !isLogin,
   })
 
-  useEffect(() => {
-    console.log("VerifyLogin isLogin", isLogin)
-    console.log("VerifyLogin currentUser", currentUser)
-    console.log("VerifyLogin verifiedUser", verifiedUser)
-  }, [isLogin, currentUser, verifiedUser])
   let content
 
   if (isLogin && (!verifiedUser || !currentUser)) {

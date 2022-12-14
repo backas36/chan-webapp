@@ -16,7 +16,6 @@ const Login = () => {
   const isLogin = useSelector(selectIsLogin)
 
   useEffect(() => {
-    console.log("Login Page", isLogin)
     if (isLogin) {
       navigate("/", { state: { from: location }, replace: true })
     }
