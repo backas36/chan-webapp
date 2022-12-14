@@ -42,7 +42,7 @@ const store = configureStore({
       listenerMiddleware.middleware,
       createStateSyncMiddleware(syncConfig)
     ),
-  devTools: true, // should false for staging and prod
+  devTools: process.env.NODE_ENV === "production" ? false : true, // should false for staging and prod
 })
 
 initMessageListener(store)
