@@ -8,7 +8,7 @@ const ActionsLog = () => {
   const { t } = useTranslation()
   useTitle(t("actionsLog"))
   return (
-    <MainWrapper sx={{ pt: 0, pb: (theme) => theme.spacing(8) }}>
+    <MainWrapper>
       <PageWrapper title={t("actionsLog")}>
         <ActionsLogTable />
       </PageWrapper>

@@ -104,5 +104,9 @@
   "forgotPwdTitle": "忘記密碼",
   "favorite": "願望清單",
   "Cart": "購物車",
-  "pageNotFound": "抱歉，努力建構中 ..."
+  "pageNotFound": "抱歉，努力建構中 ...",
+  "frontSite": "返回前台",
+  "noRowsLabel": "沒有符合條件的資料",
+  "errorOverlayDefaultLabel": "糟了！",
+  "noResultsOverlayLabel": "目前尚未有資料"
 }

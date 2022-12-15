@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import BaseTable from "../../../components/Table/BaseTable"
+import BaseTable from "../../../components/table/BaseTable"
 import useUsersTableColumns from "../hooks/useUsersTableColumns"
 import {
   useGetAllUsersQuery,
@@ -58,7 +58,7 @@ const UsersTable = () => {
   const tableConfig = {
     rows: usersData?.data || [],
     columns: tableColumns,
-    isLoading: isLoading || !usersData?.data || updateLoading,
+    loading: isLoading || updateLoading,
     rowCount: usersData?.totalLength || 0,
     rowsPerPageOptions: [15, 30, 45],
     page,

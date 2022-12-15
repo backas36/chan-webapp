@@ -3,10 +3,9 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { selectIsLogin } from "../../features/authentication"
 import { ToggleLang } from "../../features/lang"
-import { AdminTopBarMenuItems } from "../../features/me"
 import { ToggleTheme } from "../../features/ui"
-import MAvatar from "../Avatar/MAvatar"
-import { MBox } from "../FrontTopBar/styled"
+import MAvatar from "../avatar/MAvatar"
+import { MBox } from "../frontTopBar/styled"
 
 const TopBarActionsWrapper = ({ children }) => {
   const navigate = useNavigate()

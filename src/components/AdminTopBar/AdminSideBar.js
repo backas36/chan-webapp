@@ -1,5 +1,11 @@
-import { Dashboard, ListAlt, PeopleAlt } from "@mui/icons-material"
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
+import {
+  ChevronLeft,
+  ChevronRight,
+  Dashboard,
+  ExitToApp,
+  ListAlt,
+  PeopleAlt,
+} from "@mui/icons-material"
 import {
   Divider,
   IconButton,
@@ -7,10 +13,11 @@ import {
   ListItem,
   ListItemIcon,
 } from "@mui/material"
+import { Box } from "@mui/system"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import { selectIsSideBarOpen, toggleSideBar } from "../../features/ui"
 import { DrawerHeader, ItemStyle, ItemText } from "./styled"
 
@@ -45,36 +52,62 @@ const AdminSideBar = () => {
     <>
       <DrawerHeader isSideBarOpen={isSideBarOpen}>
         <IconButton onClick={() => dispatch(toggleSideBar())}>
-          <ChevronLeftIcon />
+          {isSideBarOpen ? <ChevronLeft /> : <ChevronRight />}
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <List>
-        {list.map((item) => (
-          <ListItem
-            key={item.title}
-            disablePadding
-            sx={{ display: "block", marginLeft: "5px" }}
-          >
-            <ItemStyle
-              component={NavLink}
-              to={item.path}
-              isSideBarOpen={isSideBarOpen}
+      <Box flexGrow={1}>
+        <List>
+          {list.map((item) => (
+            <ListItem
+              key={item.title}
+              disablePadding
+              sx={{ display: "block", marginLeft: "5px" }}
             >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: isSideBarOpen ? 3 : "auto",
-                  justifyContent: "center",
-                }}
+              <ItemStyle
+                component={NavLink}
+                to={item.path}
+                isSideBarOpen={isSideBarOpen}
               >
-                {item.icon}
-              </ListItemIcon>
-              <ItemText primary={t(item.title)} isSideBarOpen={isSideBarOpen} />
-            </ItemStyle>
-          </ListItem>
-        ))}
-      </List>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: isSideBarOpen ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ItemText
+                  primary={t(item.title)}
+                  isSideBarOpen={isSideBarOpen}
+                />
+              </ItemStyle>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+      <Divider />
+      <Box
+        sx={{
+          my: 3,
+        }}
+      >
+        {/*<ListItem disablePadding sx={{ display: "block", marginLeft: "5px" }}>
+          <ItemStyle component={Link} to="/" isSideBarOpen={isSideBarOpen}>
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: isSideBarOpen ? 3 : "auto",
+                justifyContent: "center",
+              }}
+            >
+              <ExitToApp />
+            </ListItemIcon>
+            <ItemText primary={t("frontSite")} isSideBarOpen={isSideBarOpen} />
+          </ItemStyle>
+        </ListItem>*/}
+      </Box>
     </>
   )
 }

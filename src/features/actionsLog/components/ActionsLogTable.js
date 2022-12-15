@@ -10,7 +10,7 @@ import {
 } from "../services/actionLogSlice"
 import { useGetActionLogListQuery } from "../services/actionLogApiSlice"
 import useActionLogTableColumn from "../hook/useActionLogTableColumn"
-import BaseTable from "../../../components/Table/BaseTable"
+import BaseTable from "../../../components/table/BaseTable"
 
 const ActionsLogTable = () => {
   const dispatch = useDispatch()
@@ -42,7 +42,7 @@ const ActionsLogTable = () => {
   const tableConfig = {
     rows: actionsLogData?.data || [],
     columns: tableColumns,
-    isLoading: isLoading || !actionsLogData?.data,
+    loading: isLoading,
     rowCount: actionsLogData?.totalLength || 0,
     rowsPerPageOptions: [15, 30, 45],
     page,

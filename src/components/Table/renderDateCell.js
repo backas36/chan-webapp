@@ -26,6 +26,10 @@ const TableDateCell = React.memo(({ params }) => {
       inputFormat="yyyy-MM-dd"
       renderInput={({ inputRef, inputProps, InputProps, disabled, error }) => (
         <InputBase
+          autoComplete="off"
+          onKeyDown={(e) => {
+            e.preventDefault()
+          }}
           fullWidth
           ref={inputRef}
           {...InputProps}

@@ -8,7 +8,7 @@ import {
   GridToolbarFilterButton,
   useGridApiContext,
 } from "@mui/x-data-grid"
-import SearchBar from "../SearchBar/SearchBar"
+import SearchBar from "../searchBar/SearchBar"
 
 const TableToolBar = (props) => {
   const { t } = useTranslation()

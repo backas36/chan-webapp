@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 
 import { selectIsLogin } from "../../features/authentication"
-import MAvatar from "../Avatar/MAvatar"
+import MAvatar from "../avatar/MAvatar"
 import { useState } from "react"
 import { selectCurrentUser, UserMenu } from "../../features/me"
 
@@ -12,6 +12,7 @@ import { ToggleLang } from "../../features/lang"
 import { ToggleTheme } from "../../features/ui"
 import { MBox } from "./styled"
 import useMenuList from "../../hooks/useMenuList"
+import FrontTopBarMenu from "./FrontTopBarMenu"
 
 const FrontTopBarActions = () => {
   const navigate = useNavigate()
@@ -46,42 +47,30 @@ const FrontTopBarActions = () => {
       <ToggleTheme />
       {isLogin ? (
         <>
-          <Tooltip title="toggle theme mode">
-            <IconButton component={Link} to="cart">
-              <MAvatar sx={{ width: 36, height: 36 }}>
-                <ShoppingCart />
-              </MAvatar>
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Add to Wish List">
-            <IconButton component={Link} to="favorite">
-              <MAvatar sx={{ width: 36, height: 36 }}>
-                <Heart />
-              </MAvatar>
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Open User Setting">
-            <IconButton onClick={handleMenuClick}>
-              <MAvatar
-                source={currentUser?.photoUrl}
-                sx={{
-                  bgcolor: (theme) => theme.palette.success.dark,
-                }}
-              >
-                {!currentUser?.photoUrl &&
-                  currentUser?.name.charAt(0).toUpperCase()}
-              </MAvatar>
-            </IconButton>
-          </Tooltip>
-          <UserMenu
-            menuList={menuList}
-            anchorUserMenu={anchorUserMenu}
-            handleCloseUserMenu={handleCloseUserMenu}
-            isMenuOpen={isMenuOpen}
-            openDialogByName={openDialogByName}
-            closeDialog={closeDialog}
-            openDialogName={openDialogName}
-          />
+          <FrontTopBarMenu>
+            <Tooltip title="Open User Setting">
+              <IconButton onClick={handleMenuClick}>
+                <MAvatar
+                  source={currentUser?.photoUrl}
+                  sx={{
+                    bgcolor: (theme) => theme.palette.success.dark,
+                  }}
+                >
+                  {!currentUser?.photoUrl &&
+                    currentUser?.name.charAt(0).toUpperCase()}
+                </MAvatar>
+              </IconButton>
+            </Tooltip>
+            <UserMenu
+              menuList={menuList}
+              anchorUserMenu={anchorUserMenu}
+              handleCloseUserMenu={handleCloseUserMenu}
+              isMenuOpen={isMenuOpen}
+              openDialogByName={openDialogByName}
+              closeDialog={closeDialog}
+              openDialogName={openDialogName}
+            />
+          </FrontTopBarMenu>
         </>
       ) : (
         <Tooltip title="Click to Login">

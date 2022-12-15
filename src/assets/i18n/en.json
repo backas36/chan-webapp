@@ -104,5 +104,9 @@
   "forgotPwdTitle": "Forget Password",
   "favorite": "Wish List",
   "Cart": "Cart",
-  "pageNotFound": "Sorry, The page is still building now ..."
+  "pageNotFound": "Sorry, The page is still building now ...",
+  "frontSite": "Front Site",
+  "noRowsLabel": "No Rows Found",
+  "errorOverlayDefaultLabel": "Oops...",
+  "noResultsOverlayLabel": "No data yet"
 }

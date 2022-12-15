@@ -2,9 +2,9 @@ import { getGridSingleSelectOperators } from "@mui/x-data-grid"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
-import MAvatar from "../../../components/Avatar/MAvatar"
-import renderCellExpand from "../../../components/Table/renderCellExpand"
-import renderDateCell from "../../../components/Table/renderDateCell"
+import MAvatar from "../../../components/avatar/MAvatar"
+import renderCellExpand from "../../../components/table/renderCellExpand"
+import renderDateCell from "../../../components/table/renderDateCell"
 import {
   AUTH_OPTIONS,
   getAllowRoles,

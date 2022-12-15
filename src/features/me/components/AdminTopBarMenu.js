@@ -3,7 +3,7 @@ import { Toolbar, Box, IconButton } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
 
 import { selectIsSideBarOpen, toggleSideBar } from "../../ui"
-import AdminTopBarActions from "../../../components/AdminTopBar/AdminTopBarActions"
+import AdminTopBarActions from "../../../components/adminTopBar/AdminTopBarActions"
 const AdminTopBarMenu = () => {
   const dispatch = useDispatch()
   const isSideBarOpen = useSelector(selectIsSideBarOpen)

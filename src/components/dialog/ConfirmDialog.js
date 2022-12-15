@@ -9,6 +9,7 @@ import {
   IconButton,
   styled,
 } from "@mui/material"
+
 const stopPropagationForTab = (event) => {
   if (event.key === "Tab") {
     event.stopPropagation()
@@ -22,6 +23,7 @@ const MIconButton = styled(IconButton)(({ theme }) => {
     color: theme.palette.grey[500],
   }
 })
+
 const ConfirmDialog = (props) => {
   const { children, open, handleClose, title, desc, handleConfirm } = props
   return (
