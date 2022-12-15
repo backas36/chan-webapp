@@ -30,6 +30,7 @@ export const tokensMiddleware = (store) => (next) => (action) => {
       return
     }
     const { accessToken, refreshToken } = response.tokens
+    console.log("tokens middleware, success", refreshToken)
     localStorage.setItem("accessToken", accessToken)
     localStorage.setItem("refreshToken", refreshToken)
   } else if (authSlice.actions.postLogout().type.match(action.type)) {
