@@ -34,7 +34,7 @@ const MainCards = () => {
   }
 
   if (isSuccess) {
-    const usersTotal = usersResponse?.users?.totalLength
+    const usersTotal = usersResponse?.totalLength
     content = (
       <>
         <Grid item sm={12} md={6} sx={{ width: "100%" }}>
