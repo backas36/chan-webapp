@@ -1,3 +1,4 @@
+import "./assets/styles/global.css"
 import { ThemeProvider } from "@emotion/react"
 import { CssBaseline } from "@mui/material"
 import { Routes, Route } from "react-router-dom"
@@ -7,7 +8,6 @@ import NotifyToast from "./components/notify/NotifyToast"
 import useCustomTheme from "./hooks/useCustomTheme"
 import AdminRoutes from "./routes/AdminRoutes"
 import FrontRoutes from "./routes/FrontRoutes"
-import "./assets/styles/global.css"
 
 const App = () => {
   const theme = useCustomTheme()

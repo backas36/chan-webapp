@@ -3,7 +3,7 @@ import { gridClasses } from "@mui/x-data-grid"
 
 export const TableBox = styled(Box)(({ theme }) => {
   return {
-    height: "60vh",
+    height: "100vh",
     "& .MuiDataGrid-cell": {
       borderBottom: "none",
     },

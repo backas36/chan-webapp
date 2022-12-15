@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next"
 import { Feed } from "@mui/icons-material"
 
 import { useGetActionLogListQuery } from "../services/actionLogApiSlice"
-import MAvatar from "../../../components/Avatar/MAvatar"
+import MAvatar from "../../../components/avatar/MAvatar"
 import { timeDistance } from "../../../utils/dateTimeManger"
 
 const RecentlyActionsCard = () => {

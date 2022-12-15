@@ -15,7 +15,7 @@ import { useState } from "react"
 import { Delete, RestartAlt } from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
 
-import MAvatar from "../../../components/Avatar/MAvatar"
+import MAvatar from "../../../components/avatar/MAvatar"
 import { useUpdateMyProfileMutation } from "../services/meApiSlice"
 import { selectCurrentUser } from "../services/meSlice"
 import { checkUserIdentityType } from "../utils/checkUserIdentityType"
@@ -32,6 +32,7 @@ const UserAvatar = () => {
   const isAllowEditPhoto =
     !!photoUrl &&
     checkIdentityType(AUTH_OPTIONS.chanchan, currentUser.identityType)
+
   const handleFileChange = async (e) => {
     const file = e.target.files[0]
     if (file) {
@@ -53,6 +54,7 @@ const UserAvatar = () => {
       }
     }
   }
+
   const handleDeleteAvatar = async () => {
     try {
       setLoading(true)

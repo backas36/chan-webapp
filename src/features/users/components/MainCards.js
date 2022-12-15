@@ -3,7 +3,7 @@ import { Grid, Typography } from "@mui/material"
 
 import PageLoading from "../../../layout/PageLoading"
 import { useGetAllUsersQuery } from "../services/usersApiSlice"
-import MCard from "../../../components/Card/MCard"
+import MCard from "../../../components/card/MCard"
 import StockChart from "./StockChart"
 import { useTranslation } from "react-i18next"
 

@@ -14,6 +14,7 @@ const MIconButton = styled(IconButton)(({ theme }) => {
     color: theme.palette.grey[500],
   }
 })
+
 const MDialog = (props) => {
   const { children, open, handleClose, title, dialogBtn } = props
   return (

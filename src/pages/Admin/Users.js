@@ -8,7 +8,7 @@ const Users = () => {
   const { t } = useTranslation()
   useTitle(t("Users"))
   return (
-    <MainWrapper sx={{ pt: 0, pb: (theme) => theme.spacing(8) }}>
+    <MainWrapper>
       <PageWrapper title={t("manageUsers")}>
         <UsersTable />
       </PageWrapper>

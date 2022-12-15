@@ -1,11 +1,10 @@
 import { useTranslation } from "react-i18next"
 
 import { DataGrid } from "@mui/x-data-grid"
-import { useMemo, useState } from "react"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { dataGridStyles, TableBox } from "./styled"
-import { baseTableConfig } from "./baseTableConfig"
+import useTable, { baseTableConfig } from "./useTable"
 
 const BaseTable = (props) => {
   const { tableConfig } = props
@@ -18,25 +17,10 @@ const BaseTable = (props) => {
     handleSortChange,
     ...otherTableConfig
   } = tableConfig
-  const { t } = useTranslation()
-  const [searchInput, setSearchInput] = useState("")
 
-  const localizedTextMap = useMemo(
-    () => ({
-      toolbarFilters: t("toolbarFilters"),
-      filterPanelColumns: t("filterPanelColumns"),
-      filterPanelOperators: t("filterPanelOperators"),
-      filterPanelInputLabel: t("filterPanelInputLabel"),
-      filterOperatorContains: t("filterOperatorContains"),
-      toolbarColumns: t("toolbarColumns"),
-      columnsPanelHideAllButton: t("columnsPanelHideAllButton"),
-      columnsPanelShowAllButton: t("columnsPanelShowAllButton"),
-      columnsPanelTextFieldLabel: t("columnsPanelTextFieldLabel"),
-      columnsPanelTextFieldPlaceholder: t("columnsPanelTextFieldPlaceholder"),
-      filterOperatorIs: t("filterOperatorIs"),
-    }),
-    [t]
-  )
+  const { t } = useTranslation()
+
+  const { searchInput, setSearchInput, localizedTextMap } = useTable()
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true

@@ -72,6 +72,7 @@ const UserProfileDetail = ({ createByAdmin }) => {
       navigate(-1)
     }
   }, [isSuccess, navigate])
+
   return (
     <Grid item xs={12} md={createByAdmin ? 12 : 6}>
       <FormikProvider value={formik}>
@@ -106,7 +107,11 @@ const UserProfileDetail = ({ createByAdmin }) => {
                 </Grid>
 
                 <Grid item md={6} xs={12}>
-                  <FDatePicker name="birthDate" label={t("dob")} />
+                  <FDatePicker
+                    name="birthDate"
+                    label={t("dob")}
+                    timeType="date"
+                  />
                 </Grid>
 
                 <Grid item md={6} xs={12}>

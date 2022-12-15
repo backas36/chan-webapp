@@ -2,9 +2,9 @@ import { getGridSingleSelectOperators } from "@mui/x-data-grid"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
-import MAvatar from "../../../components/Avatar/MAvatar"
-import renderCellExpand from "../../../components/Table/renderCellExpand"
-import renderDateCell from "../../../components/Table/renderDateCell"
+import MAvatar from "../../../components/avatar/MAvatar"
+import renderCellExpand from "../../../components/table/renderCellExpand"
+import renderDateCell from "../../../components/table/renderDateCell"
 import {
   AUTH_OPTIONS,
   getAllowRoles,
@@ -103,18 +103,12 @@ const useUsersTableColumns = () => {
         headerName: t("status"),
         width: 80,
         type: "singleSelect",
-        valueOptions: ({ row }) => {
-          if (row.status === USER_STATUS.temporary) {
-            return [USER_STATUS.temporary]
-          } else {
-            Object.values(USER_STATUS).map((value) => {
-              return {
-                label: value,
-                value,
-              }
-            })
+        valueOptions: Object.values(USER_STATUS).map((value) => {
+          return {
+            label: value,
+            value,
           }
-        },
+        }),
         editable: isAllowedEdit,
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
@@ -146,7 +140,7 @@ const useUsersTableColumns = () => {
         filterable: false,
         renderCell: renderCellExpand,
         preProcessEditCellProps: async (params) =>
-          params.props.value.length > 0 && preProcessCell(params, "mobile"),
+          params.props?.value?.length > 0 && preProcessCell(params, "mobile"),
       },
       {
         field: "lineId",

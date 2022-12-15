@@ -14,7 +14,6 @@ const FrontTopBarXs = (props) => {
           <MenuIcon fontSize="large" />
         </IconButton>
         <Menu
-          id="menu-appbar"
           anchorEl={anchorElNav}
           anchorOrigin={{
             vertical: "bottom",

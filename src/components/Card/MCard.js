@@ -16,6 +16,7 @@ const MBox = styled(Box)(({ theme }) => {
     justifyContent: "center",
   }
 })
+
 const MCard = ({ children, title }) => {
   return (
     <CardStyle>

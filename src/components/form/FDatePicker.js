@@ -1,20 +1,38 @@
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
-import { Stack } from "@mui/system"
-import { TextField } from "@mui/material"
+import { DateTimePicker } from "@mui/x-date-pickers"
+import { Stack, TextField } from "@mui/material"
 import { useField, useFormikContext } from "formik"
 import { useTranslation } from "react-i18next"
-import { formatDate } from "../../utils/dateTimeManger"
+import { formatDate, formatDateTime } from "../../utils/dateTimeManger"
 
-const FDatePicker = ({ name, ...otherProps }) => {
+const FDatePicker = ({ name, timeType, ...otherProps }) => {
   const { t } = useTranslation()
-
   const { setFieldValue } = useFormikContext()
+  const isDateTime = timeType !== "dateTime"
+  const Picker = isDateTime ? DateTimePicker : DatePicker
 
   const [field, meta] = useField(name)
   if (!field.value) {
     field.value = ""
+  }
+  const pickerConfig = {
+    disableFuture: true,
+    disableMaskedInput: true,
+    label: name,
+    value: field.value,
+    openTo: "year",
+    inputFormat: isDateTime ? "yyyy-MM-dd HH:mm" : "yyyy-MM-dd",
+    onChange: (newValue) => {
+      setFieldValue(
+        name,
+        isDateTime ? formatDateTime(newValue) : formatDate(newValue)
+      )
+    },
+    views: isDateTime
+      ? ["year", "month", "day", "hours", "minutes"]
+      : ["year", "month", "day"],
   }
 
   const isError = (field.value && meta?.error) || (meta?.touched && meta?.error)
@@ -32,17 +50,8 @@ const FDatePicker = ({ name, ...otherProps }) => {
     <>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Stack spacing={3}>
-          <DatePicker
-            value={field.value}
-            disableFuture={true}
-            views={["year", "month", "day"]}
-            disableMaskedInput={true}
-            label={name}
-            openTo="year"
-            inputFormat="yyyy-MM-dd"
-            onChange={(newValue) => {
-              setFieldValue(name, formatDate(newValue, "yyyy-MM-dd"))
-            }}
+          <Picker
+            {...pickerConfig}
             {...otherProps}
             renderInput={(params) => {
               return (
