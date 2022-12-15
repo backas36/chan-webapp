@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import BaseTable from "../../../components/table/BaseTable"
+import BaseTable from "../../../components/Table/BaseTable"
 import useUsersTableColumns from "../hooks/useUsersTableColumns"
 import {
   useGetAllUsersQuery,

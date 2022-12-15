@@ -2,10 +2,10 @@ import { useState } from "react"
 import { Toolbar, AppBar as MuiAppBar, Box, Stack } from "@mui/material"
 import { Outlet } from "react-router-dom"
 
-import FrontTopBarXs from "../components/frontTopBar/FrontTopBarXs"
-import FrontTopBarHome from "../components/frontTopBar/FrontTopBarHome"
-import FrontTopBarMd from "../components/frontTopBar/FrontTopBarMd"
-import FrontTopBarActions from "../components/frontTopBar/FrontTopBarActions"
+import FrontTopBarXs from "../components/FrontTopBar/FrontTopBarXs"
+import FrontTopBarHome from "../components/FrontTopBar/FrontTopBarHome"
+import FrontTopBarMd from "../components/FrontTopBar/FrontTopBarMd"
+import FrontTopBarActions from "../components/FrontTopBar/FrontTopBarActions"
 
 const pages = [
   {

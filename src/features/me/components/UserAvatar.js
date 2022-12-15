@@ -15,7 +15,7 @@ import { useState } from "react"
 import { Delete, RestartAlt } from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
 
-import MAvatar from "../../../components/avatar/MAvatar"
+import MAvatar from "../../../components/Avatar/MAvatar"
 import { useUpdateMyProfileMutation } from "../services/meApiSlice"
 import { selectCurrentUser } from "../services/meSlice"
 import { checkUserIdentityType } from "../utils/checkUserIdentityType"

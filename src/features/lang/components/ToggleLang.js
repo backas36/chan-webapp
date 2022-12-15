@@ -2,7 +2,7 @@ import { Translate } from "@mui/icons-material"
 import { IconButton, Tooltip } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
 
-import MAvatar from "../../../components/avatar/MAvatar"
+import MAvatar from "../../../components/Avatar/MAvatar"
 import { selectLang, setLang } from "../services/langSlice"
 
 const ToggleLang = () => {
