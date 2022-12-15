@@ -2,7 +2,7 @@ import { getGridStringOperators } from "@mui/x-data-grid"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { formatDateTime } from "../../../utils/dateTimeManger"
-import renderCellExpand from "../../../components/table/renderCellExpand"
+import renderCellExpand from "../../../components/Table/renderCellExpand"
 
 const useActionLogTableColumn = () => {
   const { t } = useTranslation()

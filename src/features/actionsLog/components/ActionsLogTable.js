@@ -10,7 +10,7 @@ import {
 } from "../services/actionLogSlice"
 import { useGetActionLogListQuery } from "../services/actionLogApiSlice"
 import useActionLogTableColumn from "../hook/useActionLogTableColumn"
-import BaseTable from "../../../components/table/BaseTable"
+import BaseTable from "../../../components/Table/BaseTable"
 
 const ActionsLogTable = () => {
   const dispatch = useDispatch()

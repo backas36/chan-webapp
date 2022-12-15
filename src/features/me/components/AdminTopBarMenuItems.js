@@ -2,7 +2,7 @@ import { IconButton, Tooltip } from "@mui/material"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 
-import MAvatar from "../../../components/avatar/MAvatar"
+import MAvatar from "../../../components/Avatar/MAvatar"
 import useMenuList from "../../../hooks/useMenuList"
 import { selectCurrentUser } from "../services/meSlice"
 import UserMenu from "./UserMenu"

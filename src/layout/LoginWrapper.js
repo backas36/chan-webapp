@@ -1,6 +1,6 @@
 import { Box, Divider, Paper, styled, Typography } from "@mui/material"
 import MainWrapper from "./MainWrapper"
-import MAvatar from "../components/avatar/MAvatar"
+import MAvatar from "../components/Avatar/MAvatar"
 import logoImage from "../assets/image/s_logo.jpg"
 const FormPaperStyle = styled(Paper)({
   padding: 30,

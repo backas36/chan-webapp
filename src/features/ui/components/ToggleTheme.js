@@ -3,7 +3,7 @@ import { IconButton, Tooltip } from "@mui/material"
 
 import { useDispatch, useSelector } from "react-redux"
 import { selectIsDarkMode, toggleThemeMode } from ".."
-import MAvatar from "../../../components/avatar/MAvatar"
+import MAvatar from "../../../components/Avatar/MAvatar"
 
 const ToggleTheme = () => {
   const dispatch = useDispatch()
