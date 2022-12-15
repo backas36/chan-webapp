@@ -12,14 +12,14 @@ export const activateSchema = () => {
     password: Yup.string()
       .required("pwdRequired")
       .matches(
-        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
         "pwdInValid"
       ),
     okPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "pwdNotMatch")
       .required("notEmpty")
       .matches(
-        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
         "pwdInValid"
       ),
   }
@@ -32,7 +32,7 @@ export const LoginSchema = (isRegister) => {
     password: Yup.string()
       .required("pwdRequired")
       .matches(
-        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
         "pwdInValid"
       ),
     ...(isRegister && {
@@ -41,7 +41,7 @@ export const LoginSchema = (isRegister) => {
         .oneOf([Yup.ref("password"), null], "pwdNotMatch")
         .required("notEmpty")
         .matches(
-          /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+          /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
           "pwdInValid"
         ),
     }),
