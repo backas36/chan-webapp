@@ -48,7 +48,7 @@ const AdminTopBarMenuItems = () => {
       <Tooltip title="Open User Setting">
         <IconButton onClick={handleMenuClick}>
           <MAvatar
-            sx={{ width: 36, height: 36 }}
+            sx={{ bgcolor: (theme) => theme.palette.success.dark }}
             source={currentUser?.photoUrl}
           >
             {!currentUser?.photoUrl &&

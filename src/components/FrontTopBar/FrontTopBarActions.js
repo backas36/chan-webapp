@@ -63,11 +63,10 @@ const FrontTopBarActions = () => {
           <Tooltip title="Open User Setting">
             <IconButton onClick={handleMenuClick}>
               <MAvatar
-                sx={{
-                  width: 36,
-                  height: 36,
-                }}
                 source={currentUser?.photoUrl}
+                sx={{
+                  bgcolor: (theme) => theme.palette.success.dark,
+                }}
               >
                 {!currentUser?.photoUrl &&
                   currentUser?.name.charAt(0).toUpperCase()}
@@ -85,14 +84,11 @@ const FrontTopBarActions = () => {
           />
         </>
       ) : (
-        <Tooltip title="Add to Wish List">
+        <Tooltip title="Click to Login">
           <IconButton onClick={() => navigate("/login")}>
             <MAvatar
               sx={{
-                width: 36,
-                height: 36,
-                bgColor: (theme) => theme.palette.primary.dark,
-                cursor: "pointer",
+                bgcolor: (theme) => theme.palette.success.dark,
               }}
             >
               <Lock />

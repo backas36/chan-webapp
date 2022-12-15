@@ -6,6 +6,8 @@ const MAvatar = ({ children, source, ...otherProps }) => {
     ...otherProps,
     imgProps: { referrerPolicy: "no-referrer" },
     sx: {
+      width: 36,
+      height: 36,
       bgcolor: (theme) => theme.palette.secondary.dark,
       ...otherProps.sx,
     },

@@ -28,14 +28,14 @@ export const pwdSchema = () => {
     newPassword: Yup.string()
       .required("pwdRequired")
       .matches(
-        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
         "pwdInValid"
       ),
     newOkPassword: Yup.string()
       .oneOf([Yup.ref("newPassword"), null], "pwdNotMatch")
       .required("notEmpty")
       .matches(
-        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        /^(?=.*[A-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
         "pwdInValid"
       ),
   })

@@ -35,7 +35,7 @@ const AdminSideBar = () => {
       {
         title: "actionsLog",
         icon: <ListAlt />,
-        path: "Actions-log",
+        path: "actions-log",
       },
     ],
     []

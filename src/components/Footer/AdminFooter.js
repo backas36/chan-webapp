@@ -1,22 +1,19 @@
-import { AddBusiness, HomeWork, PostAdd } from "@mui/icons-material"
+import {
+  AddBusiness,
+  GroupAdd,
+  HomeWork,
+  ListAlt,
+  PostAdd,
+} from "@mui/icons-material"
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material"
 import { Box } from "@mui/system"
-import React, { useRef } from "react"
 import { useNavigate } from "react-router-dom"
 
 const AdminFooter = () => {
   const navigate = useNavigate()
-  const ref = useRef()
 
   return (
-    <Box ref={ref}>
-      {/*{
-        {
-          0: <div>Add supplier</div>,
-          1: <div>Add ingredient</div>,
-          2: <div>Go to Front Site</div>,
-        }[0]
-      }*/}
+    <Box>
       <Paper
         elevation={3}
         sx={{
@@ -30,15 +27,26 @@ const AdminFooter = () => {
         <BottomNavigation
           sx={{ background: (theme) => theme.palette.background.default }}
           showLabels
-          value={0}
-          onChange={(e, newValue) => {}}
         >
-          <BottomNavigationAction label="Add Supplier" icon={<AddBusiness />} />
-          <BottomNavigationAction label="Add ingredient" icon={<PostAdd />} />
+          {/*<BottomNavigationAction label="Add Supplier" icon={<AddBusiness />} />*/}
+          {/*<BottomNavigationAction label="Add ingredient" icon={<PostAdd />} />*/}
+          <BottomNavigationAction
+            label="Add User"
+            icon={<ListAlt />}
+            onClick={() => navigate("actions-log")}
+            sx={{ color: (theme) => theme.palette.primary.main }}
+          />
+          <BottomNavigationAction
+            label="Add User"
+            icon={<GroupAdd />}
+            onClick={() => navigate("users")}
+            sx={{ color: (theme) => theme.palette.primary.main }}
+          />
           <BottomNavigationAction
             label="Front View"
             icon={<HomeWork />}
             onClick={() => navigate("/")}
+            sx={{ color: (theme) => theme.palette.primary.main }}
           />
         </BottomNavigation>
       </Paper>
