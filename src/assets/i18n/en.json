@@ -45,7 +45,7 @@
   "emailRequire": "Email is required",
   "emailInValid": "Provide a valid email address.",
   "pwdRequired": "Password is required",
-  "pwdInValid": "At least 8 characters, and must includes numbers and special characters",
+  "pwdInValid": "At least 8 characters, and must includes numbers or special characters",
   "pwdNotMatch": "Passwords must match",
   "notEmpty": "Cannot be empty",
   "checkMailBox": "Please check Your mail box!",
