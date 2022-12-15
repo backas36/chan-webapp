@@ -103,5 +103,6 @@
   "login": "登入",
   "forgotPwdTitle": "忘記密碼",
   "favorite": "願望清單",
-  "Cart": "購物車"
+  "Cart": "購物車",
+  "pageNotFound": "抱歉，努力建構中 ..."
 }

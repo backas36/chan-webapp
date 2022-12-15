@@ -8,7 +8,7 @@ import { ToggleTheme } from "../../features/ui"
 import MAvatar from "../Avatar/MAvatar"
 import { MBox } from "../FrontTopBar/styled"
 
-const AdminTopBarActions = ({ children }) => {
+const TopBarActionsWrapper = ({ children }) => {
   const navigate = useNavigate()
   const isLogin = useSelector(selectIsLogin)
 
@@ -17,7 +17,7 @@ const AdminTopBarActions = ({ children }) => {
       <ToggleLang />
       <ToggleTheme />
       {isLogin ? (
-        <AdminTopBarMenuItems>{children}</AdminTopBarMenuItems>
+        { children }
       ) : (
         <MAvatar
           sx={{
@@ -31,4 +31,4 @@ const AdminTopBarActions = ({ children }) => {
     </MBox>
   )
 }
-export default AdminTopBarActions
+export default TopBarActionsWrapper

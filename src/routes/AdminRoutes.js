@@ -5,6 +5,7 @@ import AdminMain from "../pages/Admin/AdminMain"
 import Users from "../pages/Admin/Users"
 import Profile from "../pages/Shared/Profile"
 import ActionsLog from "../pages/Admin/ActionsLog"
+import NotFound from "../components/notify/NotFound"
 
 const AdminRoutes = () => {
   const routes = useRoutes([
@@ -36,7 +37,7 @@ const AdminRoutes = () => {
             },
           ],
         },
-        { path: "*", element: <div>error page for admin page</div> },
+        { path: "*", element: <NotFound /> },
       ],
     },
   ])

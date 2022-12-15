@@ -1,9 +1,7 @@
-import { Box } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
-import { DataGrid, gridClasses } from "@mui/x-data-grid"
+import { DataGrid } from "@mui/x-data-grid"
 import { useMemo, useState } from "react"
-import TableToolBar from "./TableToolBar"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { dataGridStyles, TableBox } from "./styled"
@@ -16,10 +14,13 @@ const BaseTable = (props) => {
     handleResetTableConfig,
     handleUpdate,
     handleCreate,
+    handleFilterChange,
+    handleSortChange,
     ...otherTableConfig
   } = tableConfig
   const { t } = useTranslation()
   const [searchInput, setSearchInput] = useState("")
+
   const localizedTextMap = useMemo(
     () => ({
       toolbarFilters: t("toolbarFilters"),
@@ -44,6 +45,7 @@ const BaseTable = (props) => {
   const handleRowEditStop = (params, event) => {
     event.defaultMuiPrevented = true
   }
+
   const processRowUpdate = async (processRow, oldRow) => {
     const updatedRow = { ...processRow, isNew: false }
 
@@ -53,6 +55,23 @@ const BaseTable = (props) => {
     } catch (err) {
       console.log(err)
       return Promise.reject(err)
+    }
+  }
+
+  const handleFilterModelChange = (newFilterModel) => {
+    if (newFilterModel.items.length > 0 && newFilterModel.items[0].value) {
+      const { columnField, value } = newFilterModel.items[0]
+      handleFilterChange(`${columnField}:${value}`)
+    } else {
+      handleFilterChange("")
+    }
+  }
+
+  const handleSortModelChange = (newSortModel) => {
+    if (newSortModel.length > 0) {
+      handleSortChange(...newSortModel)
+    } else {
+      handleSortChange({ field: "createdAt", sort: "desc" })
     }
   }
 
@@ -90,6 +109,8 @@ const BaseTable = (props) => {
             onRowEditStart={handleRowEditStart}
             onRowEditStop={handleRowEditStop}
             onProcessRowUpdateError={handleProcessRowUpdateError}
+            onFilterModelChange={handleFilterModelChange}
+            onSortModelChange={handleSortModelChange}
           />
         </LocalizationProvider>
       </TableBox>

@@ -103,5 +103,6 @@
   "login": "Login",
   "forgotPwdTitle": "Forget Password",
   "favorite": "Wish List",
-  "Cart": "Cart"
+  "Cart": "Cart",
+  "pageNotFound": "Sorry, The page is still building now ..."
 }

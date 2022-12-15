@@ -10,7 +10,7 @@ const ToggleLang = () => {
   const lang = useSelector(selectLang)
 
   return (
-    <Tooltip title="toggle theme mode">
+    <Tooltip title="Change Language">
       <IconButton
         onClick={() => {
           dispatch(setLang(lang === "en" ? "zh-TW" : "en"))

@@ -1,7 +1,7 @@
 import { Lock } from "@mui/icons-material"
-import { Alert, AlertTitle, Container } from "@mui/material"
+import { Alert, AlertTitle, Button, Container } from "@mui/material"
 import { useTranslation } from "react-i18next"
-const Forbidden = ({ children }) => {
+const Forbidden = () => {
   const { t } = useTranslation()
   return (
     <Container sx={{ py: 10 }}>
@@ -11,17 +11,16 @@ const Forbidden = ({ children }) => {
             fontSize: (theme) => theme.typography.h4.fontSize,
           }}
         >
-          {t("forbiddenAccess")}
+          {t("pageNotFound")}
         </AlertTitle>
-        {children}
-        {/*<Button
+        <Button
           variant="outlined"
           sx={{ ml: 2 }}
           startIcon={<Lock />}
           //onClick={() => dispatch({ type: "OPEN_LOGIN" })}
         >
           login
-        </Button>*/}
+        </Button>
       </Alert>
     </Container>
   )

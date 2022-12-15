@@ -1,4 +1,5 @@
 import { useRoutes } from "react-router-dom"
+import NotFound from "../components/notify/NotFound"
 
 import { RequireAuth } from "../features/authentication"
 import FrontLayout from "../layout/FrontLayout"
@@ -49,7 +50,7 @@ const FrontRoutes = () => {
           ],
         },
         //TODO error page
-        { path: "*", element: <div>error for public</div> },
+        { path: "*", element: <NotFound /> },
       ],
     },
   ])
