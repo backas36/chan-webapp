@@ -1,7 +1,7 @@
-import { Lock, Favorite as Heart, ShoppingCart } from "@mui/icons-material"
+import { Lock } from "@mui/icons-material"
 import { IconButton, Tooltip } from "@mui/material"
 import { useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import { selectIsLogin } from "../../features/authentication"
 import MAvatar from "../avatar/MAvatar"

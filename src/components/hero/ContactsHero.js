@@ -1,5 +1,4 @@
 import { Box } from "@mui/material"
-import { useTranslation } from "react-i18next"
 import contactsBanner1 from "../../assets/image/contacts-banner-1.jpg"
 import { BannerImg } from "./styled"
 

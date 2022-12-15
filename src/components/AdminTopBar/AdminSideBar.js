@@ -17,7 +17,7 @@ import { Box } from "@mui/system"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { selectIsSideBarOpen, toggleSideBar } from "../../features/ui"
 import { DrawerHeader, ItemStyle, ItemText } from "./styled"
 
@@ -93,8 +93,8 @@ const AdminSideBar = () => {
           my: 3,
         }}
       >
-        {/*<ListItem disablePadding sx={{ display: "block", marginLeft: "5px" }}>
-          <ItemStyle component={Link} to="/" isSideBarOpen={isSideBarOpen}>
+        <ListItem disablePadding sx={{ display: "block", marginLeft: "5px" }}>
+          <ItemStyle component={NavLink} to="/" isSideBarOpen={isSideBarOpen}>
             <ListItemIcon
               sx={{
                 minWidth: 0,
@@ -106,7 +106,7 @@ const AdminSideBar = () => {
             </ListItemIcon>
             <ItemText primary={t("frontSite")} isSideBarOpen={isSideBarOpen} />
           </ItemStyle>
-        </ListItem>*/}
+        </ListItem>
       </Box>
     </>
   )
