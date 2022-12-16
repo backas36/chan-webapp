@@ -4,7 +4,7 @@ import { Provider } from "react-redux"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import App from "./App"
-import store from "./services/store/store"
+import { store } from "./services/store"
 import "./lib/i18n"
 
 const root = ReactDOM.createRoot(document.getElementById("root"))

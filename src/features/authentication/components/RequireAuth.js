@@ -13,6 +13,7 @@ const RequireAuth = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const isLogin = useSelector(selectIsLogin)
+
   const currentUser = useSelector(selectCurrentUser)
 
   useEffect(() => {

@@ -5,6 +5,7 @@ export {
   useUpdateUserMutation,
   useDeleteUserMutation,
   useSendActivateMailMutation,
+  usersApiSlice,
 } from "./services/usersApiSlice"
 
 export { default as UsersTable } from "./components/UsersTable"

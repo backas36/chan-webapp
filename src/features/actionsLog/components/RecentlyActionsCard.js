@@ -7,7 +7,6 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography,
-  CircularProgress,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { Feed } from "@mui/icons-material"

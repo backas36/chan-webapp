@@ -1,6 +1,7 @@
 export {
   useGetActionLogListQuery,
   useGetActionLogQuery,
+  actionLogApiSlice,
 } from "./services/actionLogApiSlice"
 
 export { default as RecentlyActionsCard } from "./components/RecentlyActionsCard"
