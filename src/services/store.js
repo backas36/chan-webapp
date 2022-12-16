@@ -5,14 +5,14 @@ import {
   initMessageListener,
 } from "redux-state-sync"
 
-import { apiSlice, rtkQueryErrorMiddleware } from "../api/apiSlice"
-import { authReducer, tokensMiddleware } from "../../features/authentication"
-import { langReducer } from "../../features/lang"
-import { meReducer } from "../../features/me"
-import { uiReducer } from "../../features/ui"
-import { listenerMiddleware } from "../middleware/listenerMiddleware"
-import { actionLogReducer } from "../../features/actionsLog"
-import { usersReducer } from "../../features/users"
+import { apiSlice, rtkQueryErrorMiddleware } from "./api/apiSlice"
+import { authReducer, tokensMiddleware } from "../features/authentication"
+import { langReducer } from "../features/lang"
+import { meReducer } from "../features/me"
+import { uiReducer } from "../features/ui"
+import { listenerMiddleware } from "./middleware/listenerMiddleware"
+import { actionLogReducer } from "../features/actionsLog"
+import { usersReducer } from "../features/users"
 
 const syncConfig = {
   whitelist: [
@@ -24,7 +24,7 @@ const syncConfig = {
   ],
 }
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     ui: uiReducer,
@@ -47,5 +47,3 @@ const store = configureStore({
 
 initMessageListener(store)
 setupListeners(store.dispatch)
-
-export default store

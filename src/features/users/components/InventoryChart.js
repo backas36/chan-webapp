@@ -1,5 +1,4 @@
 import { Box, Stack, Typography } from "@mui/material"
-import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { PieChart, Pie, Cell, Tooltip } from "recharts"
 const data = [

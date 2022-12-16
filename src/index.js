@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { disableReactDevTools } from "@fvilers/disable-react-devtools"
 
 import App from "./App"
-import store from "./services/store/store"
+import { store } from "./services/store"
 import "./lib/i18n"
 if (process.env.NODE_ENV === "production") {
   disableReactDevTools()

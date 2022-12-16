@@ -17,63 +17,53 @@ const cardIconStyle = {
 
 const MainCards = () => {
   const { t } = useTranslation()
-  const {
-    data: usersResponse,
-    isLoading,
-    isSuccess,
-  } = useGetAllUsersQuery(null, {
-    //pollingInterval: 15000,
-    //refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  })
+  const { data: usersResponse } = useGetAllUsersQuery(
+    { n: 1 },
+    {
+      pollingInterval: 1000 * 60 * 10,
+      //refetchOnFocus: true,
+      refetchOnMountOrArgChange: true,
+    }
+  )
 
-  let content
+  const usersTotal = usersResponse?.totalLength
 
-  if (isLoading) {
-    content = <PageLoading />
-  }
-
-  if (isSuccess) {
-    const usersTotal = usersResponse?.totalLength
-    content = (
-      <>
-        <Grid item sm={12} md={6} sx={{ width: "100%" }}>
-          <MCard title={t("totalUsers")}>
-            <Group sx={cardIconStyle} />
-            <Typography variant="h3">{usersTotal}</Typography>
-          </MCard>
-        </Grid>
-        {/* TODO change to products */}
-        <Grid item sm={12} md={6} sx={{ width: "100%" }}>
-          <MCard title={t("totalProducts")}>
-            <Groups sx={cardIconStyle} />
-            <Typography variant="h3">10</Typography>
-          </MCard>
-        </Grid>
-        {/* TODO change to ingredient */}
-        <Grid item sm={12} md={6} sx={{ width: "100%" }}>
-          <MCard title={t("totalIngredients")}>
-            <Groups sx={cardIconStyle} />
-            <Typography variant="h3">15</Typography>
-          </MCard>
-        </Grid>
-        {/* TODO change to suppliers */}
-        <Grid item sm={12} md={6} sx={{ width: "100%" }}>
-          <MCard title={t("totalSuppliers")}>
-            <Groups sx={cardIconStyle} />
-            <Typography variant="h3">20</Typography>
-          </MCard>
-        </Grid>
-        <Grid item sm={12} md={12} sx={{ width: "100%" }}>
-          <MCard title={t("inventoryChart")}>
-            <InventoryChart />
-          </MCard>
-        </Grid>
-      </>
-    )
-  }
-
-  return content
+  return (
+    <>
+      <Grid item sm={12} md={6} sx={{ width: "100%" }}>
+        <MCard title={t("totalUsers")}>
+          <Group sx={cardIconStyle} />
+          <Typography variant="h3">{usersTotal ? usersTotal : "-"}</Typography>
+        </MCard>
+      </Grid>
+      {/* TODO change to products */}
+      <Grid item sm={12} md={6} sx={{ width: "100%" }}>
+        <MCard title={t("totalProducts")}>
+          <Groups sx={cardIconStyle} />
+          <Typography variant="h3">10</Typography>
+        </MCard>
+      </Grid>
+      {/* TODO change to ingredient */}
+      <Grid item sm={12} md={6} sx={{ width: "100%" }}>
+        <MCard title={t("totalIngredients")}>
+          <Groups sx={cardIconStyle} />
+          <Typography variant="h3">15</Typography>
+        </MCard>
+      </Grid>
+      {/* TODO change to suppliers */}
+      <Grid item sm={12} md={6} sx={{ width: "100%" }}>
+        <MCard title={t("totalSuppliers")}>
+          <Groups sx={cardIconStyle} />
+          <Typography variant="h3">20</Typography>
+        </MCard>
+      </Grid>
+      <Grid item sm={12} md={12} sx={{ width: "100%" }}>
+        <MCard title={t("inventoryChart")}>
+          <InventoryChart />
+        </MCard>
+      </Grid>
+    </>
+  )
 }
 
 export default MainCards
