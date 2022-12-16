@@ -3,7 +3,6 @@ import { initReactI18next } from "react-i18next"
 
 import en from "../assets/i18n/en.json"
 import zhTW from "../assets/i18n/zh-TW.json"
-
 const resources = {
   en: {
     translation: en,
@@ -21,5 +20,6 @@ i18n.use(initReactI18next).init({
   },
   debug: process.env.NODE_ENV === "development" && true,
 })
+console.log("🐑 ~ process.env.NODE_ENV ", process.env.NODE_ENV)
 
 export default i18n

@@ -64,7 +64,7 @@ const InventoryChart = () => {
         <Tooltip />
       </PieChart>
       <Stack gap={1}>
-        <Typography variant="h6">{t("inventories")}</Typography>
+        <Typography variant="h6">{t("inventory")}</Typography>
         <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
           {COLORS.map((color, i) => (
             <Stack key={color} alignItems="center" spacing={1}>
