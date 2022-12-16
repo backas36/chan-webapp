@@ -68,7 +68,7 @@ export const rtkQueryErrorMiddleware = (api) => (next) => (action) => {
 
   if (isRejectedWithValue(action)) {
     const message = tokenExpired
-      ? "Your login has expired"
+      ? "Please Login Again"
       : action?.payload?.data?.message
 
     customToast.error(message)

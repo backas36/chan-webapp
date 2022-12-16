@@ -86,6 +86,7 @@ const BaseTable = (props) => {
                 labelRowsPerPage: t("pageSize"),
               },
             }}
+            //loading={true}
             sx={dataGridStyles}
             //checkboxSelection
             localeText={localizedTextMap}
