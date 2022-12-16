@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next"
 import { PieChart, Pie, Cell, Tooltip } from "recharts"
 const data = [
   { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
   { name: "Group C", value: 300 },
   { name: "Group D", value: 200 },
+  { name: "Group B", value: 300 },
 ]
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"]
@@ -36,7 +36,7 @@ const renderCustomizedLabel = ({
     </text>
   )
 }
-const StockChart = () => {
+const InventoryChart = () => {
   const { t } = useTranslation()
   return (
     <Box
@@ -64,8 +64,8 @@ const StockChart = () => {
         </Pie>
         <Tooltip />
       </PieChart>
-      <Stack gap={2}>
-        <Typography variant="h6">{t("inventory")}</Typography>
+      <Stack gap={1}>
+        <Typography variant="h6">{t("inventories")}</Typography>
         <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
           {COLORS.map((color, i) => (
             <Stack key={color} alignItems="center" spacing={1}>
@@ -77,10 +77,7 @@ const StockChart = () => {
                       name: t("butter"),
                       numbers: 1,
                     },
-                    {
-                      name: t("driedStrawberries"),
-                      numbers: 2,
-                    },
+
                     {
                       name: t("milk"),
                       numbers: 3,
@@ -88,6 +85,10 @@ const StockChart = () => {
                     {
                       name: t("egg"),
                       numbers: 50,
+                    },
+                    {
+                      name: t("driedStrawberries"),
+                      numbers: 2,
                     },
                   ][i]?.name
                 }
@@ -100,4 +101,4 @@ const StockChart = () => {
   )
 }
 
-export default StockChart
+export default InventoryChart

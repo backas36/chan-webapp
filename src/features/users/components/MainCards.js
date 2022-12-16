@@ -4,7 +4,7 @@ import { Grid, Typography } from "@mui/material"
 import PageLoading from "../../../layout/PageLoading"
 import { useGetAllUsersQuery } from "../services/usersApiSlice"
 import MCard from "../../../components/Card/MCard"
-import StockChart from "./StockChart"
+import InventoryChart from "./InventoryChart"
 import { useTranslation } from "react-i18next"
 
 const cardIconStyle = {
@@ -65,8 +65,8 @@ const MainCards = () => {
           </MCard>
         </Grid>
         <Grid item sm={12} md={12} sx={{ width: "100%" }}>
-          <MCard title={t("stocksChart")}>
-            <StockChart />
+          <MCard title={t("inventoryChart")}>
+            <InventoryChart />
           </MCard>
         </Grid>
       </>

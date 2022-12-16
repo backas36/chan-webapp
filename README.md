@@ -1,6 +1,6 @@
 # ChanChan
 
-# ChanChan - A awesome website + ERP admin panel
+# A awesome website + ERP admin panel
 
 [![N|Solid](https://firebasestorage.googleapis.com/v0/b/chanchan-368709.appspot.com/o/others%2Fchanchan-01.jpg?alt=media&token=d67b2d45-df59-456a-90d1-076b0e8d7331)](https://firebasestorage.googleapis.com/v0/b/chanchan-368709.appspot.com/o/others%2Fchanchan-01.jpg?alt=media&token=d67b2d45-df59-456a-90d1-076b0e8d7331)
 
