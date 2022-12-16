@@ -15,7 +15,7 @@ export const baseTableConfig = {
     LoadingOverlay: LinearProgress,
   },
   getRowSpacing: (params) => ({
-    top: params.isFirstVisible ? 0 : 5,
+    top: params.isFirstVisible ? 10 : 5,
     bottom: params.isLastVisible ? 0 : 5,
   }),
   disableSelectionOnClick: true,

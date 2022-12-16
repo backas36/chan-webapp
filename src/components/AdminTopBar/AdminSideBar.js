@@ -51,7 +51,7 @@ const AdminSideBar = () => {
   return (
     <>
       <DrawerHeader isSideBarOpen={isSideBarOpen}>
-        <IconButton onClick={() => dispatch(toggleSideBar())}>
+        <IconButton onClick={() => dispatch(toggleSideBar())} sx={{ pr: 1.5 }}>
           {isSideBarOpen ? <ChevronLeft /> : <ChevronRight />}
         </IconButton>
       </DrawerHeader>
@@ -62,7 +62,7 @@ const AdminSideBar = () => {
             <ListItem
               key={item.title}
               disablePadding
-              sx={{ display: "block", marginLeft: "5px" }}
+              sx={{ display: "block", marginLeft: "2px" }}
             >
               <ItemStyle
                 component={NavLink}
@@ -72,7 +72,7 @@ const AdminSideBar = () => {
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
-                    mr: isSideBarOpen ? 3 : "auto",
+                    mr: isSideBarOpen ? 1 : "auto",
                     justifyContent: "center",
                   }}
                 >
@@ -98,7 +98,7 @@ const AdminSideBar = () => {
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: isSideBarOpen ? 3 : "auto",
+                mr: isSideBarOpen ? 1 : "auto",
                 justifyContent: "center",
               }}
             >

@@ -79,7 +79,7 @@ const TableToolBar = (props) => {
           onClick={resetTable}
           sx={{
             position: "absolute",
-            top: "-8%",
+            top: "-36px",
             right: "0",
           }}
           variant="text"
