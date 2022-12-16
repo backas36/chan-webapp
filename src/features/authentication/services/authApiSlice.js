@@ -71,7 +71,11 @@ export const authApiSlice = apiSlice.injectEndpoints({
             dispatch(checkLogin(data?.verifiedUser))
           }
         } catch (err) {
-          //await dispatch(apiSlice.endpoints.logout.initiate())
+          const { error } = err
+
+          if (error.status !== 403) {
+            await dispatch(apiSlice.endpoints.logout.initiate())
+          }
         }
       },
     }),

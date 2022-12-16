@@ -22,7 +22,13 @@ const RecentlyActionsCard = () => {
     data: actionList,
     isSuccess,
     isLoading,
-  } = useGetActionLogListQuery({ n: 10 }, { refetchOnMountOrArgChange: true })
+  } = useGetActionLogListQuery(
+    { n: 10 },
+    {
+      pollingInterval: 1000 * 60 * 10,
+      refetchOnMountOrArgChange: true,
+    }
+  )
 
   let content
   if (isLoading) {
