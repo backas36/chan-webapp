@@ -1,70 +1,187 @@
-# Getting Started with Create React App
+# ChanChan
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# A awesome website + ERP admin panel
 
-## Available Scripts
+[![N|Solid](https://firebasestorage.googleapis.com/v0/b/chanchan-368709.appspot.com/o/others%2Fchanchan-01.jpg?alt=media&token=d67b2d45-df59-456a-90d1-076b0e8d7331)](https://firebasestorage.googleapis.com/v0/b/chanchan-368709.appspot.com/o/others%2Fchanchan-01.jpg?alt=media&token=d67b2d45-df59-456a-90d1-076b0e8d7331)
 
-In the project directory, you can run:
+The inspiration of this side project is from my best friend. Since her business just start-up, and ask me build one ERP system cloud help her recording cost and item manage.
 
-### `npm start`
+🔗 [Demo Link](https://chan-web.onrender.com)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- test account/password : `test@test.com `/ `12qwaszx!`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+🔗 [Backed Source code](https://github.com/backas36/chan-server)
 
-### `npm test`
+> Demo is in staging phase , and it render in render.com by free plan, so sometime it would response very slowly, it will take around 2~5 mins if the server spin down.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Table of Content
 
-### `npm run build`
+- [Project Status](#project-status)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [Technologies](#technologies)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [Tools I used](#tools-i-used)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [Modules](#modules)
 
-### `npm run eject`
+- [User Stories](#user-stories)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- [Folder Structure](#folder-structure)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [Summary](#summary)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- [Others](#others)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Project Status
 
-## Learn More
+The project status is in staging phase, backend, database, Redis, and static website all render in render.com.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Technologies
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Frontend
 
-### Code Splitting
+- react hooks, react-router-dom v6, redux-toolkit, rtk query, Material UI, google oauth
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Backend
 
-### Analyzing the Bundle Size
+- express, knex, postgreSql, redis
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Deploy
 
-### Making a Progressive Web App
+- docker for local development
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Tools
 
-### Advanced Configuration
+- VS Code for frontend, intelliJ IDEA for backend.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Tools I used
 
-### Deployment
+- mui/x-data-grid, mui/x-date-picker, emotion
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- redux-toolkit, redux-state-sync
 
-### `npm run build` fails to minify
+- async-mutex
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- date-fns
+
+- env-cmd
+
+- formik, yup
+
+- i18next
+
+- react-toastify
+
+- recharts
+
+## Modules
+
+- Authentication ✔️
+
+- User ✔️
+
+- Users ✔️
+
+- Users Actions Log ✔️
+
+- Inventory (building ...)
+
+- Suppliers (building ...)
+
+## User Stories
+
+- [x] It can toggle light/dark theme on the topbar.
+
+- [x] It can toggle en/zh-TW language on the topbar.
+
+- [x] User can register by own system or login with google oauth to login.
+
+- [x] User can change password, upload avatar, manage own account detail.
+
+- [x] User can reset password in the safe way if forgot password to login.
+
+- [x] It can manage users, if user role is up to editor level.
+
+- [x] It can setup password to activate the account after the manager create a user.
+
+- [x] It can view admin panel everything, if user role is up to basic level.
+
+- [ ] It can add inventory, and calculate the product cost automatically by user role is up to editor level.
+
+- [ ] It can add product detail, and the front site would show in products page by user role is up to editor level.
+
+### Folder structure
+
+- public
+
+  - manifest, index.html, favicon
+
+- src
+
+  - assests
+
+    - images, styles, theme config, i18n data
+
+  - components
+
+    - global components, and components which use for pages.
+
+  - features
+
+    main folder for build project
+
+    - modules functions of project.
+
+    - It has components, hooks, services, or utils if features need.
+
+  - hooks
+
+    - global hooks
+
+    - eg. useToggle, useCustomTheme ...
+
+  - layout
+
+    - global ui layout, page ui wrapper
+
+  - lib
+
+    - some third party tool
+
+    - eg. i18n instance
+
+  - pages
+
+    - the file would match of each route.
+
+  - routes
+
+    - routes maneger
+
+  - services
+
+    - rtk query config, firebase config, global context(store)
+
+  - utils
+
+    - the functions use for globally.
+
+## Summary
+
+Actually, I haven't used redux-toolkit in any react project before, since it's not too big project I made. But It looks very easy to manage states, and clean code for project after I study redux-toolkit documents.
+
+So it inspire me to implement everything in project by redux-toolkit.
+
+And due to setup redux-toolkit for project, I think it's good chance to check the power of rtk query in this project. (Eg. You don't need to store data in state after fetching api.)
+
+It's not quite much reference of how to use rtk query. But the official document explain very clearly for everything. I think it's good chance for me to learn how to read documents, and custom code in my case as a junior developer.
+
+The conclusion of this project, I implement every thing in enterprise level as possible even it just a side project. So I learned a lot of skill, and use much tool I haven't used before, like Redis, docker, or other react eco system library.
+
+## Others
+
+> It's in staging phase in current, and it render in render.com by free plan, so sometime it would response very slowly.
+
+> Every document or code would be change since in staging phase now.
+
+🔗 [Auth Flow Chart In Frontend](https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=chan-web-auth-flow#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1XCMsOnNDbtGJB0s7oQrJc-eHcFnyPCys%26export%3Ddownload)
