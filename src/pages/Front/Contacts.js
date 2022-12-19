@@ -1,6 +1,7 @@
 import { Container } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import ContactsHero from "../../components/hero/ContactsHero"
+import NotFound from "../../components/notify/NotFound"
 import useTitle from "../../hooks/useTitle"
 
 const Contacts = () => {
@@ -13,6 +14,7 @@ const Contacts = () => {
       {/* Top sell */}
       {/* Category */}
       <ContactsHero />
+      <NotFound />
     </Container>
   )
 }

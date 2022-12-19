@@ -3,6 +3,7 @@ import {
   ChevronRight,
   Dashboard,
   ExitToApp,
+  Factory,
   ListAlt,
   PeopleAlt,
 } from "@mui/icons-material"
@@ -43,6 +44,11 @@ const AdminSideBar = () => {
         title: "actionsLog",
         icon: <ListAlt />,
         path: "actions-log",
+      },
+      {
+        title: "Suppliers",
+        icon: <Factory />,
+        path: "suppliers",
       },
     ],
     []
