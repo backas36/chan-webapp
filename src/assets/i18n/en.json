@@ -108,5 +108,6 @@
   "frontSite": "Front Site",
   "noRowsLabel": "No Rows Found",
   "errorOverlayDefaultLabel": "Oops...",
-  "noResultsOverlayLabel": "No data yet"
+  "noResultsOverlayLabel": "No data yet",
+  "activitySubject": "Subject"
 }

@@ -10,6 +10,8 @@ The inspiration of this side project is from my best friend. Since her business 
 
 - test account/password : `test@test.com `/ `12qwaszx!`
 
+> Since the front side now still building now, please use this account tgit o check admin panel demo, it will be normal user if you login with google"
+
 🔗 [Backed Source code](https://github.com/backas36/chan-server)
 
 > Demo is in staging phase , and it render in render.com by free plan, so sometime it would response very slowly, it will take around 2~5 mins if the server spin down.

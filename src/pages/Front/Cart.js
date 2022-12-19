@@ -1,5 +1,6 @@
 import { Container } from "@mui/material"
 import { useTranslation } from "react-i18next"
+import NotFound from "../../components/notify/NotFound"
 import useTitle from "../../hooks/useTitle"
 
 const Cart = () => {
@@ -12,6 +13,7 @@ const Cart = () => {
       {/* Top sell */}
       {/* Category */}
       Carts
+      <NotFound />
     </Container>
   )
 }

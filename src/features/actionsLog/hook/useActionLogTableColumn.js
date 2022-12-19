@@ -34,6 +34,18 @@ const useActionLogTableColumn = () => {
         ),
       },
       {
+        field: "subject",
+        headerName: t("activitySubject"),
+        width: 250,
+        filterable: true,
+        editable: false,
+        sortable: true,
+        renderCell: renderCellExpand,
+        filterOperators: getGridStringOperators().filter(
+          (operator) => operator.value === "contains"
+        ),
+      },
+      {
         field: "content",
         headerName: t("activityContent"),
         width: 500,
