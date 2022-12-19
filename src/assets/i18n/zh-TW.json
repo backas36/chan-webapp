@@ -108,5 +108,6 @@
   "frontSite": "返回前台",
   "noRowsLabel": "沒有符合條件的資料",
   "errorOverlayDefaultLabel": "糟了！",
-  "noResultsOverlayLabel": "目前尚未有資料"
+  "noResultsOverlayLabel": "目前尚未有資料",
+  "activitySubject": "事件重點"
 }
