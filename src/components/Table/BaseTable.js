@@ -70,10 +70,10 @@ const BaseTable = (props) => {
   }
   const handleProcessRowUpdateError = (errors) => console.log(errors)
 
-  const handleResetTable = (handleResetTable) => {
+  const handleResetTable = (newRowModes) => {
     setSearchInput("")
     setRows(rows)
-    handleResetTableConfig(handleResetTable)
+    handleResetTableConfig(newRowModes)
   }
 
   return (

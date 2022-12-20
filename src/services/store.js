@@ -15,6 +15,7 @@ import { actionLogReducer } from "../features/actionsLog"
 import { usersReducer } from "../features/users"
 import { suppliersReducer } from "../features/suppliers"
 import { inCategoriesReducer } from "../features/ingredientCategory"
+import { poCategoriesReducer } from "../features/productCategory"
 
 const syncConfig = {
   whitelist: [
@@ -37,6 +38,7 @@ export const store = configureStore({
     users: usersReducer,
     suppliers: suppliersReducer,
     inCategories: inCategoriesReducer,
+    poCategories: poCategoriesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(

@@ -1,15 +1,15 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import BaseTable from "../../../components/Table/BaseTable"
-import useInCaTableColumns from "../hooks/useInCaTableColumns"
+import useTableColumns from "../hooks/useTableColumns"
 import {
-  useAddInCategoryMutation,
-  useGetAllInCategoriesQuery,
-  useUpdateInCategoryMutation,
-} from "../services/inCaApiSlice"
+  useAddPoCategoryMutation,
+  useGetAllPoCategoriesQuery,
+  useUpdatePoCategoryMutation,
+} from "../services/poCaApiSlice"
 import {
   resetTable,
-  selectInCategoriesTableConfig,
+  selectPoCategoriesTableConfig,
   selectRowModesModel,
   setFilters,
   setPage,
@@ -18,44 +18,44 @@ import {
   setRows,
   setSearch,
   setSort,
-} from "../services/inCaSlice"
-import { validateCategory, initVal, formatData } from "../utils"
+} from "../services/poCaSlice"
+import { formatData, initVal, validatePoCategory } from "../utils"
 
-const InCaTable = () => {
+const PoCaTable = () => {
   const dispatch = useDispatch()
-  const inCaTableConfig = useSelector(selectInCategoriesTableConfig)
-  const { page, pageSize, sort, search, filters, rows } = inCaTableConfig
+  const poCategoryTableConfig = useSelector(selectPoCategoriesTableConfig)
+  const { page, pageSize, sort, search, filters, rows } = poCategoryTableConfig
 
   const startIndex = page > 0 ? pageSize * page : 0
   const order = sort && `${sort.field}:${sort.sort}`
 
-  const tableColumns = useInCaTableColumns()
+  const tableColumns = useTableColumns()
 
   const {
-    data: inCaData,
+    data: poCateData,
     isLoading,
     refetch,
-  } = useGetAllInCategoriesQuery({
+  } = useGetAllPoCategoriesQuery({
     n: pageSize,
     s: startIndex,
     order,
     filters,
     q: search,
   })
-  const [updateInCategory, { isLoading: updateLoading }] =
-    useUpdateInCategoryMutation()
-  const [addInCategory, { isLoading: createLoading }] =
-    useAddInCategoryMutation()
+  const [updatePoCategory, { isLoading: updateLoading }] =
+    useUpdatePoCategoryMutation()
+  const [addPoCategory, { isLoading: createLoading }] =
+    useAddPoCategoryMutation()
 
   useEffect(() => {
-    if (inCaData) {
-      dispatch(setRows(inCaData.data || []))
+    if (poCateData) {
+      dispatch(setRows(poCateData.data || []))
     }
-  }, [dispatch, inCaData])
+  }, [dispatch, poCateData])
 
   const handleUpdate = async (processRow) => {
     try {
-      return await updateInCategory(processRow).unwrap()
+      return await updatePoCategory(processRow).unwrap()
     } catch (err) {
       return Promise.reject(false)
     }
@@ -63,9 +63,9 @@ const InCaTable = () => {
   const handleCreateHelper = {
     handleCreateUser: async (processRow) => {
       try {
-        const isValid = await validateCategory(formatData(processRow))
+        const isValid = await validatePoCategory(formatData(processRow))
         if (isValid) {
-          await addInCategory(formatData(processRow)).unwrap()
+          await addPoCategory(formatData(processRow)).unwrap()
         }
       } catch (err) {
         return Promise.reject(err.errors)
@@ -83,7 +83,7 @@ const InCaTable = () => {
     rows,
     columns: tableColumns,
     loading: isLoading || updateLoading || createLoading,
-    rowCount: inCaData?.totalLength || 0,
+    rowCount: poCateData?.totalLength || 0,
     rowsPerPageOptions: [15, 30, 45],
     page,
     pageSize,
@@ -102,4 +102,4 @@ const InCaTable = () => {
   }
   return <BaseTable tableConfig={tableConfig} />
 }
-export default InCaTable
+export default PoCaTable

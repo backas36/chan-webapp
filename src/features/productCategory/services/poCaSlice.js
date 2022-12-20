@@ -10,8 +10,8 @@ const initialState = {
   rows: [],
 }
 
-const suppliersSlice = createSlice({
-  name: "suppliers",
+const poCategoriesSlice = createSlice({
+  name: "poCategories",
   initialState,
   reducers: {
     resetTable: (state, action) => {
@@ -60,8 +60,9 @@ export const {
   setSearch,
   setRowModesModel,
   setRows,
-} = suppliersSlice.actions
+} = poCategoriesSlice.actions
 
-export default suppliersSlice.reducer
-export const selectSuppliersTableConfig = (state) => state.suppliers
-export const selectRowModesModel = (state) => state.suppliers.rowModesModel
+export default poCategoriesSlice.reducer
+export const selectPoCategoriesTableConfig = (state) => state.poCategories
+export const selectRowModesModel = (state) => state.poCategories.rowModesModel
+export const selectCurrentRows = (state) => state.poCategories.rows

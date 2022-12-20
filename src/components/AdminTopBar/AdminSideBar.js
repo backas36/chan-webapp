@@ -7,6 +7,7 @@ import {
   Factory,
   ListAlt,
   PeopleAlt,
+  Workspaces,
 } from "@mui/icons-material"
 import {
   Divider,
@@ -50,6 +51,11 @@ const AdminSideBar = () => {
         title: "Ingredient Categories",
         icon: <Category />,
         path: "ingredient-categories",
+      },
+      {
+        title: "Product Categories",
+        icon: <Workspaces />,
+        path: "product-categories",
       },
       {
         title: "actionsLog",

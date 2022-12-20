@@ -49,7 +49,7 @@ const UsersTable = () => {
 
   useEffect(() => {
     if (usersData) {
-      dispatch(setRows(usersData?.data || []))
+      dispatch(setRows(usersData?.data))
     }
   }, [usersData, dispatch])
   const [updateUser, { isLoading: updateLoading }] = useUpdateUserMutation()

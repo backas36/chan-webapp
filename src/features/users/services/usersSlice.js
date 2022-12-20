@@ -42,9 +42,10 @@ const usersSlice = createSlice({
     setRows: (state, action) => {
       if (action.payload?.isNew) {
         state.rows.push(action.payload)
-        return
+      } else {
+        state.rowModesModel = {}
+        state.rows = action.payload
       }
-      state.rows = action.payload
     },
   },
 })

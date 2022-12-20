@@ -121,5 +121,7 @@
   "filterOperatorEquals": "equals",
   "Ingredient Categories": "Ingredient Categories",
   "manageInCategories": "Manage Ingredient Categories",
-  "categoryName": "Name"
+  "categoryName": "Name",
+  "Product Categories": "Product Categories",
+  "managePoCategories": "Manage Product Categories"
 }

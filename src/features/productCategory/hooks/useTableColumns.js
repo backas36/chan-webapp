@@ -19,7 +19,7 @@ const preProcessCell = async (params, field) => {
   return { ...props, error: false }
 }
 
-const useInCaTableColumns = () => {
+const useTableColumns = () => {
   const { t } = useTranslation()
   const currentUser = useSelector(selectCurrentUser)
 
@@ -27,6 +27,7 @@ const useInCaTableColumns = () => {
     () => getAllowRoles(true, true).includes(currentUser?.role),
     [currentUser?.role]
   )
+
   const tableColumns = useMemo(() => {
     return [
       {
@@ -64,4 +65,4 @@ const useInCaTableColumns = () => {
   }, [t, isAllowedEdit])
   return tableColumns
 }
-export default useInCaTableColumns
+export default useTableColumns

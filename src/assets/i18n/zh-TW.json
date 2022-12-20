@@ -121,5 +121,7 @@
   "filterOperatorEquals": "等於",
   "Ingredient Categories": "材料類別",
   "manageInCategories": "材料類別管理",
-  "categoryName": "類別名"
+  "categoryName": "類別名",
+  "Product Categories": "產品類別",
+  "managePoCategories": "產品類別管理"
 }
