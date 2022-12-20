@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, current } from "@reduxjs/toolkit"
 
 const initialState = {
   page: 0,
@@ -6,6 +6,7 @@ const initialState = {
   sort: "",
   search: "",
   filters: "",
+  rows: [],
 }
 
 const actionLogSlice = createSlice({
@@ -13,7 +14,11 @@ const actionLogSlice = createSlice({
   initialState,
   reducers: {
     resetActionsTable: (state, action) => {
-      return initialState
+      const currentRows = current(state).rows
+      return {
+        ...initialState,
+        rows: currentRows.filter((row) => !row?.isNew),
+      }
     },
     setPage: (state, action) => {
       state.page = action.payload
@@ -30,6 +35,13 @@ const actionLogSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload
     },
+    setRows: (state, action) => {
+      if (action.payload?.isNew) {
+        state.rows.push(action.payload)
+        return
+      }
+      state.rows = action.payload
+    },
   },
 })
 
@@ -40,6 +52,7 @@ export const {
   setSort,
   setFilters,
   setSearch,
+  setRows,
 } = actionLogSlice.actions
 export default actionLogSlice.reducer
 export const selectLogTableConfig = (state) => state.actionLog

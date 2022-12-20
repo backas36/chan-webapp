@@ -47,15 +47,16 @@ const TableToolBar = (props) => {
     current.editRows = {}
     apiRef.current.restoreState(current)
     const newRowModes = {}
-    Object.keys(rowModesModel).forEach((id) => {
-      if (rowModesModel[id].isNew) {
-        return
-      }
-      newRowModes[id] = {
-        mode: GridRowModes.View,
-        ignoreModifications: true,
-      }
-    })
+    rowModesModel &&
+      Object.keys(rowModesModel).forEach((id) => {
+        if (rowModesModel[id].isNew) {
+          return
+        }
+        newRowModes[id] = {
+          mode: GridRowModes.View,
+          ignoreModifications: true,
+        }
+      })
     handleResetTable(newRowModes)
   }
 

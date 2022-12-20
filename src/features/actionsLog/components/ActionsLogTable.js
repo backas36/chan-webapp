@@ -5,17 +5,20 @@ import {
   setFilters,
   setPage,
   setPageSize,
+  setRows,
   setSearch,
   setSort,
 } from "../services/actionLogSlice"
 import { useGetActionLogListQuery } from "../services/actionLogApiSlice"
 import useActionLogTableColumn from "../hook/useActionLogTableColumn"
 import BaseTable from "../../../components/Table/BaseTable"
+import { useEffect } from "react"
 
 const ActionsLogTable = () => {
   const dispatch = useDispatch()
+
   const logsTableConfig = useSelector(selectLogTableConfig)
-  const { page, pageSize, sort, search, filters } = logsTableConfig
+  const { page, pageSize, sort, search, filters, rows } = logsTableConfig
 
   const startIndex = page > 0 ? pageSize * page : 0
   const order = sort && `${sort.field}:${sort.sort}`
@@ -34,13 +37,19 @@ const ActionsLogTable = () => {
     q: search,
   })
 
-  const handleResetTable = () => {
-    dispatch(resetActionsTable())
+  useEffect(() => {
+    if (actionsLogData) {
+      dispatch(setRows(actionsLogData?.data || []))
+    }
+  }, [actionsLogData, dispatch])
+
+  const handleResetTable = (newRowModes) => {
+    dispatch(resetActionsTable(newRowModes))
     refetch()
   }
 
   const tableConfig = {
-    rows: actionsLogData?.data || [],
+    rows,
     columns: tableColumns,
     loading: isLoading,
     rowCount: actionsLogData?.totalLength || 0,
@@ -53,6 +62,7 @@ const ActionsLogTable = () => {
     handleFilterChange: (newFilters) => dispatch(setFilters(newFilters)),
     handleSearch: (value) => dispatch(setSearch(value)),
     handleResetTableConfig: handleResetTable,
+    setRows: (rows) => dispatch(setRows(rows)),
   }
   return <BaseTable tableConfig={tableConfig} />
 }

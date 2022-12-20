@@ -94,7 +94,7 @@ const UsersTable = () => {
     refetch()
   }
   const tableConfig = {
-    rows: rows,
+    rows,
     columns: tableColumns,
     loading: isLoading || updateLoading || createLoading,
     rowCount: usersData?.totalLength || 0,
