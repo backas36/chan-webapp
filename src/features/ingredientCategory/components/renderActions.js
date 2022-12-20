@@ -5,23 +5,22 @@ import { IconButton } from "@mui/material"
 import { Cancel, Loop, Delete, Edit, Save } from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
+import useToggle from "../../../hooks/useToggle"
+import ConfirmDialog from "../../../components/dialog/ConfirmDialog"
 import {
+  selectCurrentRows,
   selectRowModesModel,
-  selectSuppliersTableConfig,
   setRowModesModel,
   setRows,
-} from "../services/suppliersSlice"
-
-import useToggle from "../../../hooks/useToggle"
-import { useDeleteSupplierMutation } from "../services/suppliersApiSlice"
-import ConfirmDialog from "../../../components/dialog/ConfirmDialog"
+} from "../services/inCaSlice"
+import { useDeleteInCategoryMutation } from "../services/inCaApiSlice"
 
 const TableActions = React.memo((props) => {
   const { t } = useTranslation()
   const { row } = props
   const dispatch = useDispatch()
   const rowModesModel = useSelector(selectRowModesModel)
-  const currentRows = useSelector(selectSuppliersTableConfig).rows
+  const currentRows = useSelector(selectCurrentRows)
 
   const { visible, setToggleStatus } = useToggle(false)
 
@@ -29,7 +28,7 @@ const TableActions = React.memo((props) => {
   const isEditedMode = rowModesModel?.[id]?.mode === GridRowModes.Edit
 
   const [deleteSupplier, { isLoading: delLoading }] =
-    useDeleteSupplierMutation()
+    useDeleteInCategoryMutation()
 
   const handleSaveClick = () => {
     dispatch(
@@ -108,7 +107,7 @@ const TableActions = React.memo((props) => {
     </Box>
   )
 })
-const renderSuppliersActions = (params) => {
+const renderActions = (params) => {
   return <TableActions row={params.row} />
 }
-export default renderSuppliersActions
+export default renderActions

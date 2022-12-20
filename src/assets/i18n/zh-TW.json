@@ -118,5 +118,8 @@
   "location": "位置 / url",
   "createdAt": "建立時間",
   "delSupplierDesc": "確定刪除這個廠商嗎?",
-  "filterOperatorEquals": "等於"
+  "filterOperatorEquals": "等於",
+  "Ingredient Categories": "材料類別",
+  "manageInCategories": "材料類別管理",
+  "categoryName": "類別名"
 }

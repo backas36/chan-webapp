@@ -7,6 +7,7 @@ import Profile from "../pages/Shared/Profile"
 import ActionsLog from "../pages/Admin/ActionsLog"
 import NotFound from "../components/notify/NotFound"
 import Suppliers from "../pages/Admin/Suppliers"
+import IngredientCategories from "../pages/Admin/IngredientCategories"
 
 const AdminRoutes = () => {
   const routes = useRoutes([
@@ -29,6 +30,10 @@ const AdminRoutes = () => {
                 {
                   path: "actions-log",
                   element: <ActionsLog />,
+                },
+                {
+                  path: "ingredient-categories",
+                  element: <IngredientCategories />,
                 },
                 {
                   path: "suppliers",

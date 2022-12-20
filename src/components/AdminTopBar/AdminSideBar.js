@@ -1,4 +1,5 @@
 import {
+  Category,
   ChevronLeft,
   ChevronRight,
   Dashboard,
@@ -44,6 +45,11 @@ const AdminSideBar = () => {
         title: "Suppliers",
         icon: <Factory />,
         path: "suppliers",
+      },
+      {
+        title: "Ingredient Categories",
+        icon: <Category />,
+        path: "ingredient-categories",
       },
       {
         title: "actionsLog",
