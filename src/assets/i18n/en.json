@@ -123,5 +123,16 @@
   "manageInCategories": "Manage Ingredient Categories",
   "categoryName": "Name",
   "Product Categories": "Product Categories",
-  "managePoCategories": "Manage Product Categories"
+  "managePoCategories": "Manage Product Categories",
+  "Ingredient Inventory": "Ingredient Inventory",
+  "Purchases": "Purchases",
+  "Ingredients": "Ingredients",
+  "Recipe": "Recipe",
+  "Product Inventory": "Product Inventory",
+  "ManageProducts": "Manage Products",
+  "manageInInventory": "Manage Ingredient Inventory",
+  "manageRecipe": "Manage Recipe",
+  "managePoInventory": "Manage Product Inventory",
+  "manageIngredient": "Manage Ingredient",
+  "managePurchases": "Manage Purchases"
 }

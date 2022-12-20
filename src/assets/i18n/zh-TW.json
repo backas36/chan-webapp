@@ -123,5 +123,16 @@
   "manageInCategories": "材料類別管理",
   "categoryName": "類別名",
   "Product Categories": "產品類別",
-  "managePoCategories": "產品類別管理"
+  "managePoCategories": "產品類別管理",
+  "Ingredient Inventory": "材料庫存",
+  "Purchases": "進貨管理",
+  "Ingredients": "材料管理",
+  "Recipe": "食譜管理",
+  "Product Inventory": "產品庫存",
+  "ManageProducts": "產品管理",
+  "manageInInventory": "材料庫存管理",
+  "manageRecipe": "食譜管理",
+  "managePoInventory": "產品庫存管理",
+  "manageIngredient": "材料管理",
+  "managePurchases": "進貨管理"
 }

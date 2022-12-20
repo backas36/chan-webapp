@@ -1,12 +1,19 @@
 import {
+  AddBusiness,
+  BakeryDining,
+  Cake,
   Category,
   ChevronLeft,
   ChevronRight,
   Dashboard,
+  Egg,
   ExitToApp,
-  Factory,
+  Inventory,
   ListAlt,
+  MenuBook,
   PeopleAlt,
+  ReceiptLong,
+  ShoppingBag,
   Workspaces,
 } from "@mui/icons-material"
 import {
@@ -29,7 +36,7 @@ const AdminSideBar = () => {
   const isSideBarOpen = useSelector(selectIsSideBarOpen)
 
   const dispatch = useDispatch()
-
+  //products, ingredients, purchase, recipe, ingredient-inventory, product-inventory
   const list = useMemo(
     () => [
       {
@@ -44,13 +51,44 @@ const AdminSideBar = () => {
       },
       {
         title: "Suppliers",
-        icon: <Factory />,
+        icon: <AddBusiness />,
         path: "suppliers",
+      },
+
+      {
+        title: "Purchases",
+        icon: <ShoppingBag />,
+        path: "purchases",
+      },
+      {
+        title: "Ingredient Inventory",
+        icon: <ReceiptLong />,
+        path: "ingredient-inventory",
+      },
+      {
+        title: "Ingredients",
+        icon: <Egg />,
+        path: "ingredients",
       },
       {
         title: "Ingredient Categories",
         icon: <Category />,
         path: "ingredient-categories",
+      },
+      {
+        title: "Recipe",
+        icon: <MenuBook />,
+        path: "recipe",
+      },
+      {
+        title: "Product Inventory",
+        icon: <Inventory />,
+        path: "product-inventory",
+      },
+      {
+        title: "ManageProducts",
+        icon: <Cake />,
+        path: "manage-products",
       },
       {
         title: "Product Categories",
