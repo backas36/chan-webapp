@@ -1,10 +1,13 @@
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
 import BaseTable from "../../../components/Table/BaseTable"
+import { initUserVal } from "../../me/utils/initUserVal"
+import { validateAccount } from "../../me/utils/schema"
 import useUsersTableColumns from "../hooks/useUsersTableColumns"
 import {
   useGetAllUsersQuery,
   useUpdateUserMutation,
+  useAddUserMutation,
 } from "../services/usersApiSlice"
 import {
   resetUsersTable,
@@ -16,13 +19,15 @@ import {
   setRowModesModel,
   setSearch,
   setSort,
+  setRows,
 } from "../services/usersSlice"
 
 const UsersTable = () => {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const rowModesModel = useSelector(selectRowModesModel)
+
   const usersTableConfig = useSelector(selectUsersTableConfig)
-  const { page, pageSize, sort, search, filters } = usersTableConfig
+  const { page, pageSize, sort, search, filters, rows } = usersTableConfig
 
   const startIndex = page > 0 ? pageSize * page : 0
   const order = sort && `${sort.field}:${sort.sort}`
@@ -40,7 +45,14 @@ const UsersTable = () => {
     filters,
     q: search,
   })
+
+  useEffect(() => {
+    if (usersData) {
+      dispatch(setRows(usersData?.data || []))
+    }
+  }, [usersData, dispatch])
   const [updateUser, { isLoading: updateLoading }] = useUpdateUserMutation()
+  const [createUser, { isLoading: createLoading }] = useAddUserMutation()
 
   const handleUpdateUser = async (processRow) => {
     try {
@@ -50,15 +62,41 @@ const UsersTable = () => {
     }
   }
 
-  const handleResetTable = () => {
-    dispatch(resetUsersTable())
-    refetch()
+  const handleCreateHelper = {
+    handleCreateUser: async (processRow) => {
+      const newUser = {
+        name: processRow.name,
+        photoUrl: processRow.photoUrl,
+        email: processRow.email,
+        role: processRow.role,
+        status: processRow.status,
+        birthDate: processRow.birthDate,
+        mobile: processRow.mobile,
+        lineId: processRow.lineId,
+        address: processRow.address,
+      }
+      try {
+        const isValid = await validateAccount(newUser)
+        if (isValid) {
+          await createUser(newUser).unwrap()
+        }
+      } catch (err) {
+        return Promise.reject(err.errors)
+      }
+    },
+    initValue: initUserVal,
+    fieldToFocus: "name",
   }
 
+  const handleResetTable = (newRowModes) => {
+    dispatch(resetUsersTable(newRowModes))
+    refetch()
+  }
   const tableConfig = {
-    rows: usersData?.data || [],
+    rows: rows,
+    //tableSource: usersData?.data || [],
     columns: tableColumns,
-    loading: isLoading || updateLoading,
+    loading: isLoading || updateLoading || createLoading,
     rowCount: usersData?.totalLength || 0,
     rowsPerPageOptions: [15, 30, 45],
     page,
@@ -71,9 +109,10 @@ const UsersTable = () => {
     handleResetTableConfig: handleResetTable,
     onRowModesModelChange: (newModeModel) =>
       dispatch(setRowModesModel(newModeModel)),
-    rowModesModel: useSelector(selectRowModesModel),
+    rowModesModel,
     handleUpdate: handleUpdateUser,
-    handleCreate: () => navigate("/admin/create-user"),
+    handleCreate: handleCreateHelper,
+    setRows: (rows) => dispatch(setRows(rows)),
   }
 
   return <BaseTable tableConfig={tableConfig} />

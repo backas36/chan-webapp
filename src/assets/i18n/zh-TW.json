@@ -53,7 +53,7 @@
   "canLoginNow": "您可以登入了",
   "updatedSuccess": "更新成功",
   "createdSuccess": "新增成功",
-  "Users": "全部用戶",
+  "Users": "用戶管理",
   "recentlyActivities": "最新活動",
   "totalUsers": "用戶總數",
   "totalProducts": "產品總數",
@@ -110,6 +110,12 @@
   "errorOverlayDefaultLabel": "糟了！",
   "noResultsOverlayLabel": "目前尚未有資料",
   "activitySubject": "事件重點",
-  "Suppliers": "廠商",
-  "manageSuppliers": "廠商管理"
+  "Suppliers": "廠商管理",
+  "manageSuppliers": "廠商管理",
+  "supplierName": "廠商名",
+  "supplierType": "廠商類型",
+  "contact": "聯絡方式",
+  "location": "位置 / url",
+  "createdAt": "建立時間",
+  "delSupplierDesc": "確定刪除這個廠商嗎?"
 }

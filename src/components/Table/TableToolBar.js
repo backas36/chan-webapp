@@ -7,8 +7,10 @@ import {
   GridToolbarColumnsButton,
   GridToolbarFilterButton,
   useGridApiContext,
+  GridRowModes,
 } from "@mui/x-data-grid"
 import SearchBar from "../SearchBar/SearchBar"
+import { nanoid } from "@reduxjs/toolkit"
 
 const TableToolBar = (props) => {
   const { t } = useTranslation()
@@ -20,21 +22,41 @@ const TableToolBar = (props) => {
     handleResetTable,
     handleSearch,
     handleCreate,
+    onRowModesModelChange,
+    rowModesModel,
+    setRows,
   } = props
 
+  const handleAddClick = () => {
+    const id = nanoid()
+    setRows({ id, ...handleCreate.initValue, isNew: true })
+    onRowModesModelChange({
+      ...rowModesModel,
+      [id]: {
+        mode: GridRowModes.Edit,
+        fieldToFocus: handleCreate.fieldToFocus,
+        isNew: true,
+      },
+    })
+  }
   const resetTable = () => {
     setSearchInput("")
-
-    const currentState = apiRef?.current?.state
-
-    apiRef.current.setState({
-      ...currentState,
-      editRows: {},
+    const current = apiRef.current.exportState()
+    current.filter.filterModel.items = []
+    current.sorting.sortModel = []
+    current.editRows = {}
+    apiRef.current.restoreState(current)
+    const newRowModes = {}
+    Object.keys(rowModesModel).forEach((id) => {
+      if (rowModesModel[id].isNew) {
+        return
+      }
+      newRowModes[id] = {
+        mode: GridRowModes.View,
+        ignoreModifications: true,
+      }
     })
-    apiRef.current.setSortModel([])
-
-    apiRef.current.setFilterModel({ items: [] })
-    handleResetTable()
+    handleResetTable(newRowModes)
   }
 
   return (
@@ -58,7 +80,7 @@ const TableToolBar = (props) => {
               color="primary"
               variant="contained"
               startIcon={<Add />}
-              onClick={() => handleCreate()}
+              onClick={handleAddClick}
               sx={{ mr: 2, px: 1 }}
             >
               {t("create")}

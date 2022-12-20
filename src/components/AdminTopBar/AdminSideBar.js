@@ -41,14 +41,14 @@ const AdminSideBar = () => {
         path: "users",
       },
       {
-        title: "actionsLog",
-        icon: <ListAlt />,
-        path: "actions-log",
-      },
-      {
         title: "Suppliers",
         icon: <Factory />,
         path: "suppliers",
+      },
+      {
+        title: "actionsLog",
+        icon: <ListAlt />,
+        path: "actions-log",
       },
     ],
     []

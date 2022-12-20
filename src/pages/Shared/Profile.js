@@ -7,9 +7,9 @@ import PageTItle from "../../components/title/PageTItle"
 import { UserAvatar, UserProfileDetail } from "../../features/me"
 import useTitle from "../../hooks/useTitle"
 
-const Profile = ({ createByAdmin = false }) => {
+const Profile = () => {
   const { t } = useTranslation()
-  useTitle(createByAdmin ? t("createNewAccount") : t("Profile"))
+  useTitle(t("Profile"))
 
   const navigate = useNavigate()
 
@@ -24,9 +24,7 @@ const Profile = ({ createByAdmin = false }) => {
           justifyContent: "space-between",
         }}
       >
-        <PageTItle
-          title={createByAdmin ? t("createNewAccount") : t("manageProfile")}
-        />
+        <PageTItle title={t("manageProfile")} />
 
         <Button
           onClick={() => navigate(-1)}
@@ -36,8 +34,8 @@ const Profile = ({ createByAdmin = false }) => {
         </Button>
       </Box>
       <Grid container spacing={3}>
-        {!createByAdmin && <UserAvatar />}
-        <UserProfileDetail createByAdmin={createByAdmin} />
+        <UserAvatar />
+        <UserProfileDetail />
       </Grid>
     </Container>
   )

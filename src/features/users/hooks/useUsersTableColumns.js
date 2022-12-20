@@ -56,7 +56,7 @@ const useUsersTableColumns = () => {
               }}
             >
               {!params?.row?.photoUrl &&
-                params?.row?.name.charAt(0).toUpperCase()}
+                params?.row?.name?.charAt(0).toUpperCase()}
             </MAvatar>
           )
         },
@@ -79,6 +79,9 @@ const useUsersTableColumns = () => {
         width: 250,
         filterable: false,
         renderCell: renderCellExpand,
+        editable: isAllowedEdit,
+        preProcessEditCellProps: async (params) =>
+          preProcessCell(params, "email"),
       },
       {
         field: "role",
@@ -129,8 +132,9 @@ const useUsersTableColumns = () => {
           return birthDate ? formatDate(birthDate) : "-"
         },
         filterable: false,
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "birthDate"),
+        preProcessEditCellProps: async (params) => {
+          preProcessCell(params, "birthDate")
+        },
       },
       {
         field: "mobile",
@@ -191,7 +195,10 @@ const useUsersTableColumns = () => {
         headerName: t("userCreatedAt"),
         width: 150,
         filterable: false,
-        renderCell: (params) => formatDateTime(params?.row.createdAt),
+        renderCell: (params) => {
+          const createdAt = params.value
+          return createdAt ? formatDateTime(params?.row.createdAt) : "-"
+        },
       },
     ]
   }, [t, isAllowedEdit])

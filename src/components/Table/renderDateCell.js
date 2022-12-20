@@ -15,29 +15,30 @@ const TableDateCell = React.memo(({ params }) => {
       value: formatDate(newValue),
     })
   }
-
   return (
     <Component
-      value={value}
+      value={value ? value : ""}
       disableFuture={true}
       views={["year", "month", "day"]}
       disableMaskedInput={true}
       openTo="year"
       inputFormat="yyyy-MM-dd"
-      renderInput={({ inputRef, inputProps, InputProps, disabled, error }) => (
-        <InputBase
-          autoComplete="off"
-          onKeyDown={(e) => {
-            e.preventDefault()
-          }}
-          fullWidth
-          ref={inputRef}
-          {...InputProps}
-          disabled={disabled}
-          error={error}
-          inputProps={inputProps}
-        />
-      )}
+      renderInput={({ inputRef, inputProps, InputProps, disabled, error }) => {
+        return (
+          <InputBase
+            autoComplete="off"
+            onKeyDown={(e) => {
+              e.preventDefault()
+            }}
+            fullWidth
+            ref={inputRef}
+            {...InputProps}
+            disabled={disabled}
+            error={!!value && error}
+            inputProps={inputProps}
+          />
+        )
+      }}
       onChange={handleChange}
     />
   )

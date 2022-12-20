@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next"
+import SuppliersTable from "../../features/suppliers/components/SuppliersTable"
 import useTitle from "../../hooks/useTitle"
 import MainWrapper from "../../layout/MainWrapper"
 import PageWrapper from "../../layout/PageWrapper"
@@ -9,8 +10,7 @@ const Suppliers = () => {
   return (
     <MainWrapper>
       <PageWrapper title={t("manageSuppliers")}>
-        {/*<UsersTable />*/}
-        suppliers
+        <SuppliersTable />
       </PageWrapper>
     </MainWrapper>
   )

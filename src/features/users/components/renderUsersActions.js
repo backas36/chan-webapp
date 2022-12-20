@@ -13,7 +13,12 @@ import {
 import { customToast } from "../../../components/notify/NotifyToast"
 import { USER_STATUS } from "../../../utils/constants"
 import { useDispatch, useSelector } from "react-redux"
-import { selectRowModesModel, setRowModesModel } from "../services/usersSlice"
+import {
+  selectRowModesModel,
+  selectUsersTableConfig,
+  setRowModesModel,
+  setRows,
+} from "../services/usersSlice"
 import useToggle from "../../../hooks/useToggle"
 import ConfirmDialog from "../../../components/dialog/ConfirmDialog"
 
@@ -22,7 +27,8 @@ const TableActions = React.memo((props) => {
   const { row } = props
   const dispatch = useDispatch()
   const rowModesModel = useSelector(selectRowModesModel)
-
+  const currentRows = useSelector(selectUsersTableConfig).rows
+  const apiRef = useGridApiContext()
   const { multiViable: dialogOpen, handleSetMultiVisibility: setDialogOpen } =
     useToggle({
       sendDialog: false,
@@ -48,12 +54,18 @@ const TableActions = React.memo((props) => {
   }
 
   const handleCancelClick = () => {
-    dispatch(
-      setRowModesModel({
-        ...rowModesModel,
-        [id]: { mode: GridRowModes.View, ignoreModifications: true },
-      })
-    )
+    if (row?.isNew) {
+      dispatch(
+        setRows(currentRows.filter((currentRow) => currentRow.id !== row.id))
+      )
+    } else {
+      dispatch(
+        setRowModesModel({
+          ...rowModesModel,
+          [id]: { mode: GridRowModes.View, ignoreModifications: true },
+        })
+      )
+    }
   }
   const handleEditClick = () => {
     dispatch(
@@ -91,7 +103,7 @@ const TableActions = React.memo((props) => {
   } else {
     content = (
       <>
-        {row.status === USER_STATUS.temporary && (
+        {row.status === USER_STATUS.temporary && !row.isNew && (
           <ConfirmDialog
             open={dialogOpen.sendDialog}
             handleClose={() => setDialogOpen("sendDialog")}

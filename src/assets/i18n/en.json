@@ -109,5 +109,12 @@
   "noRowsLabel": "No Rows Found",
   "errorOverlayDefaultLabel": "Oops...",
   "noResultsOverlayLabel": "No data yet",
-  "activitySubject": "Subject"
+  "activitySubject": "Subject",
+  "Suppliers": "Suppliers",
+  "manageSuppliers": "Manage Suppliers",
+  "supplierName": "name",
+  "supplierType": "type",
+  "contact": "contact",
+  "location": "location / url",
+  "createdAt": "created at"
 }
