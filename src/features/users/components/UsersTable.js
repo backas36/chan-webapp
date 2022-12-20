@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import BaseTable from "../../../components/Table/BaseTable"
+import { USER_STATUS } from "../../../utils/constants"
 import { initUserVal } from "../../me/utils/initUserVal"
 import { validateAccount } from "../../me/utils/schema"
 import useUsersTableColumns from "../hooks/useUsersTableColumns"
@@ -94,7 +95,6 @@ const UsersTable = () => {
   }
   const tableConfig = {
     rows: rows,
-    //tableSource: usersData?.data || [],
     columns: tableColumns,
     loading: isLoading || updateLoading || createLoading,
     rowCount: usersData?.totalLength || 0,
@@ -113,6 +113,17 @@ const UsersTable = () => {
     handleUpdate: handleUpdateUser,
     handleCreate: handleCreateHelper,
     setRows: (rows) => dispatch(setRows(rows)),
+    isCellEditable: (params) => {
+      const { row, field, colDef, formattedValue } = params
+      if (
+        (field === "email" && !row.isNew) ||
+        (field === "status" && formattedValue === USER_STATUS.temporary)
+      ) {
+        return false
+      } else {
+        return colDef.editable()
+      }
+    },
   }
 
   return <BaseTable tableConfig={tableConfig} />
