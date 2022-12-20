@@ -41,11 +41,19 @@ const suppliersSlice = createSlice({
       state.rowModesModel = action.payload
     },
     setRows: (state, action) => {
-      if (action.payload?.isNew) {
-        state.rows.push(action.payload)
-      } else {
+      const { isNew, isCancelNew } = action.payload
+      if (!isNew && !isCancelNew) {
         state.rowModesModel = {}
         state.rows = action.payload
+        return
+      }
+      if (isNew) {
+        state.rows.push(action.payload)
+        return
+      }
+
+      if (isCancelNew) {
+        state.rows = action.payload.newRows
       }
     },
   },

@@ -36,11 +36,20 @@ const actionLogSlice = createSlice({
       state.search = action.payload
     },
     setRows: (state, action) => {
-      if (action.payload?.isNew) {
+      const { isNew, isCancelNew } = action.payload
+      if (!isNew && !isCancelNew) {
+        state.rowModesModel = {}
+        state.rows = action.payload
+        return
+      }
+      if (isNew) {
         state.rows.push(action.payload)
         return
       }
-      state.rows = action.payload
+
+      if (isCancelNew) {
+        state.rows = action.payload.newRows
+      }
     },
   },
 })

@@ -56,7 +56,10 @@ const TableActions = React.memo((props) => {
   const handleCancelClick = () => {
     if (row?.isNew) {
       dispatch(
-        setRows(currentRows.filter((currentRow) => currentRow.id !== row.id))
+        setRows({
+          isCancelNew: true,
+          newRows: currentRows.filter((currentRow) => currentRow.id !== row.id),
+        })
       )
     } else {
       dispatch(
