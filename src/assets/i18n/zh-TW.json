@@ -117,5 +117,6 @@
   "contact": "聯絡方式",
   "location": "位置 / url",
   "createdAt": "建立時間",
-  "delSupplierDesc": "確定刪除這個廠商嗎?"
+  "delSupplierDesc": "確定刪除這個廠商嗎?",
+  "filterOperatorEquals": "等於"
 }

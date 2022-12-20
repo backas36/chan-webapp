@@ -8,7 +8,9 @@ import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import {
   selectRowModesModel,
+  selectSuppliersTableConfig,
   setRowModesModel,
+  setRows,
 } from "../services/suppliersSlice"
 
 import useToggle from "../../../hooks/useToggle"
@@ -20,6 +22,7 @@ const TableActions = React.memo((props) => {
   const { row } = props
   const dispatch = useDispatch()
   const rowModesModel = useSelector(selectRowModesModel)
+  const currentRows = useSelector(selectSuppliersTableConfig).rows
 
   const { visible, setToggleStatus } = useToggle(false)
 
@@ -41,12 +44,18 @@ const TableActions = React.memo((props) => {
   }
 
   const handleCancelClick = () => {
-    dispatch(
-      setRowModesModel({
-        ...rowModesModel,
-        [id]: { mode: GridRowModes.View, ignoreModifications: true },
-      })
-    )
+    if (row?.isNew) {
+      dispatch(
+        setRows(currentRows.filter((currentRow) => currentRow.id !== row.id))
+      )
+    } else {
+      dispatch(
+        setRowModesModel({
+          ...rowModesModel,
+          [id]: { mode: GridRowModes.View, ignoreModifications: true },
+        })
+      )
+    }
   }
   const handleEditClick = () => {
     dispatch(

@@ -23,6 +23,7 @@ const useBaseTableConfig = () => {
       noRowsLabel: t("noRowsLabel"),
       errorOverlayDefaultLabel: t("errorOverlayDefaultLabel"),
       noResultsOverlayLabel: t("noResultsOverlayLabel"),
+      filterOperatorEquals: t("filterOperatorEquals"),
     }),
     [t]
   )

@@ -9,10 +9,10 @@ export const supplierApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: (result, error, arg) => {
         if (result?.success && result?.suppliers) {
-          const usersList = result.suppliers?.data
+          const suppliersList = result.suppliers?.data
           return [
             { type: "Suppliers", id: "LIST" },
-            ...usersList.map((id) => ({ type: "Suppliers", id })),
+            ...suppliersList.map((id) => ({ type: "Suppliers", id })),
           ]
         } else {
           return [{ type: "Suppliers", id: "LIST" }]

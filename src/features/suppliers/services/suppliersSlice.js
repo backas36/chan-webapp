@@ -7,6 +7,7 @@ const initialState = {
   search: "",
   filters: "",
   rowModesModel: {},
+  rows: [],
 }
 
 const suppliersSlice = createSlice({
@@ -14,7 +15,12 @@ const suppliersSlice = createSlice({
   initialState,
   reducers: {
     resetTable: (state, action) => {
-      return initialState
+      const currentRows = current(state).rows
+      return {
+        ...initialState,
+        rows: currentRows.filter((row) => !row?.isNew),
+        rowModesModel: action.payload,
+      }
     },
     setPage: (state, action) => {
       state.page = action.payload
@@ -34,6 +40,13 @@ const suppliersSlice = createSlice({
     setRowModesModel: (state, action) => {
       state.rowModesModel = action.payload
     },
+    setRows: (state, action) => {
+      if (action.payload?.isNew) {
+        state.rows.push(action.payload)
+        return
+      }
+      state.rows = action.payload
+    },
   },
 })
 
@@ -45,6 +58,7 @@ export const {
   setFilters,
   setSearch,
   setRowModesModel,
+  setRows,
 } = suppliersSlice.actions
 
 export default suppliersSlice.reducer

@@ -116,5 +116,7 @@
   "supplierType": "type",
   "contact": "contact",
   "location": "location / url",
-  "createdAt": "created at"
+  "createdAt": "created at",
+  "delSupplierDesc": "Are you sure you want to delete this supplier?",
+  "filterOperatorEquals": "equals"
 }
