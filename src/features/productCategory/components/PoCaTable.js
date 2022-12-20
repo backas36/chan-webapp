@@ -35,13 +35,16 @@ const PoCaTable = () => {
     data: poCateData,
     isLoading,
     refetch,
-  } = useGetAllPoCategoriesQuery({
-    n: pageSize,
-    s: startIndex,
-    order,
-    filters,
-    q: search,
-  })
+  } = useGetAllPoCategoriesQuery(
+    {
+      n: pageSize,
+      s: startIndex,
+      order,
+      filters,
+      q: search,
+    },
+    { refetchOnMountOrArgChange: true }
+  )
   const [updatePoCategory, { isLoading: updateLoading }] =
     useUpdatePoCategoryMutation()
   const [addPoCategory, { isLoading: createLoading }] =

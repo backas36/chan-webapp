@@ -37,7 +37,7 @@ export const supplierApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...supplierData },
       }),
-      invalidatesTags: [{ type: "Suppliers", id: "LIST" }],
+      //invalidatesTags: [{ type: "Suppliers", id: "LIST" }],
     }),
     updateSupplier: builder.mutation({
       query: ({ id, ...supplierData }) => ({

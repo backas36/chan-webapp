@@ -35,13 +35,16 @@ const InCaTable = () => {
     data: inCaData,
     isLoading,
     refetch,
-  } = useGetAllInCategoriesQuery({
-    n: pageSize,
-    s: startIndex,
-    order,
-    filters,
-    q: search,
-  })
+  } = useGetAllInCategoriesQuery(
+    {
+      n: pageSize,
+      s: startIndex,
+      order,
+      filters,
+      q: search,
+    },
+    { refetchOnMountOrArgChange: true }
+  )
   const [updateInCategory, { isLoading: updateLoading }] =
     useUpdateInCategoryMutation()
   const [addInCategory, { isLoading: createLoading }] =

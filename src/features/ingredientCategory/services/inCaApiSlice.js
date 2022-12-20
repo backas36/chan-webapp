@@ -37,7 +37,7 @@ export const inCaApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...data },
       }),
-      invalidatesTags: [{ type: "InCategories", id: "LIST" }],
+      //invalidatesTags: [{ type: "InCategories", id: "LIST" }],
     }),
     updateInCategory: builder.mutation({
       query: ({ id, ...data }) => ({

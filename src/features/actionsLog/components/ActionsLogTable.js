@@ -29,13 +29,16 @@ const ActionsLogTable = () => {
     data: actionsLogData,
     isLoading,
     refetch,
-  } = useGetActionLogListQuery({
-    n: pageSize,
-    s: startIndex,
-    order,
-    filters,
-    q: search,
-  })
+  } = useGetActionLogListQuery(
+    {
+      n: pageSize,
+      s: startIndex,
+      order,
+      filters,
+      q: search,
+    },
+    { refetchOnMountOrArgChange: true }
+  )
 
   useEffect(() => {
     if (actionsLogData) {

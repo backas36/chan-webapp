@@ -37,7 +37,7 @@ export const poCaApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...data },
       }),
-      invalidatesTags: [{ type: "PoCategories", id: "LIST" }],
+      //invalidatesTags: [{ type: "PoCategories", id: "LIST" }],
     }),
     updatePoCategory: builder.mutation({
       query: ({ id, ...data }) => ({

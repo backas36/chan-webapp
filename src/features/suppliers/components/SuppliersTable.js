@@ -36,13 +36,16 @@ const SuppliersTable = () => {
     data: suppliersData,
     isLoading,
     refetch,
-  } = useGetAllSuppliersQuery({
-    n: pageSize,
-    s: startIndex,
-    order,
-    filters,
-    q: search,
-  })
+  } = useGetAllSuppliersQuery(
+    {
+      n: pageSize,
+      s: startIndex,
+      order,
+      filters,
+      q: search,
+    },
+    { refetchOnMountOrArgChange: true }
+  )
 
   useEffect(() => {
     if (suppliersData) {

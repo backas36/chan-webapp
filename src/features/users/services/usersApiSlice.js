@@ -1,4 +1,5 @@
 import { apiSlice } from "../../../services/api/apiSlice"
+
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllUsers: builder.query({
@@ -36,7 +37,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...userData },
       }),
-      invalidatesTags: [{ type: "Users", id: "LIST" }],
+      //invalidatesTags: [{ type: "Users", id: "LIST" }],
     }),
     updateUser: builder.mutation({
       query: ({ id, ...userData }) => ({

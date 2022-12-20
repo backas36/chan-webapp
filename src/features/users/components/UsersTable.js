@@ -39,13 +39,16 @@ const UsersTable = () => {
     data: usersData,
     isLoading,
     refetch,
-  } = useGetAllUsersQuery({
-    n: pageSize,
-    s: startIndex,
-    order,
-    filters,
-    q: search,
-  })
+  } = useGetAllUsersQuery(
+    {
+      n: pageSize,
+      s: startIndex,
+      order,
+      filters,
+      q: search,
+    },
+    { refetchOnMountOrArgChange: true }
+  )
 
   useEffect(() => {
     if (usersData) {
