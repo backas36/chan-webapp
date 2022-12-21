@@ -10,7 +10,7 @@ import {
   GridRowModes,
 } from "@mui/x-data-grid"
 import SearchBar from "../SearchBar/SearchBar"
-import { nanoid } from "@reduxjs/toolkit"
+import { v4 as uuidv4 } from "uuid"
 
 const TableToolBar = (props) => {
   const { t } = useTranslation()
@@ -28,7 +28,7 @@ const TableToolBar = (props) => {
   } = props
 
   const handleAddClick = () => {
-    const id = nanoid()
+    const id = uuidv4()
     setRows({ id, ...handleCreate.initValue, isNew: true })
     onRowModesModelChange({
       ...rowModesModel,

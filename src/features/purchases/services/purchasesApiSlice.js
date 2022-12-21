@@ -60,7 +60,7 @@ export const purchasesApiSlice = apiSlice.injectEndpoints({
         url: `/purchase/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "Purchases", id: "LIST" }],
+      //invalidatesTags: [{ type: "Purchases", id: "LIST" }],
     }),
   }),
 })

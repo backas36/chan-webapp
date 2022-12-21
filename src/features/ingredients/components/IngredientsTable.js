@@ -52,7 +52,7 @@ const IngredientsTable = () => {
 
   useEffect(() => {
     if (ingredientData) {
-      dispatch(setRows(ingredientData.data || []))
+      dispatch(setRows({ isFirst: true, newRows: ingredientData.data } || []))
     }
   }, [dispatch, ingredientData])
 

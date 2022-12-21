@@ -62,7 +62,7 @@ export const inCaApiSlice = apiSlice.injectEndpoints({
         url: `/ingredient-category/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "InCategories", id: "LIST" }],
+      //invalidatesTags: [{ type: "InCategories", id: "LIST" }],
     }),
   }),
 })

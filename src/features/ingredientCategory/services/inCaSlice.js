@@ -41,20 +41,16 @@ const inCategoriesSlice = createSlice({
       state.rowModesModel = action.payload
     },
     setRows: (state, action) => {
-      const { isNew, isCancelNew } = action.payload
-      if (!isNew && !isCancelNew) {
-        state.rowModesModel = {}
-        state.rows = action.payload
-        return
-      }
-      if (isNew) {
+      if (action.payload.isNew) {
         state.rows.push(action.payload)
         return
       }
-
-      if (isCancelNew) {
+      if (action.payload.isFirst) {
+        state.rowModesModel = {}
         state.rows = action.payload.newRows
+        return
       }
+      state.rows = action.payload
     },
   },
 })

@@ -38,24 +38,21 @@ const TableActions = React.memo((props) => {
   }
 
   const handleDeleteClick = async () => {
-    setToggleStatus(true)
+    setToggleStatus(false)
+    dispatch(setRows(currentRows.filter((row) => row.id !== id)))
     await deleteSupplier(id)
   }
 
   const handleCancelClick = () => {
+    dispatch(
+      setRowModesModel({
+        ...rowModesModel,
+        [id]: { mode: GridRowModes.View, ignoreModifications: true },
+      })
+    )
     if (row?.isNew) {
       dispatch(
-        setRows({
-          isCancelNew: true,
-          newRows: currentRows.filter((currentRow) => currentRow.id !== row.id),
-        })
-      )
-    } else {
-      dispatch(
-        setRowModesModel({
-          ...rowModesModel,
-          [id]: { mode: GridRowModes.View, ignoreModifications: true },
-        })
+        setRows(currentRows.filter((currentRow) => currentRow.id !== id))
       )
     }
   }

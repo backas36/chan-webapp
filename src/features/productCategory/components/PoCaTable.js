@@ -52,7 +52,7 @@ const PoCaTable = () => {
 
   useEffect(() => {
     if (poCateData) {
-      dispatch(setRows(poCateData.data || []))
+      dispatch(setRows({ isFirst: true, newRows: poCateData.data } || []))
     }
   }, [dispatch, poCateData])
 

@@ -52,7 +52,7 @@ const InCaTable = () => {
 
   useEffect(() => {
     if (inCaData) {
-      dispatch(setRows(inCaData.data || []))
+      dispatch(setRows({ isFirst: true, newRows: inCaData.data } || []))
     }
   }, [dispatch, inCaData])
 

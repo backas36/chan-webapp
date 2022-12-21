@@ -32,6 +32,7 @@ export const initVal = {
 
 export const formatData = (processData) => {
   return {
+    id: processData.id,
     name: processData.name,
     category: processData.category, // category name
     unit: processData.unit,

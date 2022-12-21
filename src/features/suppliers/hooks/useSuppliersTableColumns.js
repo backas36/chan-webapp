@@ -10,7 +10,7 @@ import { getAllowRoles } from "../../../utils/constants"
 import { formatDateTime } from "../../../utils/dateTimeManger"
 import { selectCurrentUser } from "../../me"
 import renderSuppliersActions from "../components/renderSuppliersActions"
-import { validateOneInSupplier } from "../utils/schema"
+import { validateOneInSupplier } from "../utils"
 
 const preProcessCell = async (params, validateField) => {
   const { props } = params

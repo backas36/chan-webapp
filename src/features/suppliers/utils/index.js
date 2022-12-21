@@ -17,3 +17,20 @@ export const validateOneInSupplier = (field, value) => {
 export const validateSupplier = (inputData) => {
   return supplierSchema().validate(inputData, { abortEarly: false })
 }
+
+export const initVal = {
+  name: "",
+  type: "",
+  contact: "",
+  location: "",
+}
+
+export const formatData = (processData) => {
+  return {
+    id: processData.id,
+    name: processData.name,
+    type: processData.type,
+    contact: processData.contact,
+    location: processData.location,
+  }
+}

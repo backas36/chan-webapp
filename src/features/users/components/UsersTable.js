@@ -22,6 +22,7 @@ import {
   setSort,
   setRows,
 } from "../services/usersSlice"
+import { formateData } from "../utils"
 
 const UsersTable = () => {
   const dispatch = useDispatch()
@@ -52,7 +53,7 @@ const UsersTable = () => {
 
   useEffect(() => {
     if (usersData) {
-      dispatch(setRows(usersData?.data))
+      dispatch(setRows({ isFirst: true, newRows: usersData?.data } || []))
     }
   }, [usersData, dispatch])
   const [updateUser, { isLoading: updateLoading }] = useUpdateUserMutation()
@@ -68,21 +69,10 @@ const UsersTable = () => {
 
   const handleCreateHelper = {
     handleCreateUser: async (processRow) => {
-      const newUser = {
-        name: processRow.name,
-        photoUrl: processRow.photoUrl,
-        email: processRow.email,
-        role: processRow.role,
-        status: processRow.status,
-        birthDate: processRow.birthDate,
-        mobile: processRow.mobile,
-        lineId: processRow.lineId,
-        address: processRow.address,
-      }
       try {
-        const isValid = await validateAccount(newUser)
+        const isValid = await validateAccount(formateData(processRow))
         if (isValid) {
-          await createUser(newUser).unwrap()
+          await createUser(formateData(processRow)).unwrap()
         }
       } catch (err) {
         return Promise.reject(err.errors)

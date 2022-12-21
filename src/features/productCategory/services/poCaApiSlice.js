@@ -62,7 +62,7 @@ export const poCaApiSlice = apiSlice.injectEndpoints({
         url: `/products-category/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "PoCategories", id: "LIST" }],
+      //invalidatesTags: [{ type: "PoCategories", id: "LIST" }],
     }),
   }),
 })

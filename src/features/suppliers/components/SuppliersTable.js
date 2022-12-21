@@ -19,8 +19,7 @@ import {
   setSearch,
   setSort,
 } from "../services/suppliersSlice"
-import { initSupplierVal } from "../utils/initSupplierVal"
-import { validateSupplier } from "../utils/schema"
+import { formatData, initVal, validateSupplier } from "../utils"
 
 const SuppliersTable = () => {
   const dispatch = useDispatch()
@@ -49,7 +48,7 @@ const SuppliersTable = () => {
 
   useEffect(() => {
     if (suppliersData) {
-      dispatch(setRows(suppliersData.data || []))
+      dispatch(setRows({ isFirst: true, newRows: suppliersData.data } || []))
     }
   }, [suppliersData, dispatch])
 
@@ -67,22 +66,16 @@ const SuppliersTable = () => {
   }
   const handleCreateHelper = {
     handleCreateUser: async (processRow) => {
-      const newSupplier = {
-        name: processRow.name,
-        type: processRow.type,
-        contact: processRow.contact,
-        location: processRow.location,
-      }
       try {
-        const isValid = await validateSupplier(newSupplier)
+        const isValid = await validateSupplier(formatData(processRow))
         if (isValid) {
-          await createSupplier(newSupplier).unwrap()
+          await createSupplier(formatData(processRow)).unwrap()
         }
       } catch (err) {
         return Promise.reject(err.errors)
       }
     },
-    initValue: initSupplierVal,
+    initValue: initVal,
     fieldToFocus: "name",
   }
   const handleResetTable = (newRowModes) => {

@@ -60,7 +60,7 @@ export const ingredientApiSlice = apiSlice.injectEndpoints({
         url: `/ingredients/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "Ingredients", id: "LIST" }],
+      //invalidatesTags: (result, error, { id }) => [{ type: "Ingredients", id }],
     }),
   }),
 })

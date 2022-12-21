@@ -63,7 +63,7 @@ export const supplierApiSlice = apiSlice.injectEndpoints({
         url: `/supplier/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "Suppliers", id: "LIST" }],
+      //invalidatesTags: [{ type: "Suppliers", id: "LIST" }],
     }),
   }),
 })
