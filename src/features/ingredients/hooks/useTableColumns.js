@@ -69,7 +69,7 @@ const useTableColumns = () => {
           (operator) => operator.value === "is"
         ),
         preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "name"),
+          preProcessCell(params, "category"),
         type: "singleSelect",
         valueOptions: inCaData?.data && inCaData?.data.map((inCa) => inCa.name),
       },
@@ -84,7 +84,7 @@ const useTableColumns = () => {
           (operator) => operator.value === "equals"
         ),
         preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "name"),
+          preProcessCell(params, "brand"),
       },
       {
         field: "unit",
@@ -99,12 +99,12 @@ const useTableColumns = () => {
           (operator) => operator.value === "="
         ),
         preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "name"),
+          preProcessCell(params, "unit"),
       },
       {
         field: "size",
         headerName: t("size"),
-        width: 80,
+        width: 100,
         editable: isAllowedEdit,
         filterable: true,
         renderCell: renderCellExpand,
@@ -112,7 +112,7 @@ const useTableColumns = () => {
           (operator) => operator.value === "equals"
         ),
         preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "name"),
+          preProcessCell(params, "size"),
       },
       {
         field: "sku",
@@ -125,7 +125,7 @@ const useTableColumns = () => {
           (operator) => operator.value === "equals"
         ),
         preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "name"),
+          preProcessCell(params, "sku"),
       },
       {
         field: "description",

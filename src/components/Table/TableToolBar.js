@@ -68,6 +68,7 @@ const TableToolBar = (props) => {
           display: "flex",
           justifyContent: "space-between",
           padding: "8px 4px",
+          mb: "8px",
         }}
       >
         <Box

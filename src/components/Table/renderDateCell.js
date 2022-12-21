@@ -4,7 +4,7 @@ import { DatePicker, DateTimePicker } from "@mui/x-date-pickers"
 import { formatDate } from "../../utils/dateTimeManger"
 import React from "react"
 
-const TableDateCell = React.memo(({ params }) => {
+const TableDateCell = React.memo(({ params, disabledFuture = true }) => {
   const { id, field, value, colDef } = params
   const apiRef = useGridApiContext()
   const Component = colDef.type === "dateTime" ? DateTimePicker : DatePicker
@@ -18,7 +18,7 @@ const TableDateCell = React.memo(({ params }) => {
   return (
     <Component
       value={value ? value : ""}
-      disableFuture={true}
+      disableFuture={disabledFuture}
       views={["year", "month", "day"]}
       disableMaskedInput={true}
       openTo="year"
@@ -43,5 +43,7 @@ const TableDateCell = React.memo(({ params }) => {
     />
   )
 })
-const renderDateCell = (params) => <TableDateCell params={params} />
+const renderDateCell = (params, disabledFuture) => {
+  return <TableDateCell params={params} disabledFuture={disabledFuture} />
+}
 export default renderDateCell
