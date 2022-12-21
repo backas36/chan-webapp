@@ -15,7 +15,13 @@ const RequireAdminAuth = () => {
   )
 
   useEffect(() => {
-    dispatch(apiSlice.util.prefetch("getAllUsers", { n: 1 }, { force: true }))
+    dispatch(
+      apiSlice.util.prefetch(
+        "getAllUsers",
+        { n: 15, s: 0, order: "", filters: "", q: "" },
+        { force: true }
+      )
+    )
     dispatch(
       apiSlice.util.prefetch("getActionLogList", { n: 10 }, { force: true })
     )

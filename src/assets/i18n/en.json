@@ -134,5 +134,10 @@
   "manageRecipe": "Manage Recipe",
   "managePoInventory": "Manage Product Inventory",
   "manageIngredient": "Manage Ingredient",
-  "managePurchases": "Manage Purchases"
+  "ingredientName": "name",
+  "brand": "brand",
+  "unit": "unit",
+  "size": "size",
+  "sku": "sku",
+  "description": "description"
 }

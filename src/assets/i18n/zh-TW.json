@@ -134,5 +134,11 @@
   "manageRecipe": "食譜管理",
   "managePoInventory": "產品庫存管理",
   "manageIngredient": "材料管理",
-  "managePurchases": "進貨管理"
+  "managePurchases": "進貨管理",
+  "ingredientName": "材料名",
+  "brand": "品牌",
+  "unit": "單位",
+  "size": "單位名",
+  "sku": "庫存單位",
+  "description": "描述"
 }

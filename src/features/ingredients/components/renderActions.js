@@ -6,14 +6,15 @@ import { Cancel, Loop, Delete, Edit, Save } from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import useToggle from "../../../hooks/useToggle"
+import ConfirmDialog from "../../../components/dialog/ConfirmDialog"
+
 import {
   selectCurrentRows,
   selectRowModesModel,
   setRowModesModel,
   setRows,
-} from "../services/poCaSlice"
-import { useDeletePoCategoryMutation } from "../services/poCaApiSlice"
-import ConfirmDialog from "../../../components/dialog/ConfirmDialog"
+} from "../services/ingredientSlice"
+import { useDeleteIngredientMutation } from "../services/ingredientApiSlice"
 
 const TableActions = React.memo((props) => {
   const { t } = useTranslation()
@@ -27,8 +28,8 @@ const TableActions = React.memo((props) => {
   const { id } = row
   const isEditedMode = rowModesModel?.[id]?.mode === GridRowModes.Edit
 
-  const [deletePoCategory, { isLoading: delLoading }] =
-    useDeletePoCategoryMutation()
+  const [deleteSupplier, { isLoading: delLoading }] =
+    useDeleteIngredientMutation()
 
   const handleSaveClick = () => {
     dispatch(
@@ -38,7 +39,7 @@ const TableActions = React.memo((props) => {
 
   const handleDeleteClick = async () => {
     setToggleStatus(true)
-    await deletePoCategory(id)
+    await deleteSupplier(id)
   }
 
   const handleCancelClick = () => {
