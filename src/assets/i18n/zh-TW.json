@@ -140,5 +140,8 @@
   "unit": "單位",
   "size": "單位名",
   "sku": "庫存單位",
-  "description": "描述"
+  "description": "描述",
+  "help": "尋求幫助",
+  "info": "幫助訊息",
+  "categoryNameHelpDesc": "如果你想輸入的類別名沒有在清單上，你應該要先去類別管理頁面新增一個!"
 }

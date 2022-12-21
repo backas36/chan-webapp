@@ -139,5 +139,8 @@
   "unit": "unit",
   "size": "size",
   "sku": "sku",
-  "description": "description"
+  "description": "description",
+  "help": "Help",
+  "info": "Info",
+  "categoryNameHelpDesc": "If you cannot find the category name you want to upload, you can go to category page to create new one first."
 }
