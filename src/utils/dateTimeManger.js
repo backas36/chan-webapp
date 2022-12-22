@@ -22,3 +22,5 @@ export const formatISODate = (value, representation) =>
   formatISO(new Date(value), {
     representation,
   })
+
+export const getToday = (value) => format(new Date(), "yyyy-MM-dd")

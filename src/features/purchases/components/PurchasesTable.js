@@ -56,6 +56,8 @@ const PurchasesTable = () => {
   }, [dispatch, purchasesData])
 
   const handleUpdate = async (processRow) => {
+    console.log("🐑 ~ processRow", processRow)
+
     try {
       return await updatePurchase(formatData(processRow)).unwrap()
     } catch (err) {

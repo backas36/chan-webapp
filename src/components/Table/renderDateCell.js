@@ -20,6 +20,7 @@ const TableDateCell = React.memo(({ params, disabledFuture = true }) => {
     <Component
       value={value ? value : ""}
       disableFuture={disabledFuture}
+      disablePast={!disabledFuture}
       views={["year", "month", "day"]}
       disableMaskedInput={true}
       openTo="year"
@@ -28,6 +29,7 @@ const TableDateCell = React.memo(({ params, disabledFuture = true }) => {
         return (
           <InputBase
             autoComplete="off"
+            sx={{ paddingRight: "50px" }}
             onKeyDown={(e) => {
               e.preventDefault()
             }}

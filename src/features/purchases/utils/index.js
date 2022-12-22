@@ -5,7 +5,7 @@ export const purchaseSchema = () => {
     supplierId: Yup.string().uuid("idInvalid").required("idRequired"),
     ingredientId: Yup.string().uuid("idInvalid").required("idRequired"),
     quantity: Yup.number().required("quantityRequired").positive(),
-    unitPrice: Yup.number().required("unitRequired").positive(),
+    unitPrice: Yup.number().required("unitPrice").positive(),
     purchasePrice: Yup.number().required("purchasePrice").positive(),
     purchaseDate: Yup.date("dateValid").required("dateRequired"),
     ingredientExpDate: Yup.date("dateValid").nullable().notRequired(),
@@ -26,7 +26,6 @@ export const initVal = {
   ingredientId: "",
   quantity: null,
   purchaseDate: null,
-  unit: null,
   purchasePrice: null,
 }
 
@@ -36,9 +35,11 @@ export const formatData = (processData) => {
     supplierId: processData.supplierId,
     ingredientId: processData.ingredientId,
     quantity: processData.quantity,
-    unitPrice: processData.unitPrice,
+    unitPrice: Math.ceil(processData.purchasePrice / processData.quantity),
     purchasePrice: processData.purchasePrice,
     purchaseDate: processData.purchaseDate,
     ingredientExpDate: processData.ingredientExpDate,
   }
 }
+
+//quantity, purchaseDate, unitPrice, purchasePrice,supplierId, ingredientId

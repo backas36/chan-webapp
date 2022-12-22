@@ -14,7 +14,13 @@ export const TableBox = styled(Box)(({ theme }) => {
       outline: "none !important",
     },
     "& .must-input--header": {
-      background: "rgb(211, 202, 187,0.5)",
+      background: "rgb(211, 202, 187,0.3)",
+    },
+    "& .MuiDataGrid-row--editing .default-value--cell.MuiDataGrid-cell": {
+      background:
+        theme.palette.mode === "dark"
+          ? "rgb(211, 202, 187,0.3)"
+          : theme.palette.grey["A100"],
     },
   }
 })
