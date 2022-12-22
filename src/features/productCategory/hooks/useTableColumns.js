@@ -47,8 +47,7 @@ const useTableColumns = () => {
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "name"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "name"),
       },
 
       {

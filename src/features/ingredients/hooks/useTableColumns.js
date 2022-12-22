@@ -55,8 +55,7 @@ const useTableColumns = () => {
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "name"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "name"),
       },
       {
         field: "category",
@@ -68,8 +67,7 @@ const useTableColumns = () => {
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "category"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "category"),
         type: "singleSelect",
         valueOptions: inCaData?.data && inCaData?.data.map((inCa) => inCa.name),
       },
@@ -83,8 +81,7 @@ const useTableColumns = () => {
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "brand"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "brand"),
       },
       {
         field: "unit",
@@ -98,8 +95,7 @@ const useTableColumns = () => {
         filterOperators: getGridNumericOperators().filter(
           (operator) => operator.value === "="
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "unit"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "unit"),
       },
       {
         field: "size",
@@ -111,8 +107,7 @@ const useTableColumns = () => {
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "size"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "size"),
       },
       {
         field: "sku",
@@ -124,8 +119,7 @@ const useTableColumns = () => {
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "sku"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "sku"),
       },
       {
         field: "description",

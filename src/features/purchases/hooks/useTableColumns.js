@@ -66,8 +66,7 @@ const useTableColumns = () => {
         filterOperators: getGridNumericOperators().filter(
           (operator) => operator.value === "="
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "quantity"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "quantity"),
         headerClassName: "must-input--header",
       },
       {
@@ -82,7 +81,7 @@ const useTableColumns = () => {
         filterOperators: getGridNumericOperators().filter(
           (operator) => operator.value === "="
         ),
-        preProcessEditCellProps: async (params) =>
+        preProcessEditCellProps: (params) =>
           preProcessCell(params, "unitPrice"),
         headerClassName: "must-input--header",
         valueGetter: (params) =>
@@ -100,7 +99,7 @@ const useTableColumns = () => {
         filterOperators: getGridNumericOperators().filter(
           (operator) => operator.value === "="
         ),
-        preProcessEditCellProps: async (params) =>
+        preProcessEditCellProps: (params) =>
           preProcessCell(params, "purchasePrice"),
         headerClassName: "must-input--header",
       },
@@ -117,9 +116,8 @@ const useTableColumns = () => {
           return purchaseDate ? formatDate(purchaseDate) : "-"
         },
         filterable: false,
-        preProcessEditCellProps: async (params) => {
-          preProcessCell(params, "purchaseDate")
-        },
+        preProcessEditCellProps: (params) =>
+          preProcessCell(params, "purchaseDate"),
         headerClassName: "must-input--header",
       },
       {
@@ -147,7 +145,7 @@ const useTableColumns = () => {
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
-        preProcessEditCellProps: async (params) =>
+        preProcessEditCellProps: (params) =>
           preProcessCell(params, "supplierName"),
       },
       {
@@ -160,7 +158,7 @@ const useTableColumns = () => {
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
         ),
-        preProcessEditCellProps: async (params) =>
+        preProcessEditCellProps: (params) =>
           preProcessCell(params, "supplierType"),
         type: "singleSelect",
         valueOptions:
@@ -177,7 +175,7 @@ const useTableColumns = () => {
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
-        preProcessEditCellProps: async (params) =>
+        preProcessEditCellProps: (params) =>
           preProcessCell(params, "ingredientName"),
         cellClassName: "default-value--cell",
       },
@@ -191,8 +189,7 @@ const useTableColumns = () => {
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "name"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "name"),
         type: "singleSelect",
         valueOptions: inCaData?.data && inCaData?.data.map((inCa) => inCa.name),
         cellClassName: "default-value--cell",
@@ -207,7 +204,7 @@ const useTableColumns = () => {
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
-        preProcessEditCellProps: async (params) =>
+        preProcessEditCellProps: (params) =>
           preProcessCell(params, "ingredientBrand"),
         cellClassName: "default-value--cell",
       },

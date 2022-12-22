@@ -70,8 +70,7 @@ const useUsersTableColumns = () => {
         editable: isAllowedEdit,
         filterable: false,
         renderCell: renderCellExpand,
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "name"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "name"),
       },
       {
         field: "email",
@@ -80,8 +79,7 @@ const useUsersTableColumns = () => {
         filterable: false,
         renderCell: renderCellExpand,
         editable: isAllowedEdit,
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "email"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "email"),
       },
       {
         field: "role",
@@ -98,8 +96,7 @@ const useUsersTableColumns = () => {
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "role"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "role"),
       },
       {
         field: "status",
@@ -116,8 +113,7 @@ const useUsersTableColumns = () => {
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "status"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "status"),
       },
       {
         field: "birthDate",
@@ -132,8 +128,8 @@ const useUsersTableColumns = () => {
           return birthDate ? formatDate(birthDate) : "-"
         },
         filterable: false,
-        preProcessEditCellProps: async (params) => {
-          preProcessCell(params, "birthDate")
+        preProcessEditCellProps: (params) => {
+          return preProcessCell(params, "birthDate")
         },
       },
       {
@@ -143,7 +139,7 @@ const useUsersTableColumns = () => {
         editable: isAllowedEdit,
         filterable: false,
         renderCell: renderCellExpand,
-        preProcessEditCellProps: async (params) =>
+        preProcessEditCellProps: (params) =>
           params.props?.value?.length > 0 && preProcessCell(params, "mobile"),
       },
       {
@@ -161,8 +157,7 @@ const useUsersTableColumns = () => {
         editable: isAllowedEdit,
         filterable: false,
         renderCell: renderCellExpand,
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "address"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "address"),
       },
       {
         field: "identityType",

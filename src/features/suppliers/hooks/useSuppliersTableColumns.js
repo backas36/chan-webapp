@@ -45,8 +45,7 @@ const useSuppliersTableColumns = () => {
         editable: isAllowedEdit,
         filterable: true,
         renderCell: renderCellExpand,
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "name"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "name"),
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
@@ -61,8 +60,7 @@ const useSuppliersTableColumns = () => {
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
         ),
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "type"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "type"),
       },
       {
         field: "contact",
@@ -71,8 +69,7 @@ const useSuppliersTableColumns = () => {
         editable: isAllowedEdit,
         filterable: true,
         renderCell: renderCellExpand,
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "contact"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "contact"),
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
@@ -84,8 +81,7 @@ const useSuppliersTableColumns = () => {
         filterable: true,
         renderCell: renderCellExpand,
         editable: isAllowedEdit,
-        preProcessEditCellProps: async (params) =>
-          preProcessCell(params, "location"),
+        preProcessEditCellProps: (params) => preProcessCell(params, "location"),
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
