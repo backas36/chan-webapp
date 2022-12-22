@@ -6,6 +6,7 @@ import React from "react"
 
 const TableDateCell = React.memo(({ params, disabledFuture = true }) => {
   const { id, field, value, colDef } = params
+
   const apiRef = useGridApiContext()
   const Component = colDef.type === "dateTime" ? DateTimePicker : DatePicker
   const handleChange = (newValue) => {
@@ -43,6 +44,7 @@ const TableDateCell = React.memo(({ params, disabledFuture = true }) => {
     />
   )
 })
+
 const renderDateCell = (params, disabledFuture) => {
   return <TableDateCell params={params} disabledFuture={disabledFuture} />
 }

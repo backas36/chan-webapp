@@ -42,31 +42,3 @@ export const formatData = (processData) => {
     description: processData.description,
   }
 }
-/**
- *    {
-                "id": "684932b2-7ade-40e4-a9dd-dacb956452a4",
-                "quantity": 10,
-                "unitPrice": 180,
-                "purchasePrice": 1800,
-                "purchaseDate": "2022-12-17T00:00:00.000Z",
-                "ingredientExpDate": "2022-12-30T00:00:00.000Z",
-                "supplierName": "Aimee",
-                "supplierType": "shopee", 
-                "location": "https://shopee.tw/shop/15984217/search?shopCollection=28122818", (x)
-                "supplierContact": "bakery123", (x)
-                "ingredientId": "7c522fc6-8a57-496f-a902-a6b66b22cab5",
-                "ingredientName": "whole milk",
-                "ingredientBrand": "dairygood",
-                "ingredientUnit": 1200,
-                "ingredientSize": "ml",
-                "ingredientSku": "jug",
-                "ingredientDesc": "not good for bakery", (x)
-                "categoryName": "milk",
-                "createdByName": "Ashi",
-                "createdAt": "2022-12-21T07:47:40.339Z",
-                "updatedAt": "2022-12-21T07:47:40.339Z"
-            }
- */
-//quantity, purchaseDate, unitPrice, purchasePrice,supplierName, supplierType
-//quantity,unitPrice,purchaseDate,ingredientExpDate,purchasePrice,createByName
-// supplierName,  supplierType, ingredientName,ingredientBrand, ingredientUnit,ingredientBrand,categoryName

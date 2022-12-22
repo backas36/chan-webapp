@@ -61,10 +61,10 @@ const BaseTable = (props) => {
       } else {
         await handleUpdate(processRow)
       }
+
       setRows(rows.map((row) => (row.id === processRow.id ? updatedRow : row)))
       return updatedRow
     } catch (err) {
-      console.log(err)
       return Promise.reject(err)
     }
   }
