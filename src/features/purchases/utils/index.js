@@ -2,13 +2,13 @@ import * as Yup from "yup"
 
 export const purchaseSchema = () => {
   let schema = {
-    quantity: Yup.number().required("quantityRequired").positive(),
+    supplierId: Yup.string().uuid("idInvalid").required("idRequired"),
     ingredientId: Yup.string().uuid("idInvalid").required("idRequired"),
-    purchaseDate: Yup.date("dateValid").nullable().required("dateRequired"),
+    quantity: Yup.number().required("quantityRequired").positive(),
     unitPrice: Yup.number().required("unitRequired").positive(),
     purchasePrice: Yup.number().required("purchasePrice").positive(),
-    supplierName: Yup.string().required("supplierName"),
-    supplierType: Yup.string().required("typeRequired"),
+    purchaseDate: Yup.date("dateValid").required("dateRequired"),
+    ingredientExpDate: Yup.date("dateValid").nullable().notRequired(),
   }
   return Yup.object().shape(schema)
 }
@@ -22,25 +22,23 @@ export const validatePurchase = (inputData) => {
 }
 
 export const initVal = {
+  supplierId: "",
+  ingredientId: "",
   quantity: null,
   purchaseDate: null,
   unit: null,
-  unitPrice: null,
   purchasePrice: null,
-  supplierName: "",
-  supplierType: "",
 }
 
 export const formatData = (processData) => {
   return {
     id: processData.id,
-    quantity: processData.quantity,
+    supplierId: processData.supplierId,
     ingredientId: processData.ingredientId,
-    purchaseDate: processData.purchaseDate,
-    unit: processData.unit,
+    quantity: processData.quantity,
     unitPrice: processData.unitPrice,
     purchasePrice: processData.purchasePrice,
-    supplierName: processData.supplierName,
-    supplierType: processData.supplierType,
+    purchaseDate: processData.purchaseDate,
+    ingredientExpDate: processData.ingredientExpDate,
   }
 }

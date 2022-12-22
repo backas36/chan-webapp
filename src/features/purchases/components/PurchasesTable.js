@@ -57,7 +57,7 @@ const PurchasesTable = () => {
 
   const handleUpdate = async (processRow) => {
     try {
-      return await updatePurchase(processRow).unwrap()
+      return await updatePurchase(formatData(processRow)).unwrap()
     } catch (err) {
       return Promise.reject(false)
     }
@@ -75,7 +75,7 @@ const PurchasesTable = () => {
       }
     },
     initValue: initVal,
-    fieldToFocus: "name",
+    fieldToFocus: "supplierId",
   }
 
   const handleResetTable = (newRowModes) => {

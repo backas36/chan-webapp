@@ -11,10 +11,12 @@ import { selectCurrentUser } from "../../me"
 import { getAllowRoles } from "../../../utils/constants"
 import { formatDate, formatDateTime } from "../../../utils/dateTimeManger"
 import { validateField } from "../utils"
-import { useGetAllInCategoriesQuery } from "../../ingredientCategory"
+
 import renderDateCell from "../../../components/Table/renderDateCell"
 import renderActions from "../components/renderActions"
-import { useGetAllSuppliersQuery } from "../../suppliers"
+import { useGetAllSuppliersQuery, useGetSupplier } from "../../suppliers"
+import renderReadOnlyCell from "../../../components/Table/renderReadOnlyCell"
+import { useGetAllIngredientsQuery, useGetIngredient } from "../../ingredients"
 
 const preProcessCell = async (params, field) => {
   const { props } = params
@@ -29,19 +31,72 @@ const useTableColumns = () => {
   const { t } = useTranslation()
   const currentUser = useSelector(selectCurrentUser)
 
-  const { data: inCaData } = useGetAllInCategoriesQuery(null, {
-    refetchOnMountOrArgChange: true,
-  })
-  const { data: suppliersData } = useGetAllSuppliersQuery(null, {
+  const { data: ingredientsData } = useGetAllIngredientsQuery(null, {
     refetchOnMountOrArgChange: true,
   })
 
+  const { data: suppliersData } = useGetAllSuppliersQuery(null, {
+    refetchOnMountOrArgChange: true,
+  })
+  const suppliers = suppliersData?.data
+  const ingredients = ingredientsData?.data
   const isAllowedEdit = useCallback(
     () => getAllowRoles(true, true).includes(currentUser?.role),
     [currentUser?.role]
   )
+
   const tableColumns = useMemo(() => {
     let columns = [
+      {
+        field: "supplierId",
+        headerName: t("supplierName"),
+        width: 150,
+        editable: true,
+        type: "singleSelect",
+        valueOptions:
+          suppliers &&
+          suppliers.map((supplier) => ({
+            label: supplier.name,
+            value: supplier.id,
+          })),
+        valueGetter: ({ value }) => {
+          if (!value) {
+            return suppliers && suppliers[0].id
+          }
+          return (
+            suppliers &&
+            suppliers.find((supplier) => supplier.id === value).name
+          )
+        },
+        headerClassName: "must-input--header",
+        preProcessEditCellProps: (params) =>
+          preProcessCell(params, "supplierId"),
+      },
+      {
+        field: "ingredientId",
+        headerName: t("ingredientName"),
+        width: 150,
+        editable: true,
+        type: "singleSelect",
+        valueOptions:
+          ingredients &&
+          ingredients.map((ingredient) => ({
+            label: ingredient.name,
+            value: ingredient.id,
+          })),
+        valueGetter: ({ value }) => {
+          if (!value) {
+            return ingredients && ingredients[0].id
+          }
+          return (
+            ingredients &&
+            ingredients.find((ingredient) => ingredient.id === value).name
+          )
+        },
+        headerClassName: "must-input--header",
+        preProcessEditCellProps: (params) =>
+          preProcessCell(params, "ingredientId"),
+      },
       {
         field: "quantity",
         headerName: t("purchaseQuantity"),
@@ -54,27 +109,12 @@ const useTableColumns = () => {
         filterOperators: getGridNumericOperators().filter(
           (operator) => operator.value === "="
         ),
-        preProcessEditCellProps: (params) => preProcessCell(params, "quantity"),
+        preProcessEditCellProps: (params) => {
+          return preProcessCell(params, "quantity")
+        },
         headerClassName: "must-input--header",
       },
-      {
-        field: "unitPrice",
-        headerName: t("unitPrice"),
-        width: 80,
-        type: "number",
-        headerAlign: "left",
-        editable: true,
-        filterable: true,
-        renderCell: renderCellExpand,
-        filterOperators: getGridNumericOperators().filter(
-          (operator) => operator.value === "="
-        ),
-        preProcessEditCellProps: (params) =>
-          preProcessCell(params, "unitPrice"),
-        headerClassName: "must-input--header",
-        valueGetter: (params) =>
-          Math.ceil(params.row.purchasePrice / params.row.quantity),
-      },
+
       {
         field: "purchasePrice",
         headerName: t("purchasePrice"),
@@ -90,6 +130,37 @@ const useTableColumns = () => {
         preProcessEditCellProps: (params) =>
           preProcessCell(params, "purchasePrice"),
         headerClassName: "must-input--header",
+      },
+      {
+        field: "purchaseUnitPrice",
+        headerName: t("unitPrice"),
+        width: 80,
+        type: "number",
+        headerAlign: "left",
+        editable: false,
+        filterable: true,
+        renderCell: renderCellExpand,
+        filterOperators: getGridNumericOperators().filter(
+          (operator) => operator.value === "="
+        ),
+        headerClassName: "must-input--header",
+        preProcessEditCellProps: (params) => {
+          return preProcessCell(params, "unitPrice")
+        },
+        valueGetter: (params) => {
+          const { id } = params.row
+          let purchasePrice = 0
+          let quantity = 0
+          if (params.api.state?.editRows?.[id]) {
+            purchasePrice =
+              params.api.state?.editRows?.[id].purchasePrice?.value || 0
+            quantity = params.api.state?.editRows?.[id].quantity?.value || 1
+          } else {
+            purchasePrice = params.row.purchasePrice
+            quantity = params.row.quantity
+          }
+          return Math.ceil(purchasePrice / quantity)
+        },
       },
       {
         field: "purchaseDate",
@@ -108,6 +179,7 @@ const useTableColumns = () => {
           preProcessCell(params, "purchaseDate"),
         headerClassName: "must-input--header",
       },
+
       {
         field: "ingredientExpDate",
         headerName: t("ingredientExpDate"),
@@ -121,121 +193,78 @@ const useTableColumns = () => {
           return ingredientExpDate ? formatDate(ingredientExpDate) : "-"
         },
         filterable: false,
+        preProcessEditCellProps: (params) =>
+          preProcessCell(params, "ingredientExpDate"),
         headerClassName: "must-input--header",
       },
       {
-        field: "supplierName",
-        headerName: t("supplierName"),
-        width: 150,
-        editable: false,
-        filterable: true,
-        renderCell: renderCellExpand,
-        filterOperators: getGridStringOperators().filter(
-          (operator) => operator.value === "equals"
-        ),
-        preProcessEditCellProps: (params) =>
-          preProcessCell(params, "supplierName"),
-      },
-      {
-        field: "supplierType",
-        headerName: t("supplierType"),
-        width: 120,
-        editable: false,
-        filterable: true,
-        renderCell: renderCellExpand,
-        filterOperators: getGridSingleSelectOperators().filter(
-          (operator) => operator.value === "is"
-        ),
-        preProcessEditCellProps: (params) =>
-          preProcessCell(params, "supplierType"),
-        type: "singleSelect",
-        valueOptions:
-          suppliersData?.data &&
-          suppliersData?.data.map((supplier) => supplier.name),
-      },
-      {
-        field: "ingredientName",
-        headerName: t("ingredientName"),
-        width: 180,
-        editable: false,
-        filterable: true,
-        renderCell: renderCellExpand,
-        filterOperators: getGridStringOperators().filter(
-          (operator) => operator.value === "equals"
-        ),
-        preProcessEditCellProps: (params) =>
-          preProcessCell(params, "ingredientName"),
-        cellClassName: "default-value--cell",
-      },
-      {
-        field: "categoryName",
-        headerName: t("categoryName"),
-        width: 120,
-        editable: false,
-        filterable: true,
-        renderCell: renderCellExpand,
-        filterOperators: getGridSingleSelectOperators().filter(
-          (operator) => operator.value === "is"
-        ),
-        preProcessEditCellProps: (params) => preProcessCell(params, "name"),
-        type: "singleSelect",
-        valueOptions: inCaData?.data && inCaData?.data.map((inCa) => inCa.name),
-        cellClassName: "default-value--cell",
-      },
-      {
-        field: "ingredientBrand",
+        field: "brand",
         headerName: t("brand"),
         width: 120,
         editable: false,
         filterable: true,
-        renderCell: renderCellExpand,
+        renderCell: (params) =>
+          renderReadOnlyCell(params, useGetIngredient, "ingredientId"),
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
-        preProcessEditCellProps: (params) =>
-          preProcessCell(params, "ingredientBrand"),
         cellClassName: "default-value--cell",
       },
-
       {
-        field: "ingredientUnit",
+        field: "unit",
         headerName: t("unit"),
         width: 80,
         type: "number",
         headerAlign: "left",
         editable: false,
         filterable: true,
-        renderCell: renderCellExpand,
+        renderCell: (params) =>
+          renderReadOnlyCell(params, useGetIngredient, "ingredientId"),
         filterOperators: getGridNumericOperators().filter(
           (operator) => operator.value === "="
         ),
         cellClassName: "default-value--cell",
       },
       {
-        field: "ingredientSize",
+        field: "size",
         headerName: t("size"),
         width: 80,
-        editable: true,
+        editable: false,
         filterable: true,
-        renderCell: renderCellExpand,
+        renderCell: (params) =>
+          renderReadOnlyCell(params, useGetIngredient, "ingredientId"),
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
         cellClassName: "default-value--cell",
       },
       {
-        field: "ingredientSku",
+        field: "sku",
         headerName: t("sku"),
         width: 100,
         editable: false,
         filterable: true,
-        renderCell: renderCellExpand,
+        renderCell: (params) =>
+          renderReadOnlyCell(params, useGetIngredient, "ingredientId"),
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
         ),
         cellClassName: "default-value--cell",
       },
-
+      {
+        field: "type",
+        headerName: t("supplierType"),
+        width: 120,
+        editable: false,
+        filterable: true,
+        renderCell: (params) =>
+          renderReadOnlyCell(params, useGetSupplier, "supplierId"),
+        filterOperators: getGridSingleSelectOperators().filter(
+          (operator) => operator.value === "is"
+        ),
+        type: "singleSelect",
+        valueOptions: suppliers && suppliers.map((supplier) => supplier.name),
+      },
       {
         field: "createdByName",
         headerName: t("createdByName"),
@@ -247,12 +276,19 @@ const useTableColumns = () => {
           (operator) => operator.value === "equals"
         ),
         cellClassName: "default-value--cell",
+        valueGetter: (params) => {
+          if (!params.value) {
+            return currentUser.name
+          }
+          return params.value
+        },
       },
       {
         field: "createdAt",
         headerName: t("createdAt"),
         width: 150,
         filterable: false,
+        type: "dateTime",
         renderCell: (params) => {
           const createdAt = params.value
           return createdAt ? formatDateTime(params?.row.createdAt) : "-"
@@ -265,14 +301,14 @@ const useTableColumns = () => {
           {
             field: "actions",
             headerName: t("actions"),
-            width: 130,
+            width: 100,
             type: "actions",
             renderCell: (params) => renderActions(params),
           },
           ...columns,
         ]
       : columns
-  }, [t, isAllowedEdit, inCaData, suppliersData])
+  }, [t, isAllowedEdit, currentUser, ingredients, suppliers])
   return tableColumns
 }
 export default useTableColumns

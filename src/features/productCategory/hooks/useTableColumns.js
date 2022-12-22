@@ -59,7 +59,7 @@ const useTableColumns = () => {
           {
             field: "actions",
             headerName: t("actions"),
-            width: 130,
+            width: 100,
             type: "actions",
             renderCell: (params) => renderActions(params),
           },

@@ -39,13 +39,6 @@ const useTableColumns = () => {
   const tableColumns = useMemo(() => {
     let columns = [
       {
-        field: "actions",
-        headerName: t("actions"),
-        width: 100,
-        type: "actions",
-        renderCell: (params) => renderActions(params),
-      },
-      {
         field: "name",
         headerName: t("ingredientName"),
         width: 180,
@@ -149,7 +142,7 @@ const useTableColumns = () => {
           {
             field: "actions",
             headerName: t("actions"),
-            width: 130,
+            width: 100,
             type: "actions",
             renderCell: (params) => renderActions(params),
           },
