@@ -35,32 +35,20 @@ const useTableColumns = () => {
   const { data: suppliersData } = useGetAllSuppliersQuery(null, {
     refetchOnMountOrArgChange: true,
   })
-  //const createEndPointSelector = (cacheKey) => {
-  //  return selectorForCacheKey = () => {
-  //    return
-  //  }
-  //}
 
   const isAllowedEdit = useCallback(
     () => getAllowRoles(true, true).includes(currentUser?.role),
     [currentUser?.role]
   )
   const tableColumns = useMemo(() => {
-    return [
-      {
-        field: "actions",
-        headerName: t("actions"),
-        width: 100,
-        type: "actions",
-        renderCell: (params) => renderActions(params),
-      },
+    let columns = [
       {
         field: "quantity",
         headerName: t("purchaseQuantity"),
         width: 100,
         type: "number",
         headerAlign: "left",
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridNumericOperators().filter(
@@ -75,7 +63,7 @@ const useTableColumns = () => {
         width: 80,
         type: "number",
         headerAlign: "left",
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridNumericOperators().filter(
@@ -93,7 +81,7 @@ const useTableColumns = () => {
         width: 100,
         type: "number",
         headerAlign: "left",
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridNumericOperators().filter(
@@ -107,7 +95,7 @@ const useTableColumns = () => {
         field: "purchaseDate",
         headerName: t("purchaseDate"),
         width: 170,
-        editable: isAllowedEdit,
+        editable: true,
         resizable: false,
         type: "date",
         renderEditCell: renderDateCell,
@@ -124,7 +112,7 @@ const useTableColumns = () => {
         field: "ingredientExpDate",
         headerName: t("ingredientExpDate"),
         width: 170,
-        editable: isAllowedEdit,
+        editable: true,
         resizable: false,
         type: "date",
         renderEditCell: (params) => renderDateCell(params, false),
@@ -227,7 +215,7 @@ const useTableColumns = () => {
         field: "ingredientSize",
         headerName: t("size"),
         width: 80,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridStringOperators().filter(
@@ -252,7 +240,7 @@ const useTableColumns = () => {
         field: "createdByName",
         headerName: t("createdByName"),
         width: 120,
-        editable: isAllowedEdit, //TODO
+        editable: true, //TODO
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridStringOperators().filter(
@@ -272,6 +260,18 @@ const useTableColumns = () => {
         cellClassName: "default-value--cell",
       },
     ]
+    return isAllowedEdit()
+      ? [
+          {
+            field: "actions",
+            headerName: t("actions"),
+            width: 130,
+            type: "actions",
+            renderCell: (params) => renderActions(params),
+          },
+          ...columns,
+        ]
+      : columns
   }, [t, isAllowedEdit, inCaData, suppliersData])
   return tableColumns
 }

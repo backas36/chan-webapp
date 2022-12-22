@@ -1,7 +1,7 @@
 import { Add, RestartAlt } from "@mui/icons-material"
 import { Box, Button } from "@mui/material"
 import { useTranslation } from "react-i18next"
-
+import { useSelector } from "react-redux"
 import {
   GridToolbarContainer,
   GridToolbarColumnsButton,
@@ -10,11 +10,21 @@ import {
   GridRowModes,
 } from "@mui/x-data-grid"
 import SearchBar from "../SearchBar/SearchBar"
+
 import { v4 as uuidv4 } from "uuid"
+import { useCallback } from "react"
+import { getAllowRoles } from "../../utils/constants"
+import { selectCurrentUser } from "../../features/me"
 
 const TableToolBar = (props) => {
   const { t } = useTranslation()
   const apiRef = useGridApiContext()
+  const currentUser = useSelector(selectCurrentUser)
+
+  const isAllowedEdit = useCallback(
+    () => getAllowRoles(true, true).includes(currentUser?.role),
+    [currentUser?.role]
+  )
 
   const {
     searchInput,
@@ -77,7 +87,7 @@ const TableToolBar = (props) => {
             justifyContent: "flex-start",
           }}
         >
-          {!!handleCreate && (
+          {!!handleCreate && isAllowedEdit() && (
             <Button
               color="primary"
               variant="contained"

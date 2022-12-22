@@ -28,19 +28,12 @@ const useInCaTableColumns = () => {
     [currentUser?.role]
   )
   const tableColumns = useMemo(() => {
-    return [
-      {
-        field: "actions",
-        headerName: t("actions"),
-        width: 100,
-        type: "actions",
-        renderCell: (params) => renderActions(params),
-      },
+    let columns = [
       {
         field: "name",
         headerName: t("categoryName"),
         width: 180,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridStringOperators().filter(
@@ -60,6 +53,18 @@ const useInCaTableColumns = () => {
         },
       },
     ]
+    return isAllowedEdit()
+      ? [
+          {
+            field: "actions",
+            headerName: t("actions"),
+            width: 100,
+            type: "actions",
+            renderCell: (params) => renderActions(params),
+          },
+          ...columns,
+        ]
+      : columns
   }, [t, isAllowedEdit])
   return tableColumns
 }

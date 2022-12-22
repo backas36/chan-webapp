@@ -114,7 +114,7 @@ const UsersTable = () => {
       ) {
         return false
       } else {
-        return colDef.editable()
+        return colDef.editable
       }
     },
   }

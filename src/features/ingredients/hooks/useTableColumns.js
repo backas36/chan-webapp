@@ -37,7 +37,7 @@ const useTableColumns = () => {
   )
 
   const tableColumns = useMemo(() => {
-    return [
+    let columns = [
       {
         field: "actions",
         headerName: t("actions"),
@@ -49,7 +49,7 @@ const useTableColumns = () => {
         field: "name",
         headerName: t("ingredientName"),
         width: 180,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridStringOperators().filter(
@@ -61,7 +61,7 @@ const useTableColumns = () => {
         field: "category",
         headerName: t("categoryName"),
         width: 150,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridSingleSelectOperators().filter(
@@ -75,7 +75,7 @@ const useTableColumns = () => {
         field: "brand",
         headerName: t("brand"),
         width: 150,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridStringOperators().filter(
@@ -89,7 +89,7 @@ const useTableColumns = () => {
         width: 80,
         type: "number",
         headerAlign: "left",
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridNumericOperators().filter(
@@ -101,7 +101,7 @@ const useTableColumns = () => {
         field: "size",
         headerName: t("size"),
         width: 100,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridStringOperators().filter(
@@ -113,7 +113,7 @@ const useTableColumns = () => {
         field: "sku",
         headerName: t("sku"),
         width: 100,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         filterOperators: getGridStringOperators().filter(
@@ -125,7 +125,7 @@ const useTableColumns = () => {
         field: "description",
         headerName: t("description"),
         width: 200,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: false,
         renderCell: renderCellExpand,
         filterOperators: getGridStringOperators().filter(
@@ -144,6 +144,18 @@ const useTableColumns = () => {
         },
       },
     ]
+    return isAllowedEdit()
+      ? [
+          {
+            field: "actions",
+            headerName: t("actions"),
+            width: 130,
+            type: "actions",
+            renderCell: (params) => renderActions(params),
+          },
+          ...columns,
+        ]
+      : columns
   }, [t, isAllowedEdit, inCaData])
   return tableColumns
 }

@@ -35,14 +35,7 @@ const useUsersTableColumns = () => {
   )
 
   const tableColumns = useMemo(() => {
-    return [
-      {
-        field: "actions",
-        headerName: t("actions"),
-        width: 130,
-        type: "actions",
-        renderCell: (params) => renderUsersActions(params),
-      },
+    let columns = [
       {
         field: "photoUrl",
         headerName: t("avatar"),
@@ -67,7 +60,7 @@ const useUsersTableColumns = () => {
         field: "name",
         headerName: t("name"),
         width: 150,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: false,
         renderCell: renderCellExpand,
         preProcessEditCellProps: (params) => preProcessCell(params, "name"),
@@ -78,7 +71,7 @@ const useUsersTableColumns = () => {
         width: 250,
         filterable: false,
         renderCell: renderCellExpand,
-        editable: isAllowedEdit,
+        editable: true,
         preProcessEditCellProps: (params) => preProcessCell(params, "email"),
       },
       {
@@ -92,7 +85,7 @@ const useUsersTableColumns = () => {
         }),
         width: 120,
         type: "singleSelect",
-        editable: isAllowedEdit,
+        editable: true,
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
         ),
@@ -109,7 +102,7 @@ const useUsersTableColumns = () => {
             value,
           }
         }),
-        editable: isAllowedEdit,
+        editable: true,
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
         ),
@@ -119,7 +112,7 @@ const useUsersTableColumns = () => {
         field: "birthDate",
         headerName: t("dob"),
         width: 170,
-        editable: isAllowedEdit,
+        editable: true,
         resizable: false,
         type: "date",
         renderEditCell: renderDateCell,
@@ -136,7 +129,7 @@ const useUsersTableColumns = () => {
         field: "mobile",
         headerName: t("mobile"),
         width: 170,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: false,
         renderCell: renderCellExpand,
         preProcessEditCellProps: (params) =>
@@ -146,7 +139,7 @@ const useUsersTableColumns = () => {
         field: "lineId",
         headerName: t("lineId"),
         width: 170,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: false,
         renderCell: renderCellExpand,
       },
@@ -154,7 +147,7 @@ const useUsersTableColumns = () => {
         field: "address",
         headerName: t("address"),
         width: 170,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: false,
         renderCell: renderCellExpand,
         preProcessEditCellProps: (params) => preProcessCell(params, "address"),
@@ -196,8 +189,20 @@ const useUsersTableColumns = () => {
         },
       },
     ]
-  }, [t, isAllowedEdit])
 
+    return isAllowedEdit()
+      ? [
+          {
+            field: "actions",
+            headerName: t("actions"),
+            width: 130,
+            type: "actions",
+            renderCell: (params) => renderUsersActions(params),
+          },
+          ...columns,
+        ]
+      : columns
+  }, [t, isAllowedEdit])
   return tableColumns
 }
 export default useUsersTableColumns

@@ -30,19 +30,12 @@ const useSuppliersTableColumns = () => {
     [currentUser?.role]
   )
   const tableColumns = useMemo(() => {
-    return [
-      {
-        field: "actions",
-        headerName: t("actions"),
-        width: 100,
-        type: "actions",
-        renderCell: (params) => renderSuppliersActions(params),
-      },
+    let columns = [
       {
         field: "name",
         headerName: t("supplierName"),
         width: 180,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         preProcessEditCellProps: (params) => preProcessCell(params, "name"),
@@ -56,7 +49,7 @@ const useSuppliersTableColumns = () => {
         valueOptions: ["online", "on site", "shopee", "FB", "others"],
         width: 150,
         type: "singleSelect",
-        editable: isAllowedEdit,
+        editable: true,
         filterOperators: getGridSingleSelectOperators().filter(
           (operator) => operator.value === "is"
         ),
@@ -66,7 +59,7 @@ const useSuppliersTableColumns = () => {
         field: "contact",
         headerName: t("contact"),
         width: 200,
-        editable: isAllowedEdit,
+        editable: true,
         filterable: true,
         renderCell: renderCellExpand,
         preProcessEditCellProps: (params) => preProcessCell(params, "contact"),
@@ -80,7 +73,7 @@ const useSuppliersTableColumns = () => {
         width: 300,
         filterable: true,
         renderCell: renderCellExpand,
-        editable: isAllowedEdit,
+        editable: true,
         preProcessEditCellProps: (params) => preProcessCell(params, "location"),
         filterOperators: getGridStringOperators().filter(
           (operator) => operator.value === "equals"
@@ -97,6 +90,18 @@ const useSuppliersTableColumns = () => {
         },
       },
     ]
+    return isAllowedEdit()
+      ? [
+          {
+            field: "actions",
+            headerName: t("actions"),
+            width: 100,
+            type: "actions",
+            renderCell: (params) => renderSuppliersActions(params),
+          },
+          ...columns,
+        ]
+      : columns
   }, [t, isAllowedEdit])
 
   return tableColumns
