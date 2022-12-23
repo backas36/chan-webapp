@@ -154,5 +154,6 @@
   "ingredientBrand": "Brand",
   "variant": "Variant",
   "fixedPrice": "Fixed Price",
-  "deleteItem": "Are you sure you want to delete this item?"
+  "deleteItem": "Are you sure you want to delete this item?",
+  "ingredientNameHelpDesc": "If you cannot find the supplier name / ingredient name which you want to upload, you can go to the pages to create new one first."
 }
