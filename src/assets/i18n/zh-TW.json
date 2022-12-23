@@ -150,6 +150,6 @@
   "purchaseDate": "進貨日期",
   "ingredientExpDate": "材料到期日",
   "createdByName": "建檔人",
-  "supplierTitle": "供應商名 - [類型]",
-  "ingredientTitle": "類別 - 廠牌 - 品名 - 單位 - 單位名稱"
+  "supplierTitle": "供應商名 - 類型",
+  "ingredientTitle": "類別 - 廠牌 - 品名 - 單位 - 單位名稱 - 庫存單位"
 }

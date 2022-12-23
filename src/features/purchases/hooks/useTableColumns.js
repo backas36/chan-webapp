@@ -97,14 +97,15 @@ const useTableColumns = () => {
             {
               field: "ingredientId",
               headerName: t("ingredientTitle"),
-              width: 300,
+              width: 350,
               editable: true,
               type: "singleSelect",
               valueOptions: ingredients.map((ingredient) => {
-                const { id, name, category, unit, size, brand } = ingredient
+                const { id, name, category, unit, size, brand, sku } =
+                  ingredient
                 return {
                   label: `${category} -  ${brand} - ${name} -
-                    ${unit}${size}`,
+                    ${unit}${size} - ${sku}`,
                   value: id,
                 }
               }),
@@ -156,7 +157,7 @@ const useTableColumns = () => {
             {
               field: "purchasePrice",
               headerName: t("purchasePrice"),
-              width: 100,
+              width: 120,
               type: "number",
               headerAlign: "left",
               editable: true,
@@ -239,76 +240,6 @@ const useTableColumns = () => {
               preProcessEditCellProps: (params) =>
                 preProcessCell(params, "ingredientExpDate"),
               headerClassName: "must-input--header",
-            },
-            {
-              field: "brand",
-              headerName: t("brand"),
-              width: 120,
-              editable: false,
-              filterable: true,
-              renderCell: (params) =>
-                renderReadOnlyCell(params, useGetIngredient, "ingredientId"),
-              filterOperators: getGridStringOperators().filter(
-                (operator) => operator.value === "equals"
-              ),
-              cellClassName: "default-value--cell",
-            },
-            {
-              field: "unit",
-              headerName: t("unit"),
-              width: 100,
-              type: "number",
-              headerAlign: "left",
-              editable: false,
-              filterable: true,
-              renderCell: (params) =>
-                renderReadOnlyCell(params, useGetIngredient, "ingredientId"),
-              filterOperators: getGridNumericOperators().filter(
-                (operator) => operator.value === "="
-              ),
-              cellClassName: "default-value--cell",
-            },
-            {
-              field: "size",
-              headerName: t("size"),
-              width: 100,
-              editable: false,
-              filterable: true,
-              renderCell: (params) =>
-                renderReadOnlyCell(params, useGetIngredient, "ingredientId"),
-              filterOperators: getGridStringOperators().filter(
-                (operator) => operator.value === "equals"
-              ),
-              cellClassName: "default-value--cell",
-            },
-            {
-              field: "sku",
-              headerName: t("sku"),
-              width: 100,
-              editable: false,
-              filterable: true,
-              renderCell: (params) =>
-                renderReadOnlyCell(params, useGetIngredient, "ingredientId"),
-              filterOperators: getGridStringOperators().filter(
-                (operator) => operator.value === "equals"
-              ),
-              cellClassName: "default-value--cell",
-            },
-            {
-              field: "type",
-              headerName: t("supplierType"),
-              width: 120,
-              editable: false,
-              filterable: true,
-              renderCell: (params) =>
-                renderReadOnlyCell(params, useGetSupplier, "supplierId"),
-              filterOperators: getGridSingleSelectOperators().filter(
-                (operator) => operator.value === "is"
-              ),
-              type: "singleSelect",
-              valueOptions:
-                suppliers && suppliers.map((supplier) => supplier.type),
-              cellClassName: "default-value--cell",
             },
             {
               field: "createdByName",

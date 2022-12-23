@@ -142,5 +142,13 @@
   "description": "description",
   "help": "Help",
   "info": "Info",
-  "categoryNameHelpDesc": "If you cannot find the category name you want to upload, you can go to category page to create new one first."
+  "categoryNameHelpDesc": "If you cannot find the category name you want to upload, you can go to category page to create new one first.",
+  "purchaseQuantity": "Quantity",
+  "unitPrice": "Unit Price",
+  "purchasePrice": "Purchases Price",
+  "purchaseDate": "Purchases Date",
+  "ingredientExpDate": "Ingredient Exp Date",
+  "createdByName": "Created By",
+  "supplierTitle": "Supplier - Type",
+  "ingredientTitle": "Category - Brand - Name - Unit - Size - Sku"
 }
