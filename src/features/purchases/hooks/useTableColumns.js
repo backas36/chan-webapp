@@ -1,6 +1,5 @@
 import {
   getGridNumericOperators,
-  getGridSingleSelectOperators,
   getGridStringOperators,
 } from "@mui/x-data-grid"
 import { useCallback, useMemo } from "react"
@@ -18,13 +17,14 @@ import { validateField } from "../utils"
 
 import renderDateCell from "../../../components/Table/renderDateCell"
 import renderActions from "../components/renderActions"
-import { useGetAllSuppliersQuery, useGetSupplier } from "../../suppliers"
-import renderReadOnlyCell from "../../../components/Table/renderReadOnlyCell"
-import { useGetAllIngredientsQuery, useGetIngredient } from "../../ingredients"
-import { ConstructionOutlined } from "@mui/icons-material"
+import { useGetAllSuppliersQuery } from "../../suppliers"
+import { useGetAllIngredientsQuery } from "../../ingredients"
 
 const preProcessCell = async (params, field) => {
   const { props } = params
+
+  console.log("🐑 ~ params", params)
+
   try {
     await validateField(field, props.value)
   } catch (err) {
@@ -52,6 +52,33 @@ const useTableColumns = () => {
   const ingredients = ingredientsData?.data
 
   const tableColumns = useMemo(() => {
+    const singleSelectValueFormat = (params) => {
+      const { value, field, api } = params
+      const colDef = api.getColumn(field)
+
+      const option = colDef?.valueOptions?.find(
+        ({ value: optionValue }) => value === optionValue
+      )
+      return option?.label || value.label
+    }
+
+    const singleSelectValueParser = (value, params) => {
+      const { colDef } = params
+      const option = colDef?.valueOptions?.find(
+        ({ value: optionValue }) => value === optionValue
+      )
+      return option.value
+    }
+
+    const singleSelectValueGetter = (params) => {
+      const { row, api, field } = params
+      const { editRows } = api.state
+      if (editRows[row.id]?.[field]) {
+        return editRows[row.id]?.[field]?.value
+      }
+      return row?.[field]
+    }
+
     let columns =
       suppliers && ingredients
         ? [
@@ -65,34 +92,12 @@ const useTableColumns = () => {
                 label: `${supplier.name} - [${supplier.type}]`,
                 value: supplier.id,
               })),
-              valueGetter: (params) => {
-                const { row, api } = params
-                const { editRows } = api.state
-                if (editRows[row.id]?.supplierId) {
-                  return editRows[row.id]?.supplierId?.value
-                }
-                return row?.supplierId
-              },
-              valueFormatter: (params) => {
-                const { value, field, api } = params
-                const colDef = api.getColumn(field)
-
-                const option = colDef?.valueOptions?.find(
-                  ({ value: optionValue }) => value === optionValue
-                )
-                return option?.label || value.label
-              },
-              valueParser: (value, params) => {
-                const { colDef } = params
-                const option = colDef?.valueOptions?.find(
-                  ({ value: optionValue }) => value === optionValue
-                )
-                return option.value
-              },
+              valueGetter: singleSelectValueGetter,
+              valueFormatter: singleSelectValueFormat,
+              valueParser: singleSelectValueParser,
               headerClassName: "must-input--header",
-              preProcessEditCellProps: (params) => {
-                return preProcessCell(params, "supplierId")
-              },
+              preProcessEditCellProps: (params) =>
+                preProcessCell(params, "supplierId"),
             },
             {
               field: "ingredientId",
@@ -109,29 +114,9 @@ const useTableColumns = () => {
                   value: id,
                 }
               }),
-              valueGetter: (params) => {
-                const { row, api } = params
-                const { editRows } = api.state
-                if (editRows[row.id]?.ingredientId) {
-                  return editRows[row.id]?.ingredientId?.value
-                }
-                return row?.ingredientId
-              },
-              valueFormatter: (params) => {
-                const { value, field, api } = params
-                const colDef = api.getColumn(field)
-                const option = colDef?.valueOptions?.find(
-                  ({ value: optionValue }) => value === optionValue
-                )
-                return option?.label || value.label
-              },
-              valueParser: (value, params) => {
-                const { colDef } = params
-                const option = colDef?.valueOptions?.find(
-                  ({ value: optionValue }) => value === optionValue
-                )
-                return option.value
-              },
+              valueGetter: singleSelectValueGetter,
+              valueFormatter: singleSelectValueFormat,
+              valueParser: singleSelectValueParser,
               headerClassName: "must-input--header",
               preProcessEditCellProps: (params) =>
                 preProcessCell(params, "ingredientId"),
