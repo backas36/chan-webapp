@@ -4,10 +4,7 @@ export const ingredientSchema = () => {
   let schema = {
     name: Yup.string().required("nameRequired"),
     category: Yup.string().required("categoryRequired"),
-    unit: Yup.number().required("unitRequired").positive(),
-    size: Yup.string().required("sizeRequired"),
     sku: Yup.string().required("skuRequired"),
-    brand: Yup.string().required("brandRequired"),
   }
   return Yup.object().shape(schema)
 }
@@ -23,10 +20,7 @@ export const validateIngredient = (inputData) => {
 export const initVal = {
   name: "",
   category: "",
-  unit: null,
-  size: "",
   sku: "",
-  brand: "",
   description: "",
 }
 
@@ -35,10 +29,7 @@ export const formatData = (processData) => {
     id: processData.id,
     name: processData.name,
     category: processData.category, // category name
-    unit: processData.unit,
-    size: processData.size,
     sku: processData.sku,
-    brand: processData.brand,
     description: processData.description,
   }
 }

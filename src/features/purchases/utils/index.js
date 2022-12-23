@@ -2,6 +2,7 @@ import * as Yup from "yup"
 
 export const purchaseSchema = () => {
   let schema = {
+    brand: Yup.string().required("brandRequired"),
     supplierId: Yup.string().uuid("idInvalid").required("idRequired"),
     ingredientId: Yup.string().uuid("idInvalid").required("idRequired"),
     quantity: Yup.number().required("quantityRequired").positive(),
@@ -24,6 +25,7 @@ export const validatePurchase = (inputData) => {
 export const initVal = {
   supplierId: "",
   ingredientId: "",
+  brand: "",
   quantity: null,
   purchaseDate: null,
   purchasePrice: null,
@@ -34,6 +36,7 @@ export const formatData = (processData) => {
     id: processData.id,
     supplierId: processData.supplierId,
     ingredientId: processData.ingredientId,
+    brand: processData.brand,
     quantity: processData.quantity,
     unitPrice: Math.ceil(processData.purchasePrice / processData.quantity),
     purchasePrice: processData.purchasePrice,
@@ -42,4 +45,4 @@ export const formatData = (processData) => {
   }
 }
 
-//quantity, purchaseDate, unitPrice, purchasePrice,supplierId, ingredientId
+//quantity, purchaseDate, unitPrice, purchasePrice,supplierId, ingredientId, brand

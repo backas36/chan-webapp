@@ -22,9 +22,6 @@ import { useGetAllIngredientsQuery } from "../../ingredients"
 
 const preProcessCell = async (params, field) => {
   const { props } = params
-
-  console.log("🐑 ~ params", params)
-
   try {
     await validateField(field, props.value)
   } catch (err) {
@@ -32,6 +29,7 @@ const preProcessCell = async (params, field) => {
   }
   return { ...props, error: false }
 }
+
 const useTableColumns = () => {
   const { t } = useTranslation()
   const currentUser = useSelector(selectCurrentUser)
@@ -85,7 +83,7 @@ const useTableColumns = () => {
             {
               field: "supplierId",
               headerName: t("supplierTitle"),
-              width: 170,
+              width: 200,
               editable: true,
               type: "singleSelect",
               valueOptions: suppliers.map((supplier) => ({
@@ -102,15 +100,13 @@ const useTableColumns = () => {
             {
               field: "ingredientId",
               headerName: t("ingredientTitle"),
-              width: 350,
+              width: 250,
               editable: true,
               type: "singleSelect",
               valueOptions: ingredients.map((ingredient) => {
-                const { id, name, category, unit, size, brand, sku } =
-                  ingredient
+                const { id, name, category, sku } = ingredient
                 return {
-                  label: `${category} -  ${brand} - ${name} -
-                    ${unit}${size} - ${sku}`,
+                  label: `${category} - ${name} - ${sku}`,
                   value: id,
                 }
               }),
@@ -120,6 +116,21 @@ const useTableColumns = () => {
               headerClassName: "must-input--header",
               preProcessEditCellProps: (params) =>
                 preProcessCell(params, "ingredientId"),
+            },
+            {
+              field: "brand",
+              headerName: t("ingredientBrand"),
+              width: 100,
+              editable: true,
+              filterable: true,
+              renderCell: renderCellExpand,
+              filterOperators: getGridStringOperators().filter(
+                (operator) => operator.value === "equals"
+              ),
+              preProcessEditCellProps: (params) => {
+                return preProcessCell(params, "brand")
+              },
+              headerClassName: "must-input--header",
             },
             {
               field: "quantity",
@@ -162,11 +173,8 @@ const useTableColumns = () => {
               type: "number",
               headerAlign: "left",
               editable: false,
-              filterable: true,
+              filterable: false,
               renderCell: renderCellExpand,
-              filterOperators: getGridNumericOperators().filter(
-                (operator) => operator.value === "="
-              ),
               headerClassName: "must-input--header",
               valueGetter: (params) => {
                 const { id } = params.row
@@ -181,7 +189,7 @@ const useTableColumns = () => {
                   purchasePrice = params.row.purchasePrice
                   quantity = params.row.quantity
                 }
-                return Math.ceil(purchasePrice / quantity)
+                return (purchasePrice / quantity).toFixed(2)
               },
             },
 

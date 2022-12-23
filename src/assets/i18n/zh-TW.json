@@ -138,7 +138,6 @@
   "ingredientName": "品名",
   "brand": "廠牌",
   "unit": "單位",
-  "size": "單位名稱",
   "sku": "庫存單位",
   "description": "描述",
   "help": "尋求幫助",
@@ -151,5 +150,6 @@
   "ingredientExpDate": "材料到期日",
   "createdByName": "建檔人",
   "supplierTitle": "供應商名 - 類型",
-  "ingredientTitle": "類別 - 廠牌 - 品名 - 單位 - 單位名稱 - 庫存單位"
+  "ingredientTitle": "類別 - 品名 - 庫存單位",
+  "ingredientBrand": "品牌"
 }
