@@ -7,14 +7,13 @@ import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import useToggle from "../../../hooks/useToggle"
 import ConfirmDialog from "../../../components/dialog/ConfirmDialog"
-
 import {
   selectCurrentRows,
   selectRowModesModel,
   setRowModesModel,
   setRows,
-} from "../services/ingredientSlice"
-import { useDeleteIngredientMutation } from "../services/ingredientApiSlice"
+} from "../services/productSlice"
+import { useDeleteProductMutation } from "../services/productApiSlice"
 
 const TableActions = React.memo((props) => {
   const { t } = useTranslation()
@@ -28,8 +27,7 @@ const TableActions = React.memo((props) => {
   const { id } = row
   const isEditedMode = rowModesModel?.[id]?.mode === GridRowModes.Edit
 
-  const [deleteSupplier, { isLoading: delLoading }] =
-    useDeleteIngredientMutation()
+  const [deletePurchase, { isLoading: delLoading }] = useDeleteProductMutation()
 
   const handleSaveClick = () => {
     dispatch(
@@ -40,7 +38,7 @@ const TableActions = React.memo((props) => {
   const handleDeleteClick = async () => {
     setToggleStatus(false)
     dispatch(setRows(currentRows.filter((row) => row.id !== id)))
-    await deleteSupplier(id)
+    await deletePurchase(id)
   }
 
   const handleCancelClick = () => {

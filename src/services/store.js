@@ -18,6 +18,7 @@ import { inCategoriesReducer } from "../features/ingredientCategory"
 import { poCategoriesReducer } from "../features/productCategory"
 import { purchasesReducer } from "../features/purchases"
 import { ingredientReducer } from "../features/ingredients"
+import { productReducer } from "../features/products"
 
 const syncConfig = {
   whitelist: [
@@ -43,6 +44,7 @@ export const store = configureStore({
     poCategories: poCategoriesReducer,
     purchases: purchasesReducer,
     ingredients: ingredientReducer,
+    products: productReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(

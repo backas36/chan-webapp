@@ -44,5 +44,3 @@ export const formatData = (processData) => {
     ingredientExpDate: processData.ingredientExpDate,
   }
 }
-
-//quantity, purchaseDate, unitPrice, purchasePrice,supplierId, ingredientId, brand

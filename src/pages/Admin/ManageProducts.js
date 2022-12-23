@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import ManagePoTable from "../../features/manageProducts/components/ManagePoTable"
+import ManagePoTable from "../../features/products/components/ManagePoTable"
 import useTitle from "../../hooks/useTitle"
 import MainWrapper from "../../layout/MainWrapper"
 import PageWrapper from "../../layout/PageWrapper"

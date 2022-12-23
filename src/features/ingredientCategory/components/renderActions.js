@@ -87,7 +87,7 @@ const TableActions = React.memo((props) => {
           open={visible}
           handleClose={() => setToggleStatus(false)}
           title={t("delConfirm")}
-          desc={t("delSupplierDesc")}
+          desc={t("deleteItem")}
           handleConfirm={handleDeleteClick}
         >
           <IconButton

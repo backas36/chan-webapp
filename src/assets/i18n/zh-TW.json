@@ -151,5 +151,8 @@
   "createdByName": "建檔人",
   "supplierTitle": "供應商名 - 類型",
   "ingredientTitle": "類別 - 品名 - 庫存單位",
-  "ingredientBrand": "品牌"
+  "ingredientBrand": "品牌",
+  "variant": "口味/變化",
+  "fixedPrice": "定價",
+  "deleteItem": "確定刪除這筆資料嗎?"
 }

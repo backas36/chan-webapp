@@ -151,5 +151,8 @@
   "createdByName": "Created By",
   "supplierTitle": "Supplier - Type",
   "ingredientTitle": "Category - Name - Sku",
-  "ingredientBrand": "Brand"
+  "ingredientBrand": "Brand",
+  "variant": "Variant",
+  "fixedPrice": "Fixed Price",
+  "deleteItem": "Are you sure you want to delete this item?"
 }

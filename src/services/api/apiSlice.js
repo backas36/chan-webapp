@@ -68,6 +68,7 @@ export const apiSlice = createApi({
     "PoCategories",
     "Purchases",
     "Ingredients",
+    "Products",
   ],
   endpoints: (builder) => ({}),
 })
