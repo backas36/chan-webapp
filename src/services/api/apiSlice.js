@@ -25,7 +25,10 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
 
   if (result?.error?.status === 403) {
+    console.log("got 403")
     if (!mutex.isLocked()) {
+      console.log("api not locked")
+
       const release = await mutex.acquire()
       try {
         const refreshToken = localStorage.getItem("refreshToken") || null
@@ -43,12 +46,16 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 
           result = await baseQuery(args, api, extraOptions)
         } else {
+          console.log("refresh failed")
           api.dispatch(postLogout())
         }
       } finally {
+        console.log("release api")
         release()
       }
     } else {
+      console.log("api is locked")
+
       await mutex.waitForUnlock()
       result = await baseQuery(args, api, extraOptions)
     }
@@ -69,6 +76,7 @@ export const apiSlice = createApi({
     "Purchases",
     "Ingredients",
     "Products",
+    "Recipe",
   ],
   endpoints: (builder) => ({}),
 })

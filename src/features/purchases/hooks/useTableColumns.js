@@ -19,6 +19,7 @@ import renderDateCell from "../../../components/Table/renderDateCell"
 import renderActions from "../components/renderActions"
 import { useGetAllSuppliersQuery } from "../../suppliers"
 import { useGetAllIngredientsQuery } from "../../ingredients"
+import { numberToOne } from "../../../utils/mathHelper"
 
 const preProcessCell = async (params, field) => {
   const { props } = params
@@ -189,7 +190,7 @@ const useTableColumns = () => {
                   purchasePrice = params.row.purchasePrice
                   quantity = params.row.quantity
                 }
-                return (purchasePrice / quantity).toFixed(2)
+                return numberToOne(purchasePrice / quantity)
               },
             },
 

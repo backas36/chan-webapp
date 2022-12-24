@@ -38,7 +38,7 @@ export const formatData = (processData) => {
     ingredientId: processData.ingredientId,
     brand: processData.brand,
     quantity: processData.quantity,
-    unitPrice: Math.ceil(processData.purchasePrice / processData.quantity),
+    unitPrice: processData.purchasePrice / processData.quantity,
     purchasePrice: processData.purchasePrice,
     purchaseDate: processData.purchaseDate,
     ingredientExpDate: processData.ingredientExpDate,

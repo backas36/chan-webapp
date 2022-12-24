@@ -19,14 +19,15 @@ import { poCategoriesReducer } from "../features/productCategory"
 import { purchasesReducer } from "../features/purchases"
 import { ingredientReducer } from "../features/ingredients"
 import { productReducer } from "../features/products"
+import { recipesReducer } from "../features/recipe"
 
 const syncConfig = {
   whitelist: [
     "ui/toggleThemeMode",
     "lang/setLang",
-    "auth/postLogin",
-    "auth/postLogout",
-    "auth/checkLogin",
+    //"auth/postLogin",
+    //"auth/postLogout",
+    //"auth/checkLogin",
   ],
 }
 
@@ -45,6 +46,7 @@ export const store = configureStore({
     purchases: purchasesReducer,
     ingredients: ingredientReducer,
     products: productReducer,
+    recipes: recipesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(

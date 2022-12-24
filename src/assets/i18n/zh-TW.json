@@ -155,5 +155,8 @@
   "variant": "口味/變化",
   "fixedPrice": "定價",
   "deleteItem": "確定刪除這筆資料嗎?",
-  "ingredientNameHelpDesc": "如果你想輸入的供應商名稱/材料名稱找不到的話，你應該要先去新增一個唷！"
+  "ingredientNameHelpDesc": "如果你想輸入的供應商名稱/材料名稱找不到的話，你應該要先去新增一個唷！",
+  "quantity": "數量 / 重量",
+  "avgCost": "平均成本",
+  "latestCost": "最新成本"
 }

@@ -7,10 +7,10 @@ export const openedMixin = (theme) => {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    [theme.breakpoints.up("xs")]: {
-      //width: `calc(${theme.spacing(22)} + 1px)`,
-      width: `${drawerWidth / 1.4}px`,
-    },
+    //[theme.breakpoints.up("xs")]: {
+    //  //width: `calc(${theme.spacing(22)} + 1px)`,
+    //  width: `${drawerWidth / 1.1}px`,
+    //},
     [theme.breakpoints.up("md")]: {
       width: drawerWidth,
     },

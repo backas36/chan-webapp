@@ -3,7 +3,7 @@ import PageTItle from "../components/title/PageTItle"
 
 const PageWrapper = ({ title, children, extraComp }) => {
   return (
-    <Container maxWidth="xl" sx={{ width: "100%" }}>
+    <Container maxWidth="lg" sx={{ width: "100%" }}>
       <Box
         sx={{
           mb: 3,

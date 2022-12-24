@@ -2,19 +2,19 @@ import React from "react"
 import { Box } from "@mui/system"
 import { GridRowModes } from "@mui/x-data-grid"
 import { IconButton } from "@mui/material"
-import { Cancel, Loop, Delete, Edit, Save, MenuBook } from "@mui/icons-material"
+import { Cancel, Loop, Delete, Edit, Save } from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import useToggle from "../../../hooks/useToggle"
 import ConfirmDialog from "../../../components/dialog/ConfirmDialog"
+
+import { useDeleteRecipeMutation } from "../services/recipeApiSlice"
 import {
   selectCurrentRows,
   selectRowModesModel,
   setRowModesModel,
   setRows,
-} from "../services/productSlice"
-import { useDeleteProductMutation } from "../services/productApiSlice"
-import { useNavigate } from "react-router-dom"
+} from "../services/recipeSlice"
 
 const TableActions = React.memo((props) => {
   const { t } = useTranslation()
@@ -22,14 +22,13 @@ const TableActions = React.memo((props) => {
   const dispatch = useDispatch()
   const rowModesModel = useSelector(selectRowModesModel)
   const currentRows = useSelector(selectCurrentRows)
-  const navigate = useNavigate()
 
   const { visible, setToggleStatus } = useToggle(false)
 
   const { id } = row
   const isEditedMode = rowModesModel?.[id]?.mode === GridRowModes.Edit
 
-  const [deletePurchase, { isLoading: delLoading }] = useDeleteProductMutation()
+  const [deleteRecipe, { isLoading: delLoading }] = useDeleteRecipeMutation()
 
   const handleSaveClick = () => {
     dispatch(
@@ -40,7 +39,7 @@ const TableActions = React.memo((props) => {
   const handleDeleteClick = async () => {
     setToggleStatus(false)
     dispatch(setRows(currentRows.filter((row) => row.id !== id)))
-    await deletePurchase(id)
+    await deleteRecipe(id)
   }
 
   const handleCancelClick = () => {
@@ -64,9 +63,7 @@ const TableActions = React.memo((props) => {
       })
     )
   }
-  const handleRecipeClick = () => {
-    navigate("/admin/recipe", { state: { productId: id } })
-  }
+
   let content
 
   if (isEditedMode) {
@@ -83,9 +80,6 @@ const TableActions = React.memo((props) => {
   } else {
     content = (
       <>
-        <IconButton onClick={handleRecipeClick} color="primary">
-          <MenuBook />
-        </IconButton>
         <IconButton onClick={handleEditClick} color="textPrimary">
           <Edit />
         </IconButton>

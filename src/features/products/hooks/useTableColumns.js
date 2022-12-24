@@ -44,7 +44,7 @@ const useTableColumns = () => {
           {
             field: "name",
             headerName: t("ingredientName"),
-            width: 200,
+            width: 180,
             editable: true,
             filterable: true,
             renderCell: renderCellExpand,
@@ -82,7 +82,7 @@ const useTableColumns = () => {
           {
             field: "variant",
             headerName: t("variant"),
-            width: 200,
+            width: 160,
             editable: true,
             filterable: true,
             renderCell: renderCellExpand,
@@ -135,7 +135,7 @@ const useTableColumns = () => {
           {
             field: "actions",
             headerName: t("actions"),
-            width: 100,
+            width: 130,
             type: "actions",
             renderCell: (params) => renderActions(params),
           },

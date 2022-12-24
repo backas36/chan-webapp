@@ -76,11 +76,6 @@ const AdminSideBar = () => {
         path: "ingredient-categories",
       },
       {
-        title: "Recipe",
-        icon: <MenuBook />,
-        path: "recipe",
-      },
-      {
         title: "Product Inventory",
         icon: <Inventory />,
         path: "product-inventory",
