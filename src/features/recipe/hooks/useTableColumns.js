@@ -44,82 +44,90 @@ const useTableColumns = () => {
 
   const ingredients = ingredientsData?.data
   const inCategories = inCategoriesData?.data
-  const tableColumns = useMemo(() => {
-    const singleSelectValueFormat = (params) => {
-      const { value, field, api } = params
-      const colDef = api.getColumn(field)
-      const option = colDef?.valueOptions?.find(
-        ({ value: optionValue }) => value === optionValue
-      )
 
-      return option?.label || value.label
+  const tableColumns = useMemo(() => {
+    const singleSelectValueFormat = (params, optionsSource) => {
+      const { value } = params
+      if (!value) {
+        return ""
+      }
+      const option = optionsSource.find((item) => item.id === value)
+
+      return option?.name
     }
 
-    const singleSelectValueParser = (value, params) => {
-      const { colDef } = params
-      const option = colDef?.valueOptions?.find(
-        ({ value: optionValue }) => value === optionValue
-      )
-      return option.value
+    const singleSelectValueParser = (value, optionsSource) => {
+      if (!value) {
+        return ""
+      }
+      const option = optionsSource.find((item) => item.id === value)
+      return option.id
     }
 
     const singleSelectValueGetter = (params) => {
       const { row, api, field } = params
       const { editRows } = api.state
       if (editRows[row.id]?.[field]) {
-        return editRows[row.id]?.[field]?.value
+        return editRows[row.id]?.[field]?.value || ""
       }
       return row?.[field]
     }
 
-    const costValueHelper = (params, monthBefore) => {
-      const { row, api } = params
+    const costValueHelper = (params) => {
+      const { row, api, field } = params
+
       const { editRows } = api.state
       let ingredientId = row.ingredientId
 
-      let costList = row.costList
-      let quantity = row.quantity
+      let quantity = 0
+      let costPrice = 0
 
       if (editRows[row.id]?.ingredientId) {
         ingredientId = editRows[row.id].ingredientId?.value
-        costList = ingredients?.find(
-          (item) => item.id === ingredientId
-        )?.costList
         quantity = editRows[row.id].quantity?.value
+        costPrice = ingredients.find((item) => item.id === ingredientId)?.[
+          field
+        ]
+      } else {
+        quantity = row.quantity
+        costPrice = row[field]
       }
+      return numberToOne(costPrice * quantity)
+    }
 
-      let priceList = costList?.map((cost) => cost.unitPrice)
+    const getValueOptions = (data, selectedParent = null) => {
+      let optionsSource = data
 
-      if (!priceList) {
-        return null
+      if (selectedParent) {
+        optionsSource = optionsSource.filter(
+          (item) => item.inCategoryId === selectedParent
+        )
       }
+      const options = optionsSource.map((item) => {
+        const { id, name } = item
+        return {
+          label: name,
+          value: id,
+        }
+      })
 
-      if (monthBefore) {
-        priceList = priceList.slice(0, monthBefore)
-      }
-
-      const avgCost =
-        priceList.reduce((sum, next) => sum + next, 0) / priceList.length
-      return numberToOne(avgCost * quantity)
+      return options
     }
     let columns =
       ingredients && inCategories
         ? [
             {
-              field: "categoryId",
+              field: "inCategoryId",
               headerName: t("categoryName"),
               width: 130,
               editable: true,
               type: "singleSelect",
-              valueOptions: inCategories.map((inCategory) => {
-                return {
-                  label: inCategory.name,
-                  value: inCategory.id,
-                }
-              }),
+              valueOptions: (params) => getValueOptions(inCategories),
               valueGetter: singleSelectValueGetter,
-              valueFormatter: singleSelectValueFormat,
-              valueParser: singleSelectValueParser,
+              valueFormatter: (params) =>
+                singleSelectValueFormat(params, inCategories),
+              valueParser: (value) =>
+                singleSelectValueParser(value, inCategories),
               renderEditCell: (params) =>
                 renderSingleSelectCell(params, "ingredientId"),
             },
@@ -130,28 +138,17 @@ const useTableColumns = () => {
               editable: true,
               type: "singleSelect",
               valueOptions: ({ row }) => {
-                const selectedIngredients = ingredients.filter(
-                  (ingredient) =>
-                    ingredient.ingredientCategoryId === row.categoryId
-                )
-                const options = selectedIngredients.map((ingredient) => {
-                  const { id, name } = ingredient
-                  return {
-                    label: `${name} `,
-                    value: id,
-                  }
-                })
-                return options
+                let selectedParent = row?.inCategoryId
+                if (!selectedParent) {
+                  return []
+                }
+                return getValueOptions(ingredients, selectedParent)
               },
+              valueParser: (value) =>
+                singleSelectValueParser(value, ingredients),
               valueGetter: singleSelectValueGetter,
-              valueFormatter: (params) => {
-                const { value, field, api, id } = params
-                const colDef = api.getColumn(field)
-                const option = colDef
-                  ?.valueOptions(api.getRowParams(id))
-                  ?.find(({ value: optionValue }) => value === optionValue)
-                return option?.label || value.label
-              },
+              valueFormatter: (params) =>
+                singleSelectValueFormat(params, ingredients),
               preProcessEditCellProps: (params) =>
                 preProcessCell(params, "ingredientId"),
             },
@@ -183,17 +180,17 @@ const useTableColumns = () => {
                 (operator) => operator.value === "equals"
               ),
               valueGetter: (params) => {
-                if (!params.value) {
-                  const { api, row } = params
-                  const { editRows } = api.state
-                  const selectedIngredientId =
-                    editRows[row.id]?.ingredientId?.value
-                  return ingredients.find(
-                    (item) => item.id === selectedIngredientId
-                  )?.sku
+                const { row, api, field } = params
+                const { editRows } = api.state
+                let sku = params.value
+                let ingredientId = row.ingredientId
+                if (editRows[row.id]?.ingredientId) {
+                  ingredientId = editRows[row.id].ingredientId?.value
+                  sku = ingredients.find((item) => item.id === ingredientId)?.[
+                    field
+                  ]
                 }
-
-                return params.value
+                return sku
               },
             },
             {
@@ -202,10 +199,30 @@ const useTableColumns = () => {
               width: 100,
               editable: false,
               filterable: false,
-              sortable: false,
+              sortable: true,
               headerAlign: "left",
               renderCell: renderCellExpand,
-              valueGetter: (params) => costValueHelper(params),
+              valueGetter: costValueHelper,
+              //valueSetter: (params) => {
+              //  console.log(params.value)
+              //},
+              //valueParser: (value, params) => {
+              //  console.log(value)
+              //  //console.log(params)
+              //  let costPrice = value
+              //  let quantity = params.row.quantity
+              //  return numberToOne(costPrice * quantity)
+              //},
+              //valueFormatter: (params) => {
+              //  const { value } = params
+
+              //  console.log("🐑 ~ value", value)
+
+              //  if (!value) {
+              //    return "-"
+              //  }
+              //  return value
+              //},
             },
             {
               field: "latestCost",
@@ -213,16 +230,17 @@ const useTableColumns = () => {
               width: 100,
               editable: false,
               filterable: false,
+              sortable: true,
               headerAlign: "left",
               renderCell: renderCellExpand,
-              valueGetter: (params) => costValueHelper(params, 3),
+              valueGetter: costValueHelper,
             },
             {
               field: "description",
               headerName: t("description"),
               width: 250,
               filterable: false,
-              editable: false,
+              editable: true,
               sortable: true,
               renderCell: renderCellExpand,
               filterOperators: getGridStringOperators().filter(

@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation } from "react-router-dom"
 import BaseTable from "../../../components/Table/BaseTable"
+import { useGetAllIngredientsQuery } from "../../ingredients"
 import useTableColumns from "../hooks/useTableColumns"
 import {
   useAddRecipeByPoIdMutation,
@@ -50,12 +51,28 @@ const RecipeTable = () => {
   )
   const [updateRecipe, { isLoading: updateLoading }] = useUpdateRecipeMutation()
   const [addRecipe, { isLoading: addLoading }] = useAddRecipeByPoIdMutation()
-
+  const { data: ingredientsData } = useGetAllIngredientsQuery(null, {
+    refetchOnMountOrArgChange: true,
+  })
   useEffect(() => {
     if (recipesData) {
       dispatch(setRows({ isFirst: true, newRows: recipesData.data } || []))
     }
   }, [dispatch, recipesData])
+
+  const rowUpdateHelper = (processRow) => {
+    const ingredientId = processRow.ingredientId
+    const findIngredient = ingredientsData?.data.find(
+      (item) => item.id === ingredientId
+    )
+    const newRow = {
+      ...processRow,
+      sku: findIngredient.sku,
+      avgCost: findIngredient.avgCost,
+      latestCost: findIngredient.latestCost,
+    }
+    return newRow
+  }
 
   const handleUpdate = async (processRow) => {
     try {
@@ -80,8 +97,8 @@ const RecipeTable = () => {
         return Promise.reject(err.errors)
       }
     },
-    initValue: initVal,
-    fieldToFocus: "ingredientId",
+    initValue: { ...initVal, productId },
+    fieldToFocus: "inCategoryId",
   }
 
   const handleResetTable = (newRowModes) => {
@@ -108,6 +125,7 @@ const RecipeTable = () => {
     handleUpdate,
     setRows: (rows) => dispatch(setRows(rows)),
     handleCreate: handleCreateHelper,
+    rowUpdateHelper,
   }
   return <BaseTable tableConfig={tableConfig} />
 }

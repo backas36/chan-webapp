@@ -20,6 +20,8 @@ const BaseTable = (props) => {
     rowModesModel,
     rows,
     setRows,
+    rowUpdateHelper,
+
     ...otherTableConfig
   } = tableConfig
 
@@ -54,14 +56,17 @@ const BaseTable = (props) => {
 
   const processRowUpdate = async (processRow, oldRow) => {
     const isCreate = !!processRow.isNew
-    const updatedRow = { ...processRow, isNew: false }
+    let updatedRow = { ...processRow, isNew: false }
+
     try {
       if (isCreate) {
         await handleCreate.handleCreateUser(processRow)
       } else {
         await handleUpdate(processRow)
       }
-
+      if (rowUpdateHelper) {
+        updatedRow = rowUpdateHelper(updatedRow)
+      }
       setRows(rows.map((row) => (row.id === processRow.id ? updatedRow : row)))
       return updatedRow
     } catch (err) {
@@ -108,6 +113,24 @@ const BaseTable = (props) => {
             onProcessRowUpdateError={handleProcessRowUpdateError}
             onFilterModelChange={handleFilterModelChange}
             onSortModelChange={handleSortModelChange}
+            onStateChange={(state) => {
+              //console.log(state)
+              //const visibleRows = state.filter.filterModel.items
+              //let visibleItems = []
+              //for (const [id, value] of Object.entries(visibleRows)) {
+              //  if (value === true) {
+              //    visibleItems.push(id)
+              //  }
+              //}
+              //console.log(visibleItems)
+              //const res = rows.filter((item) => visibleItems.includes(item.id))
+              //const total = res
+              //  .map((item) => item.totalAmount)
+              //  .reduce((a, b) => a + b, 0)
+              //console.log(total)
+              //const total = rows.reduce((a, b) => a + b, 0)
+              //console.log(total)
+            }}
           />
         </LocalizationProvider>
       </TableBox>

@@ -21,7 +21,10 @@ export const initVal = {
   productId: "",
   ingredientId: "",
   quantity: null,
-  categoryId: "",
+  //avgCost: null,
+  //latestCost: null,
+  //sku: "",
+  //description: "",
 }
 
 export const formatData = (processData) => {

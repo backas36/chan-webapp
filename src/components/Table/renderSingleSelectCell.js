@@ -4,7 +4,7 @@ import { GridEditSingleSelectCell, useGridApiContext } from "@mui/x-data-grid"
 
 const EditSingleSelectCell = React.memo(({ params, linkField }) => {
   const apiRef = useGridApiContext()
-
+  const { value } = params
   const handleValueChange = async () => {
     await apiRef.current.setEditCellValue({
       id: params.id,
@@ -13,7 +13,11 @@ const EditSingleSelectCell = React.memo(({ params, linkField }) => {
     })
   }
   return (
-    <GridEditSingleSelectCell onValueChange={handleValueChange} {...params} />
+    <GridEditSingleSelectCell
+      onValueChange={handleValueChange}
+      {...params}
+      value={value || ""}
+    />
   )
 })
 

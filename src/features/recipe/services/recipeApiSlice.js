@@ -27,7 +27,6 @@ export const recipeApiSlice = apiSlice.injectEndpoints({
     }),
     addRecipeByPoId: builder.mutation({
       query: ({ productId, ...data }) => {
-        console.log(productId, data)
         return {
           url: `/recipe/${productId}`,
           method: "POST",
