@@ -24,7 +24,7 @@ const authSlice = createSlice({
 })
 
 export const tokensMiddleware = (store) => (next) => (action) => {
-  console.log(action.type)
+  console.log(action)
   if (authSlice.actions.postLogin().type.match(action.type)) {
     const response = action.payload
     console.log("tokens middleware", response)

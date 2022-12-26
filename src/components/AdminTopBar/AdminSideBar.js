@@ -90,10 +90,11 @@ const AdminSideBar = () => {
   const MultiMenuItem = ({ listItem }) => {
     const [open, setOpen] = useState(true)
     const handleSubMenuClick = () => {
-      console.log(isSideBarOpen)
       if (isSideBarOpen) {
         setOpen(!open)
+        return
       }
+      dispatch(toggleSideBar())
     }
     return (
       <>

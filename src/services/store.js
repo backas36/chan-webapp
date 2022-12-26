@@ -25,9 +25,9 @@ const syncConfig = {
   whitelist: [
     "ui/toggleThemeMode",
     "lang/setLang",
-    "auth/postLogin",
-    "auth/postLogout",
-    "auth/checkLogin",
+    //"auth/postLogin",
+    //"auth/postLogout",
+    //"auth/checkLogin",
   ],
 }
 

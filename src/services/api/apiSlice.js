@@ -21,16 +21,22 @@ const baseQuery = fetchBaseQuery({
 })
 
 const baseQueryWithReAuth = async (args, api, extraOptions) => {
-  console.log("wait for unlocked")
+  console.log("baseQueryWithReAuth")
+  console.log("🐑 ~ api", api)
+  console.log("🐑 ~ extraOptions", extraOptions)
   await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
+
+  console.log("🐑 ~ result", result)
+
   if (result?.error?.status === 403) {
     console.log("got 403")
     if (!mutex.isLocked()) {
       console.log("api not locked")
-      const refreshToken = localStorage.getItem("refreshToken") || null
       const release = await mutex.acquire()
+
       try {
+        const refreshToken = localStorage.getItem("refreshToken") || null
         console.log("old refresh token: " + refreshToken)
         const refreshResult = await baseQuery(
           {
@@ -45,9 +51,11 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
         if (refreshResult?.data?.success) {
           console.log("refresh success")
           api.dispatch(postLogin(refreshResult.data))
-
+          console.log("🐑 ~ api", api)
           result = await baseQuery(args, api, extraOptions)
+          console.log("🐑 ~ result", result)
         } else {
+          console.log("🐑 ~ extraOptions", extraOptions)
           console.log("refresh failed")
           api.dispatch(postLogout())
         }
@@ -61,6 +69,7 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
       await mutex.waitForUnlock()
       console.log("after unlock")
       result = await baseQuery(args, api, extraOptions)
+      console.log("🐑 ~ extraOptions", extraOptions)
     }
   }
   console.log("pass")

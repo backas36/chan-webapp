@@ -139,8 +139,7 @@ const RecipeTable = () => {
     aggregationComponent: (
       <Chip
         icon={<AttachMoney />}
-        label={`Total Cost : ${numberToTwo(totalCost)}` || "--"}
-        //variant="outlined"
+        label={`Total: ${numberToTwo(totalCost)}` || "--"}
         color="success"
       />
     ),

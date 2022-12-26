@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next"
 import { useGetAllProductsQuery } from "../../products/services/productApiSlice"
 import { useGetAllIngredientsQuery } from "../../ingredients/services/ingredientApiSlice"
 import { useGetAllSuppliersQuery } from "../../suppliers/services/suppliersApiSlice"
+import PurchaseTrackChart from "./PurchaseTrackChart"
 
 const cardIconStyle = {
   height: 100,
@@ -94,14 +95,14 @@ const MainCards = () => {
         <MCard title={t("totalSuppliers")}>
           <Groups sx={cardIconStyle} />
           <Typography variant="h3">
-            {" "}
             {supplierTotal ? supplierTotal : "-"}
           </Typography>
         </MCard>
       </Grid>
       <Grid item sm={12} md={12} sx={{ width: "100%" }}>
         <MCard title={t("inventoryChart")}>
-          <InventoryChart />
+          {/*<InventoryChart />*/}
+          <PurchaseTrackChart />
         </MCard>
       </Grid>
     </>
