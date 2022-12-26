@@ -19,7 +19,7 @@ import { poCategoriesReducer } from "../features/productCategory"
 import { purchasesReducer } from "../features/purchases"
 import { ingredientReducer } from "../features/ingredients"
 import { productReducer } from "../features/products"
-import { recipesReducer } from "../features/recipe"
+import { recipesReducer } from "../features/recipes"
 
 const syncConfig = {
   whitelist: [

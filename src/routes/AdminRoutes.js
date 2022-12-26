@@ -13,7 +13,7 @@ import IngredientInventory from "../pages/Admin/IngredientInventory"
 import Ingredients from "../pages/Admin/Ingredients"
 import ManageProducts from "../pages/Admin/ManageProducts"
 import Purchases from "../pages/Admin/Purchases"
-import Recipe from "../pages/Admin/Recipe"
+import Recipes from "../pages/Admin/Recipes"
 import ProductInventory from "../pages/Admin/ProductInventory"
 
 const AdminRoutes = () => {
@@ -64,7 +64,7 @@ const AdminRoutes = () => {
                 },
                 {
                   path: "recipe",
-                  element: <Recipe />,
+                  element: <Recipes />,
                 },
                 {
                   path: "product-inventory",
