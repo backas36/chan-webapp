@@ -114,7 +114,12 @@ const BaseTable = (props) => {
             onFilterModelChange={handleFilterModelChange}
             onSortModelChange={handleSortModelChange}
             onStateChange={(state) => {
-              //console.log(state)
+              //console.log(rows)
+              //const total = rows.reduce(
+              //  (sum, next) => sum + next.latestCost * next.quantity,
+              //  0
+              //)
+              //console.log(total)
               //const visibleRows = state.filter.filterModel.items
               //let visibleItems = []
               //for (const [id, value] of Object.entries(visibleRows)) {

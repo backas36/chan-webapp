@@ -1,3 +1,4 @@
+import { Box } from "@mui/material"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation } from "react-router-dom"
@@ -34,6 +35,12 @@ const RecipeTable = () => {
   const startIndex = page > 0 ? pageSize * page : 0
   const order = sort && `${sort.field}:${sort.sort}`
   const tableColumns = useTableColumns()
+
+  let totalCost = 0
+  totalCost = rows.reduce(
+    (sum, next) => sum + next.latestCost * next.quantity,
+    0
+  )
   const {
     data: recipesData,
     isLoading,
@@ -127,6 +134,11 @@ const RecipeTable = () => {
     handleCreate: handleCreateHelper,
     rowUpdateHelper,
   }
-  return <BaseTable tableConfig={tableConfig} />
+  return (
+    <>
+      <Box>{totalCost || "--"}</Box>
+      <BaseTable tableConfig={tableConfig} />
+    </>
+  )
 }
 export default RecipeTable
