@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation } from "react-router-dom"
 import BaseTable from "../../../components/Table/BaseTable"
-import { numberToOne } from "../../../utils/mathHelper"
+import { numberToTwo } from "../../../utils/mathHelper"
 import { useGetAllIngredientsQuery } from "../../ingredients"
 import useTableColumns from "../hooks/useTableColumns"
 import {
@@ -39,7 +39,7 @@ const RecipeTable = () => {
 
   let totalCost = 0
   totalCost = rows.reduce((sum, next) => sum + Number(next.latestCost), 0)
-  console.log(typeof totalCost)
+
   const {
     data: recipesData,
     isLoading,
@@ -60,6 +60,7 @@ const RecipeTable = () => {
   const { data: ingredientsData } = useGetAllIngredientsQuery(null, {
     refetchOnMountOrArgChange: true,
   })
+
   useEffect(() => {
     if (recipesData) {
       dispatch(setRows({ isFirst: true, newRows: recipesData.data } || []))
@@ -67,8 +68,6 @@ const RecipeTable = () => {
   }, [dispatch, recipesData])
 
   const rowUpdateHelper = (processRow) => {
-    console.log("🐑 ~ processRow", processRow)
-
     const ingredientId = processRow.ingredientId
     const findIngredient = ingredientsData?.data.find(
       (item) => item.id === ingredientId
@@ -139,7 +138,7 @@ const RecipeTable = () => {
   }
   return (
     <>
-      <Box>{numberToOne(totalCost) || "--"}</Box>
+      <Box>{numberToTwo(totalCost) || "--"}</Box>
       <BaseTable tableConfig={tableConfig} />
     </>
   )

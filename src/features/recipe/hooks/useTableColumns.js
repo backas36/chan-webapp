@@ -15,7 +15,7 @@ import renderActions from "../components/renderActions"
 import { useGetAllInCategoriesQuery } from "../../ingredientCategory/services/inCaApiSlice"
 import renderSingleSelectCell from "../../../components/Table/renderSingleSelectCell"
 import { formatDateTime } from "../../../utils/dateTimeManger"
-import { numberToOne } from "../../../utils/mathHelper"
+import { numberToTwo } from "../../../utils/mathHelper"
 
 const preProcessCell = async (params, field) => {
   const { props } = params
@@ -89,7 +89,7 @@ const useTableColumns = () => {
       } else {
         unitPrice = row[field]
       }
-      return numberToOne(unitPrice)
+      return numberToTwo(unitPrice)
     }
 
     const costPriceHelper = (params, linkedField) => {
@@ -110,7 +110,7 @@ const useTableColumns = () => {
       } else {
         costPrice = row[field]
       }
-      return numberToOne(costPrice)
+      return numberToTwo(costPrice)
     }
     const getValueOptions = (data, selectedParent = null) => {
       let optionsSource = data

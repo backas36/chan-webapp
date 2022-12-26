@@ -1,6 +1,6 @@
-export const numberToOne = (num) => {
+export const numberToTwo = (num) => {
   if (!typeof num === "number" || isNaN(num)) {
     return
   }
-  return Math.round(num * 10) / 10
+  return Math.round(num * 100) / 100
 }

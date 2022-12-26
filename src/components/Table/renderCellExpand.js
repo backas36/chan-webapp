@@ -13,7 +13,7 @@ const TableCellExpand = React.memo((props) => {
   if (value) {
     value = typeof value === "object" ? JSON.stringify(value) : value
   } else {
-    value = "-"
+    value = value ?? "-"
   }
   const cellDiv = useRef(null)
   const cellValue = useRef(null)

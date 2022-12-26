@@ -19,7 +19,9 @@ import renderDateCell from "../../../components/Table/renderDateCell"
 import renderActions from "../components/renderActions"
 import { useGetAllSuppliersQuery } from "../../suppliers"
 import { useGetAllIngredientsQuery } from "../../ingredients"
-import { numberToOne } from "../../../utils/mathHelper"
+import { numberToTwo } from "../../../utils/mathHelper"
+import { useGetAllInCategoriesQuery } from "../../ingredientCategory/services/inCaApiSlice"
+import renderSingleSelectCell from "../../../components/Table/renderSingleSelectCell"
 
 const preProcessCell = async (params, field) => {
   const { props } = params
@@ -47,39 +49,62 @@ const useTableColumns = () => {
     refetchOnMountOrArgChange: true,
   })
 
+  const { data: inCategoriesData } = useGetAllInCategoriesQuery(null, {
+    refetchOnMountOrArgChange: true,
+  })
+
   const suppliers = suppliersData?.data
   const ingredients = ingredientsData?.data
+  const inCategories = inCategoriesData?.data
 
   const tableColumns = useMemo(() => {
-    const singleSelectValueFormat = (params) => {
-      const { value, field, api } = params
-      const colDef = api.getColumn(field)
+    const singleSelectValueFormat = (params, optionsSource) => {
+      const { value } = params
+      if (!value) {
+        return ""
+      }
+      const option = optionsSource.find((item) => item.id === value)
 
-      const option = colDef?.valueOptions?.find(
-        ({ value: optionValue }) => value === optionValue
-      )
-      return option?.label || value.label
+      return option?.name
     }
 
-    const singleSelectValueParser = (value, params) => {
-      const { colDef } = params
-      const option = colDef?.valueOptions?.find(
-        ({ value: optionValue }) => value === optionValue
-      )
-      return option.value
+    const singleSelectValueParser = (value, optionsSource) => {
+      if (!value) {
+        return ""
+      }
+      const option = optionsSource.find((item) => item.id === value)
+      return option.id
     }
 
     const singleSelectValueGetter = (params) => {
       const { row, api, field } = params
       const { editRows } = api.state
       if (editRows[row.id]?.[field]) {
-        return editRows[row.id]?.[field]?.value
+        return editRows[row.id]?.[field]?.value || ""
       }
       return row?.[field]
     }
 
+    const getValueOptions = (data, selectedParent = null) => {
+      let optionsSource = data
+
+      if (selectedParent) {
+        optionsSource = optionsSource.filter(
+          (item) => item.inCategoryId === selectedParent
+        )
+      }
+      const options = optionsSource.map((item) => {
+        const { id, name } = item
+        return {
+          label: name,
+          value: id,
+        }
+      })
+
+      return options
+    }
     let columns =
-      suppliers && ingredients
+      suppliers && ingredients && inCategories
         ? [
             {
               field: "supplierId",
@@ -87,36 +112,78 @@ const useTableColumns = () => {
               width: 200,
               editable: true,
               type: "singleSelect",
-              valueOptions: suppliers.map((supplier) => ({
-                label: `${supplier.name} - [${supplier.type}]`,
-                value: supplier.id,
-              })),
+              valueOptions: (params) => getValueOptions(suppliers),
               valueGetter: singleSelectValueGetter,
-              valueFormatter: singleSelectValueFormat,
-              valueParser: singleSelectValueParser,
+              valueFormatter: (params) =>
+                singleSelectValueFormat(params, suppliers),
+              valueParser: (value) => singleSelectValueParser(value, suppliers),
               headerClassName: "must-input--header",
               preProcessEditCellProps: (params) =>
                 preProcessCell(params, "supplierId"),
             },
             {
-              field: "ingredientId",
-              headerName: t("ingredientTitle"),
-              width: 250,
+              field: "inCategoryId",
+              headerName: t("categoryName"),
+              width: 130,
               editable: true,
               type: "singleSelect",
-              valueOptions: ingredients.map((ingredient) => {
-                const { id, name, category, sku } = ingredient
-                return {
-                  label: `${category} - ${name} - ${sku}`,
-                  value: id,
-                }
-              }),
+              valueOptions: (params) => getValueOptions(inCategories),
               valueGetter: singleSelectValueGetter,
-              valueFormatter: singleSelectValueFormat,
-              valueParser: singleSelectValueParser,
+              valueFormatter: (params) =>
+                singleSelectValueFormat(params, inCategories),
+              valueParser: (value) =>
+                singleSelectValueParser(value, inCategories),
+              renderEditCell: (params) =>
+                renderSingleSelectCell(params, "ingredientId"),
               headerClassName: "must-input--header",
+            },
+            {
+              field: "ingredientId",
+              headerName: t("ingredientName"),
+              width: 160,
+              editable: true,
+              type: "singleSelect",
+              valueOptions: (params) => {
+                const { row } = params
+                let selectedParent = row?.inCategoryId
+                if (!selectedParent && !!row) {
+                  return []
+                }
+                return getValueOptions(ingredients, selectedParent)
+              },
+              valueParser: (value) =>
+                singleSelectValueParser(value, ingredients),
+              valueGetter: singleSelectValueGetter,
+              valueFormatter: (params) =>
+                singleSelectValueFormat(params, ingredients),
               preProcessEditCellProps: (params) =>
                 preProcessCell(params, "ingredientId"),
+              headerClassName: "must-input--header",
+            },
+            {
+              field: "sku",
+              headerName: t("sku"),
+              width: 100,
+              editable: false,
+              filterable: true,
+              renderCell: renderCellExpand,
+              filterOperators: getGridStringOperators().filter(
+                (operator) => operator.value === "equals"
+              ),
+              valueGetter: (params) => {
+                const { row, api, field } = params
+                const { editRows } = api.state
+                let sku = params.value
+                let ingredientId = row.ingredientId
+                if (editRows[row.id]?.ingredientId) {
+                  ingredientId = editRows[row.id].ingredientId?.value
+                  sku = ingredients.find((item) => item.id === ingredientId)?.[
+                    field
+                  ]
+                }
+                return sku
+              },
+              headerClassName: "must-input--header",
             },
             {
               field: "brand",
@@ -136,7 +203,7 @@ const useTableColumns = () => {
             {
               field: "quantity",
               headerName: t("purchaseQuantity"),
-              width: 100,
+              width: 120,
               type: "number",
               headerAlign: "left",
               editable: true,
@@ -190,7 +257,8 @@ const useTableColumns = () => {
                   purchasePrice = params.row.purchasePrice
                   quantity = params.row.quantity
                 }
-                return numberToOne(purchasePrice / quantity)
+
+                return numberToTwo(purchasePrice / quantity)
               },
             },
 
@@ -279,7 +347,7 @@ const useTableColumns = () => {
           ...columns,
         ]
       : columns
-  }, [t, isAllowedEdit, currentUser, ingredients, suppliers])
+  }, [t, isAllowedEdit, currentUser, ingredients, suppliers, inCategories])
   return tableColumns
 }
 export default useTableColumns

@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import BaseTable from "../../../components/Table/BaseTable"
+import { useGetAllIngredientsQuery } from "../../ingredients"
 import useTableColumns from "../hooks/useTableColumns"
 import {
   useAddPurchaseMutation,
@@ -48,12 +49,27 @@ const PurchasesTable = () => {
   const [updatePurchase, { isLoading: updateLoading }] =
     useUpdatePurchaseMutation()
   const [addPurchase, { isLoading: addLoading }] = useAddPurchaseMutation()
+  const { data: ingredientsData } = useGetAllIngredientsQuery(null, {
+    refetchOnMountOrArgChange: true,
+  })
 
   useEffect(() => {
     if (purchasesData) {
       dispatch(setRows({ isFirst: true, newRows: purchasesData.data } || []))
     }
   }, [dispatch, purchasesData])
+
+  const rowUpdateHelper = (processRow) => {
+    const ingredientId = processRow.ingredientId
+    const findIngredient = ingredientsData?.data.find(
+      (item) => item.id === ingredientId
+    )
+    const newRow = {
+      ...processRow,
+      sku: findIngredient.sku,
+    }
+    return newRow
+  }
 
   const handleUpdate = async (processRow) => {
     try {
@@ -102,6 +118,7 @@ const PurchasesTable = () => {
     handleUpdate,
     setRows: (rows) => dispatch(setRows(rows)),
     handleCreate: handleCreateHelper,
+    rowUpdateHelper,
   }
   return <BaseTable tableConfig={tableConfig} />
 }
