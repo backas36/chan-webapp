@@ -1,5 +1,5 @@
-import { Add, RestartAlt } from "@mui/icons-material"
-import { Box, Button } from "@mui/material"
+import { Add, AttachMoney, RestartAlt } from "@mui/icons-material"
+import { Box, Button, Chip } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import {
@@ -35,6 +35,7 @@ const TableToolBar = (props) => {
     onRowModesModelChange,
     rowModesModel,
     setRows,
+    aggregationComponent,
   } = props
 
   const handleAddClick = () => {
@@ -128,6 +129,15 @@ const TableToolBar = (props) => {
         >
           {t("resetTable")}
         </Button>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "-38px",
+            right: "100px",
+          }}
+        >
+          {aggregationComponent}
+        </Box>
       </Box>
     </GridToolbarContainer>
   )

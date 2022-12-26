@@ -21,7 +21,7 @@ const BaseTable = (props) => {
     rows,
     setRows,
     rowUpdateHelper,
-
+    aggregationComponent,
     ...otherTableConfig
   } = tableConfig
 
@@ -102,6 +102,7 @@ const BaseTable = (props) => {
                 handleCreate,
                 setRows,
                 rows,
+                aggregationComponent,
               },
               pagination: {
                 labelRowsPerPage: t("pageSize"),

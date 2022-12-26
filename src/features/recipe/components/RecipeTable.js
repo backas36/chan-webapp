@@ -1,4 +1,5 @@
-import { Box } from "@mui/material"
+import { AttachMoney } from "@mui/icons-material"
+import { Box, Chip } from "@mui/material"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation } from "react-router-dom"
@@ -135,10 +136,17 @@ const RecipeTable = () => {
     setRows: (rows) => dispatch(setRows(rows)),
     handleCreate: handleCreateHelper,
     rowUpdateHelper,
+    aggregationComponent: (
+      <Chip
+        icon={<AttachMoney />}
+        label={`Total Cost : ${numberToTwo(totalCost)}` || "--"}
+        //variant="outlined"
+        color="success"
+      />
+    ),
   }
   return (
     <>
-      <Box>{numberToTwo(totalCost) || "--"}</Box>
       <BaseTable tableConfig={tableConfig} />
     </>
   )
