@@ -156,7 +156,9 @@
   "fixedPrice": "Fixed Price",
   "deleteItem": "Are you sure you want to delete this item?",
   "ingredientNameHelpDesc": "If you cannot find the supplier name / ingredient name which you want to upload, you can go to the pages to create new one first.",
-  "quantity": "Quantity / Weight",
+  "quantity": "Quantity",
   "avgCost": "Averaged Cost",
-  "latestCost": "Latest Cost"
+  "latestCost": "Latest Cost",
+  "avgUnitPrice": "Averaged Unit Price",
+  "latestUnitPrice": "Latest Unit Price"
 }

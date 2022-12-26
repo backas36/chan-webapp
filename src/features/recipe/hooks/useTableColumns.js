@@ -73,7 +73,26 @@ const useTableColumns = () => {
       return row?.[field]
     }
 
-    const costValueHelper = (params) => {
+    const unitPriceHelper = (params) => {
+      const { row, api, field } = params
+
+      const { editRows } = api.state
+      let ingredientId = row.ingredientId
+
+      let unitPrice = 0
+
+      if (editRows[row.id]?.ingredientId) {
+        ingredientId = editRows[row.id].ingredientId?.value
+        unitPrice = ingredients.find((item) => item.id === ingredientId)?.[
+          field
+        ]
+      } else {
+        unitPrice = row[field]
+      }
+      return numberToOne(unitPrice)
+    }
+
+    const costPriceHelper = (params, linkedField) => {
       const { row, api, field } = params
 
       const { editRows } = api.state
@@ -85,16 +104,14 @@ const useTableColumns = () => {
       if (editRows[row.id]?.ingredientId) {
         ingredientId = editRows[row.id].ingredientId?.value
         quantity = editRows[row.id].quantity?.value
-        costPrice = ingredients.find((item) => item.id === ingredientId)?.[
-          field
-        ]
+        costPrice =
+          ingredients.find((item) => item.id === ingredientId)?.[linkedField] *
+          quantity
       } else {
-        quantity = row.quantity
         costPrice = row[field]
       }
-      return numberToOne(costPrice * quantity)
+      return numberToOne(costPrice)
     }
-
     const getValueOptions = (data, selectedParent = null) => {
       let optionsSource = data
 
@@ -137,9 +154,10 @@ const useTableColumns = () => {
               width: 180,
               editable: true,
               type: "singleSelect",
-              valueOptions: ({ row }) => {
+              valueOptions: (params) => {
+                const { row } = params
                 let selectedParent = row?.inCategoryId
-                if (!selectedParent) {
+                if (!selectedParent && !!row) {
                   return []
                 }
                 return getValueOptions(ingredients, selectedParent)
@@ -156,7 +174,7 @@ const useTableColumns = () => {
             {
               field: "quantity",
               headerName: t("quantity"),
-              width: 130,
+              width: 110,
               type: "number",
               headerAlign: "left",
               editable: true,
@@ -194,47 +212,43 @@ const useTableColumns = () => {
               },
             },
             {
-              field: "avgCost",
-              headerName: t("avgCost"),
-              width: 100,
+              field: "avgUnitPrice",
+              headerName: t("avgUnitPrice"),
+              width: 120,
               editable: false,
               filterable: false,
               sortable: false,
-              headerAlign: "left",
-              renderCell: renderCellExpand,
-              valueGetter: costValueHelper,
-              //valueSetter: (params) => {
-              //  console.log(params.value)
-              //},
-              //valueParser: (value, params) => {
-              //  console.log(value)
-              //  //console.log(params)
-              //  let costPrice = value
-              //  let quantity = params.row.quantity
-              //  return numberToOne(costPrice * quantity)
-              //},
-              //valueFormatter: (params) => {
-              //  const { value } = params
-
-              //  console.log("🐑 ~ value", value)
-
-              //  if (!value) {
-              //    return "-"
-              //  }
-              //  return value
-              //},
+              valueGetter: unitPriceHelper,
+            },
+            {
+              field: "avgCost",
+              headerName: t("avgCost"),
+              width: 120,
+              editable: false,
+              filterable: false,
+              sortable: false,
+              valueGetter: (params) => costPriceHelper(params, "avgUnitPrice"),
+            },
+            {
+              field: "latestUnitPrice",
+              headerName: t("latestUnitPrice"),
+              width: 120,
+              editable: false,
+              filterable: false,
+              sortable: false,
+              valueGetter: unitPriceHelper,
             },
             {
               field: "latestCost",
               headerName: t("latestCost"),
-              width: 100,
+              width: 120,
               editable: false,
               filterable: false,
-              sortable: false,
-              headerAlign: "left",
-              renderCell: renderCellExpand,
-              valueGetter: costValueHelper,
+              sortable: true,
+              valueGetter: (params) =>
+                costPriceHelper(params, "latestUnitPrice"),
             },
+
             {
               field: "description",
               headerName: t("description"),

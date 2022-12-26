@@ -25,9 +25,9 @@ const syncConfig = {
   whitelist: [
     "ui/toggleThemeMode",
     "lang/setLang",
-    //"auth/postLogin",
-    //"auth/postLogout",
-    //"auth/checkLogin",
+    "auth/postLogin",
+    "auth/postLogout",
+    "auth/checkLogin",
   ],
 }
 
@@ -52,8 +52,8 @@ export const store = configureStore({
     getDefaultMiddleware().concat(
       apiSlice.middleware,
       rtkQueryErrorMiddleware,
-      tokensMiddleware,
       listenerMiddleware.middleware,
+      tokensMiddleware,
       createStateSyncMiddleware(syncConfig)
     ),
   devTools: true, // should false for staging and prod

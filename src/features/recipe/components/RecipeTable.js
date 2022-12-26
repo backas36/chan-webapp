@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation } from "react-router-dom"
 import BaseTable from "../../../components/Table/BaseTable"
+import { numberToOne } from "../../../utils/mathHelper"
 import { useGetAllIngredientsQuery } from "../../ingredients"
 import useTableColumns from "../hooks/useTableColumns"
 import {
@@ -37,10 +38,8 @@ const RecipeTable = () => {
   const tableColumns = useTableColumns()
 
   let totalCost = 0
-  totalCost = rows.reduce(
-    (sum, next) => sum + next.latestCost * next.quantity,
-    0
-  )
+  totalCost = rows.reduce((sum, next) => sum + Number(next.latestCost), 0)
+  console.log(typeof totalCost)
   const {
     data: recipesData,
     isLoading,
@@ -68,6 +67,8 @@ const RecipeTable = () => {
   }, [dispatch, recipesData])
 
   const rowUpdateHelper = (processRow) => {
+    console.log("🐑 ~ processRow", processRow)
+
     const ingredientId = processRow.ingredientId
     const findIngredient = ingredientsData?.data.find(
       (item) => item.id === ingredientId
@@ -75,8 +76,10 @@ const RecipeTable = () => {
     const newRow = {
       ...processRow,
       sku: findIngredient.sku,
-      avgCost: findIngredient.avgCost,
-      latestCost: findIngredient.latestCost,
+      avgUnitPrice: findIngredient.avgUnitPrice,
+      latestUnitPrice: findIngredient.latestUnitPrice,
+      avgCost: findIngredient.avgUnitPrice * processRow.quantity,
+      latestCost: findIngredient.latestUnitPrice * processRow.quantity,
     }
     return newRow
   }
@@ -136,7 +139,7 @@ const RecipeTable = () => {
   }
   return (
     <>
-      <Box>{totalCost || "--"}</Box>
+      <Box>{numberToOne(totalCost) || "--"}</Box>
       <BaseTable tableConfig={tableConfig} />
     </>
   )

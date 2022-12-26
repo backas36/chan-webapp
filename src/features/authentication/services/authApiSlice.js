@@ -92,6 +92,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         try {
           await queryFulfilled
         } finally {
+          console.log("after call logout")
           dispatch(postLogout())
           setTimeout(() => {
             dispatch(apiSlice.util.resetApiState())

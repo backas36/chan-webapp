@@ -4,6 +4,7 @@ const initialState = {
   verifiedUser: null,
   isLogin: !!localStorage.getItem("accessToken"),
 }
+console.log("authSlice isLogin", initialState.isLogin)
 
 const authSlice = createSlice({
   name: "auth",
@@ -23,9 +24,12 @@ const authSlice = createSlice({
 })
 
 export const tokensMiddleware = (store) => (next) => (action) => {
+  console.log(action.type)
   if (authSlice.actions.postLogin().type.match(action.type)) {
     const response = action.payload
+    console.log("tokens middleware", response)
     if (!response?.success || !response?.tokens) {
+      console.log("tokens middleware postLogout")
       store.dispatch(postLogout())
       return
     }
@@ -33,6 +37,7 @@ export const tokensMiddleware = (store) => (next) => (action) => {
     localStorage.setItem("accessToken", accessToken)
     localStorage.setItem("refreshToken", refreshToken)
   } else if (authSlice.actions.postLogout().type.match(action.type)) {
+    console.log("tokens middleware logout")
     localStorage.removeItem("accessToken")
     localStorage.removeItem("refreshToken")
   }
