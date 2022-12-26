@@ -49,11 +49,11 @@ const sidebarData = [
         icon: <Egg />,
         path: "ingredients",
       },
-      {
-        title: "Ingredient Inventory",
-        icon: <ReceiptLong />,
-        path: "ingredient-inventory",
-      },
+      //{
+      //  title: "Ingredient Inventory",
+      //  icon: <ReceiptLong />,
+      //  path: "ingredient-inventory",
+      //},
     ],
   },
   {
@@ -70,11 +70,11 @@ const sidebarData = [
         icon: <Cake />,
         path: "manage-products",
       },
-      {
-        title: "Product Inventory",
-        icon: <Inventory />,
-        path: "product-inventory",
-      },
+      //{
+      //  title: "Product Inventory",
+      //  icon: <Inventory />,
+      //  path: "product-inventory",
+      //},
     ],
   },
 

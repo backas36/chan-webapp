@@ -88,13 +88,19 @@ const AdminSideBar = () => {
     ))
   }
   const MultiMenuItem = ({ listItem }) => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(true)
+    const handleSubMenuClick = () => {
+      console.log(isSideBarOpen)
+      if (isSideBarOpen) {
+        setOpen(!open)
+      }
+    }
     return (
       <>
         <ListItem
           disablePadding
           sx={{ display: "block", marginLeft: "2px" }}
-          onClick={() => setOpen(!open)}
+          onClick={handleSubMenuClick}
         >
           <ItemStyle isSideBarOpen={isSideBarOpen}>
             <ListItemIcon
@@ -110,11 +116,16 @@ const AdminSideBar = () => {
               primary={t(listItem.title)}
               isSideBarOpen={isSideBarOpen}
             />
-            {isSideBarOpen && (open ? <ExpandLess /> : <ExpandMore />)}
+
+            {isSideBarOpen && (
+              <IconButton sx={{ pr: 1.5 }}>
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </IconButton>
+            )}
           </ItemStyle>
         </ListItem>
         <CollapseMenuItem
-          open={open}
+          open={isSideBarOpen ? open : false}
           listItems={listItem.items}
           parentTitle={listItem.title}
         />
