@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import { Drawer, ListItemButton, ListItemText } from "@mui/material"
-const drawerWidth = 200
+const drawerWidth = 220
 export const openedMixin = (theme) => {
   return {
     transition: theme.transitions.create("width", {

@@ -160,5 +160,6 @@
   "avgCost": "Averaged Cost",
   "latestCost": "Latest Cost",
   "avgUnitPrice": "Averaged Unit Price",
-  "latestUnitPrice": "Latest Unit Price"
+  "latestUnitPrice": "Latest Unit Price",
+  "MangeIngredients": "Manage Ingredients"
 }

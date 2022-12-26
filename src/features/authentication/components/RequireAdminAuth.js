@@ -14,18 +14,18 @@ const RequireAdminAuth = () => {
     [verifiedUser?.role]
   )
 
-  useEffect(() => {
-    dispatch(
-      apiSlice.util.prefetch(
-        "getAllUsers",
-        { n: 15, s: 0, order: "", filters: "", q: "" },
-        { force: true }
-      )
-    )
-    dispatch(
-      apiSlice.util.prefetch("getActionLogList", { n: 10 }, { force: true })
-    )
-  }, [dispatch])
+  //useEffect(() => {
+  //  dispatch(
+  //    apiSlice.util.prefetch(
+  //      "getAllUsers",
+  //      { n: 15, s: 0, order: "", filters: "", q: "" },
+  //      { force: true }
+  //    )
+  //  )
+  //  dispatch(
+  //    apiSlice.util.prefetch("getActionLogList", { n: 10 }, { force: true })
+  //  )
+  //}, [dispatch])
 
   return isAllowed ? <Outlet /> : <Navigate to="/login" replace />
 }

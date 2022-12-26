@@ -1,22 +1,13 @@
 import {
-  AddBusiness,
-  BakeryDining,
   Cake,
-  Category,
   ChevronLeft,
   ChevronRight,
-  Dashboard,
-  Egg,
   ExitToApp,
-  Inventory,
-  ListAlt,
-  MenuBook,
-  PeopleAlt,
-  ReceiptLong,
-  ShoppingBag,
-  Workspaces,
+  ExpandLess,
+  ExpandMore,
 } from "@mui/icons-material"
 import {
+  Collapse,
   Divider,
   IconButton,
   List,
@@ -24,11 +15,12 @@ import {
   ListItemIcon,
 } from "@mui/material"
 import { Box } from "@mui/system"
-import { useMemo } from "react"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 import { selectIsSideBarOpen, toggleSideBar } from "../../features/ui"
+import sidebarData from "./sidebarData"
 import { DrawerHeader, ItemStyle, ItemText } from "./styled"
 
 const AdminSideBar = () => {
@@ -36,112 +28,123 @@ const AdminSideBar = () => {
   const isSideBarOpen = useSelector(selectIsSideBarOpen)
 
   const dispatch = useDispatch()
-  //products, ingredients, purchase, recipe, ingredient-inventory, product-inventory
-  const list = useMemo(
-    () => [
-      {
-        title: "Dashboard",
-        icon: <Dashboard />,
-        path: "/admin/main",
-      },
-      {
-        title: "Users",
-        icon: <PeopleAlt />,
-        path: "users",
-      },
-      {
-        title: "Suppliers",
-        icon: <AddBusiness />,
-        path: "suppliers",
-      },
 
-      {
-        title: "Purchases",
-        icon: <ShoppingBag />,
-        path: "purchases",
-      },
-      {
-        title: "Ingredient Inventory",
-        icon: <ReceiptLong />,
-        path: "ingredient-inventory",
-      },
-      {
-        title: "Ingredients",
-        icon: <Egg />,
-        path: "ingredients",
-      },
-      {
-        title: "Ingredient Categories",
-        icon: <Category />,
-        path: "ingredient-categories",
-      },
-      {
-        title: "Product Inventory",
-        icon: <Inventory />,
-        path: "product-inventory",
-      },
-      {
-        title: "ManageProducts",
-        icon: <Cake />,
-        path: "manage-products",
-      },
-      {
-        title: "Product Categories",
-        icon: <Workspaces />,
-        path: "product-categories",
-      },
-      {
-        title: "actionsLog",
-        icon: <ListAlt />,
-        path: "actions-log",
-      },
-    ],
-    []
-  )
+  const handleSideBarClick = () => {
+    dispatch(toggleSideBar())
+  }
+  const SingleMenuItem = ({ listItem }) => {
+    return (
+      <ListItem disablePadding sx={{ display: "block", marginLeft: "2px" }}>
+        <ItemStyle
+          component={NavLink}
+          to={listItem.path}
+          isSideBarOpen={isSideBarOpen}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: isSideBarOpen ? 1 : "auto",
+              justifyContent: "center",
+            }}
+          >
+            {listItem.icon}
+          </ListItemIcon>
+          <ItemText primary={t(listItem.title)} isSideBarOpen={isSideBarOpen} />
+        </ItemStyle>
+      </ListItem>
+    )
+  }
+
+  const CollapseMenuItem = ({ listItems, open }) => {
+    return listItems.map((listItem) => (
+      <Collapse key={listItem.title} in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem
+            disablePadding
+            sx={{ display: "block", marginLeft: "12px" }}
+          >
+            <ItemStyle
+              component={NavLink}
+              to={listItem.path}
+              isSideBarOpen={isSideBarOpen}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: isSideBarOpen ? 1 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                {listItem.icon}
+              </ListItemIcon>
+              <ItemText
+                primary={t(listItem.title)}
+                isSideBarOpen={isSideBarOpen}
+              />
+            </ItemStyle>
+          </ListItem>
+        </List>
+      </Collapse>
+    ))
+  }
+  const MultiMenuItem = ({ listItem }) => {
+    const [open, setOpen] = useState(false)
+    return (
+      <>
+        <ListItem
+          disablePadding
+          sx={{ display: "block", marginLeft: "2px" }}
+          onClick={() => setOpen(!open)}
+        >
+          <ItemStyle isSideBarOpen={isSideBarOpen}>
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: isSideBarOpen ? 1 : "auto",
+                justifyContent: "center",
+              }}
+            >
+              {listItem.icon}
+            </ListItemIcon>
+            <ItemText
+              primary={t(listItem.title)}
+              isSideBarOpen={isSideBarOpen}
+            />
+            {isSideBarOpen && (open ? <ExpandLess /> : <ExpandMore />)}
+          </ItemStyle>
+        </ListItem>
+        <CollapseMenuItem
+          open={open}
+          listItems={listItem.items}
+          parentTitle={listItem.title}
+        />
+      </>
+    )
+  }
 
   return (
     <>
       <DrawerHeader isSideBarOpen={isSideBarOpen}>
-        <IconButton onClick={() => dispatch(toggleSideBar())} sx={{ pr: 1.5 }}>
+        <IconButton onClick={handleSideBarClick} sx={{ pr: 1.5 }}>
           {isSideBarOpen ? <ChevronLeft /> : <ChevronRight />}
         </IconButton>
       </DrawerHeader>
       <Divider />
       <Box flexGrow={1}>
         <List>
-          {list.map((item) => (
-            <ListItem
-              key={item.title}
-              disablePadding
-              sx={{ display: "block", marginLeft: "2px" }}
-            >
-              <ItemStyle
-                component={NavLink}
-                to={item.path}
-                isSideBarOpen={isSideBarOpen}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: isSideBarOpen ? 1 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {item.icon}
-                </ListItemIcon>
-                <ItemText
-                  primary={t(item.title)}
-                  isSideBarOpen={isSideBarOpen}
-                />
-              </ItemStyle>
-            </ListItem>
-          ))}
+          {sidebarData.map((listItem) => {
+            if (!listItem.items) {
+              return <SingleMenuItem key={listItem.title} listItem={listItem} />
+            }
+
+            return <MultiMenuItem key={listItem.title} listItem={listItem} />
+          })}
         </List>
       </Box>
       <Divider />
       <Box
         sx={{
-          my: 3,
+          my: 1.5,
         }}
       >
         <ListItem disablePadding sx={{ display: "block", marginLeft: "5px" }}>

@@ -160,5 +160,6 @@
   "avgCost": "平均成本",
   "latestCost": "最新成本",
   "avgUnitPrice": "平均單價",
-  "latestUnitPrice": "最新單價"
+  "latestUnitPrice": "最新單價",
+  "MangeIngredients": "材料管理"
 }
