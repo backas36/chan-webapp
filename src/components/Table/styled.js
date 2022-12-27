@@ -13,6 +13,15 @@ export const TableBox = styled(Box)(({ theme }) => {
     "& .MuiDataGrid-cell:focus-within": {
       outline: "none !important",
     },
+    "& .must-input--header": {
+      background: "rgb(211, 202, 187,0.3)",
+    },
+    "& .MuiDataGrid-row--editing .default-value--cell.MuiDataGrid-cell": {
+      background:
+        theme.palette.mode === "dark"
+          ? "rgb(211, 202, 187,0.3)"
+          : theme.palette.grey["A100"],
+    },
   }
 })
 
@@ -26,7 +35,6 @@ export const dataGridStyles = () => {
           : theme.palette.grey["A100"],
     },
     "& .MuiDataGrid-cell--editing": {
-      backgroundColor: "rgb(255,215,115, 0.19)",
       "& .MuiInputBase-root": {
         height: "100%",
       },

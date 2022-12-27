@@ -20,6 +20,5 @@ i18n.use(initReactI18next).init({
   },
   debug: process.env.NODE_ENV === "development" && true,
 })
-console.log("🐑 ~ process.env.NODE_ENV ", process.env.NODE_ENV)
 
 export default i18n

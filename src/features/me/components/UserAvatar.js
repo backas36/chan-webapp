@@ -47,8 +47,6 @@ const UserAvatar = () => {
         }
         const newPhotoUrl = await uploadUserPhoto(file, id)
         await updateMyProfile({ ...currentUser, photoUrl: newPhotoUrl })
-      } catch (err) {
-        console.log(err)
       } finally {
         setLoading(false)
       }

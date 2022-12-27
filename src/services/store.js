@@ -13,13 +13,20 @@ import { uiReducer } from "../features/ui"
 import { listenerMiddleware } from "./middleware/listenerMiddleware"
 import { actionLogReducer } from "../features/actionsLog"
 import { usersReducer } from "../features/users"
+import { suppliersReducer } from "../features/suppliers"
+import { inCategoriesReducer } from "../features/ingredientCategory"
+import { poCategoriesReducer } from "../features/productCategory"
+import { purchasesReducer } from "../features/purchases"
+import { ingredientReducer } from "../features/ingredients"
+import { productReducer } from "../features/products"
+import { recipesReducer } from "../features/recipes"
 
 const syncConfig = {
   whitelist: [
     "ui/toggleThemeMode",
     "lang/setLang",
     "auth/postLogin",
-    "auth/postLogout",
+    //"auth/postLogout",
     "auth/checkLogin",
   ],
 }
@@ -33,12 +40,19 @@ export const store = configureStore({
     me: meReducer,
     actionLog: actionLogReducer,
     users: usersReducer,
+    suppliers: suppliersReducer,
+    inCategories: inCategoriesReducer,
+    poCategories: poCategoriesReducer,
+    purchases: purchasesReducer,
+    ingredients: ingredientReducer,
+    products: productReducer,
+    recipes: recipesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       apiSlice.middleware,
-      rtkQueryErrorMiddleware,
       tokensMiddleware,
+      rtkQueryErrorMiddleware,
       listenerMiddleware.middleware,
       createStateSyncMiddleware(syncConfig)
     ),

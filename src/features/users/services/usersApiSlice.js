@@ -37,7 +37,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...userData },
       }),
-      invalidatesTags: [{ type: "Users", id: "LIST" }],
+      //invalidatesTags: [{ type: "Users", id: "LIST" }],
     }),
     updateUser: builder.mutation({
       query: ({ id, ...userData }) => ({
@@ -60,7 +60,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: `/users/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "Users", id: "LIST" }],
+      //invalidatesTags: [{ type: "Users", id: "LIST" }],
     }),
     sendActivateMail: builder.mutation({
       query: (id) => ({

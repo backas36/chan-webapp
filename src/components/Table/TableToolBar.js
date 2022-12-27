@@ -1,18 +1,30 @@
-import { Add, RestartAlt } from "@mui/icons-material"
-import { Box, Button } from "@mui/material"
+import { Add, AttachMoney, RestartAlt } from "@mui/icons-material"
+import { Box, Button, Chip } from "@mui/material"
 import { useTranslation } from "react-i18next"
-
+import { useSelector } from "react-redux"
 import {
   GridToolbarContainer,
   GridToolbarColumnsButton,
   GridToolbarFilterButton,
   useGridApiContext,
+  GridRowModes,
 } from "@mui/x-data-grid"
 import SearchBar from "../SearchBar/SearchBar"
+
+import { v4 as uuidv4 } from "uuid"
+import { useCallback } from "react"
+import { getAllowRoles } from "../../utils/constants"
+import { selectCurrentUser } from "../../features/me"
 
 const TableToolBar = (props) => {
   const { t } = useTranslation()
   const apiRef = useGridApiContext()
+  const currentUser = useSelector(selectCurrentUser)
+
+  const isAllowedEdit = useCallback(
+    () => getAllowRoles(true, true).includes(currentUser?.role),
+    [currentUser?.role]
+  )
 
   const {
     searchInput,
@@ -20,21 +32,43 @@ const TableToolBar = (props) => {
     handleResetTable,
     handleSearch,
     handleCreate,
+    onRowModesModelChange,
+    rowModesModel,
+    setRows,
+    aggregationComponent,
   } = props
 
+  const handleAddClick = () => {
+    const id = uuidv4()
+    setRows({ id, ...handleCreate.initValue, isNew: true })
+    onRowModesModelChange({
+      ...rowModesModel,
+      [id]: {
+        mode: GridRowModes.Edit,
+        fieldToFocus: handleCreate.fieldToFocus,
+        isNew: true,
+      },
+    })
+  }
   const resetTable = () => {
     setSearchInput("")
-
-    const currentState = apiRef?.current?.state
-
-    apiRef.current.setState({
-      ...currentState,
-      editRows: {},
-    })
-    apiRef.current.setSortModel([])
-
-    apiRef.current.setFilterModel({ items: [] })
-    handleResetTable()
+    const current = apiRef.current.exportState()
+    current.filter.filterModel.items = []
+    current.sorting.sortModel = []
+    current.editRows = {}
+    apiRef.current.restoreState(current)
+    const newRowModes = {}
+    rowModesModel &&
+      Object.keys(rowModesModel).forEach((id) => {
+        if (rowModesModel[id].isNew) {
+          return
+        }
+        newRowModes[id] = {
+          mode: GridRowModes.View,
+          ignoreModifications: true,
+        }
+      })
+    handleResetTable(newRowModes)
   }
 
   return (
@@ -45,6 +79,7 @@ const TableToolBar = (props) => {
           display: "flex",
           justifyContent: "space-between",
           padding: "8px 4px",
+          mb: "8px",
         }}
       >
         <Box
@@ -53,12 +88,12 @@ const TableToolBar = (props) => {
             justifyContent: "flex-start",
           }}
         >
-          {!!handleCreate && (
+          {!!handleCreate && isAllowedEdit() && (
             <Button
               color="primary"
               variant="contained"
               startIcon={<Add />}
-              onClick={() => handleCreate()}
+              onClick={handleAddClick}
               sx={{ mr: 2, px: 1 }}
             >
               {t("create")}
@@ -94,6 +129,15 @@ const TableToolBar = (props) => {
         >
           {t("resetTable")}
         </Button>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "-38px",
+            right: "100px",
+          }}
+        >
+          {aggregationComponent}
+        </Box>
       </Box>
     </GridToolbarContainer>
   )

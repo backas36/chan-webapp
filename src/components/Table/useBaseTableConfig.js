@@ -1,31 +1,11 @@
 import { LinearProgress } from "@mui/material"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
+import { dataGridStyles } from "./styled"
 import TableToolBar from "./TableToolBar"
 
-export const baseTableConfig = {
-  pagination: true,
-  paginationMode: "server",
-  sortingMode: "server",
-  filterMode: "server",
-  disableColumnMenu: true,
-  headerHeight: 40,
-  components: {
-    Toolbar: TableToolBar,
-    LoadingOverlay: LinearProgress,
-  },
-  getRowSpacing: (params) => ({
-    top: params.isFirstVisible ? 10 : 5,
-    bottom: params.isLastVisible ? 0 : 5,
-  }),
-  disableSelectionOnClick: true,
-  editMode: "row",
-  //checkboxSelection
-}
-
-const useTable = () => {
+const useBaseTableConfig = () => {
   const { t } = useTranslation()
-  const [searchInput, setSearchInput] = useState("")
 
   const localizedTextMap = useMemo(
     () => ({
@@ -43,9 +23,31 @@ const useTable = () => {
       noRowsLabel: t("noRowsLabel"),
       errorOverlayDefaultLabel: t("errorOverlayDefaultLabel"),
       noResultsOverlayLabel: t("noResultsOverlayLabel"),
+      filterOperatorEquals: t("filterOperatorEquals"),
     }),
     [t]
   )
-  return { searchInput, setSearchInput, localizedTextMap }
+  const baseConfig = {
+    experimentalFeatures: { newEditingApi: true },
+    pagination: true,
+    paginationMode: "server",
+    sortingMode: "server",
+    filterMode: "server",
+    disableColumnMenu: true,
+    headerHeight: 40,
+    components: {
+      Toolbar: TableToolBar,
+      LoadingOverlay: LinearProgress,
+    },
+    getRowSpacing: (params) => ({
+      top: params.isFirstVisible ? 10 : 5,
+      bottom: params.isLastVisible ? 0 : 5,
+    }),
+    disableSelectionOnClick: true,
+    editMode: "row",
+    localeText: localizedTextMap,
+    sx: dataGridStyles,
+  }
+  return baseConfig
 }
-export default useTable
+export default useBaseTableConfig

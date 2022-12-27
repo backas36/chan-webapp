@@ -10,7 +10,7 @@ export const profileSchema = (createdByAdmin = false) => {
     email: Yup.string().email("emailInValid").required("emailRequire"),
     address: Yup.string().nullable(),
     lineId: Yup.string().nullable(),
-    birthDate: Yup.date("dateValid").nullable(),
+    birthDate: Yup.date("dateValid").nullable().notRequired(),
 
     mobile: Yup.string().nullable().matches(phoneRegExp, "phoneInvalid"),
     ...(createdByAdmin && {
@@ -37,4 +37,8 @@ export const pwdSchema = () => {
 
 export const validateOneInAccount = (field, value) => {
   return Yup.reach(profileSchema(true), field).validate(value)
+}
+
+export const validateAccount = (inputData) => {
+  return profileSchema(true).validate(inputData, { abortEarly: false })
 }

@@ -27,8 +27,10 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
   if (result?.error?.status === 403) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
+
       try {
         const refreshToken = localStorage.getItem("refreshToken") || null
+
         const refreshResult = await baseQuery(
           {
             url: "/auth/refresh",
@@ -38,9 +40,9 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
           api,
           extraOptions
         )
+
         if (refreshResult?.data?.success) {
           api.dispatch(postLogin(refreshResult.data))
-
           result = await baseQuery(args, api, extraOptions)
         } else {
           api.dispatch(postLogout())
@@ -53,13 +55,23 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
       result = await baseQuery(args, api, extraOptions)
     }
   }
-
   return result
 }
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ["ActionLogs", "Me", "Users"],
+  tagTypes: [
+    "ActionLogs",
+    "Me",
+    "Users",
+    "Suppliers",
+    "InCategories",
+    "PoCategories",
+    "Purchases",
+    "Ingredients",
+    "Products",
+    "Recipe",
+  ],
   endpoints: (builder) => ({}),
 })
 

@@ -7,32 +7,21 @@ import {
   CardContent,
   CardHeader,
 } from "@mui/material"
-import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { selectCurrentUser } from "../services/meSlice"
 import { useUpdateMyProfileMutation } from "../services/meApiSlice"
-import { useEffect, useMemo } from "react"
+import { useMemo } from "react"
 import { customToast } from "../../../components/notify/NotifyToast"
-import {
-  FDatePicker,
-  FLoadingBtn,
-  FSelect,
-  FTextfield,
-} from "../../../components/form"
-import { USER_ROLES, USER_STATUS } from "../../../utils/constants"
+import { FDatePicker, FLoadingBtn, FTextfield } from "../../../components/form"
 import { checkUserIdentityType } from "../utils/checkUserIdentityType"
 import { formatISODate, formatLocaleTime } from "../../../utils/dateTimeManger"
-import { initUserVal } from "../utils/initUserVal"
 import { profileSchema } from "../utils/schema"
 import { useTranslation } from "react-i18next"
-import { useAddUserMutation } from "../../users"
 
-const UserProfileDetail = ({ createByAdmin }) => {
+const UserProfileDetail = () => {
   const { t } = useTranslation()
-  const navigate = useNavigate()
   const currentUser = useSelector(selectCurrentUser)
   const [updateMyProfile] = useUpdateMyProfileMutation()
-  const [createUser, { isSuccess }] = useAddUserMutation()
 
   const getUserValue = useMemo(() => {
     const actionUser = currentUser
@@ -44,19 +33,14 @@ const UserProfileDetail = ({ createByAdmin }) => {
   }, [currentUser])
 
   const formik = useFormik({
-    initialValues: createByAdmin ? initUserVal : getUserValue,
+    initialValues: getUserValue,
     enableReinitialize: true,
-    validationSchema: profileSchema(createByAdmin),
+    validationSchema: profileSchema(),
     onSubmit: async (values) => {
       if (values?.birthDate) {
         values.birthDate = formatISODate(values?.birthDate, "date")
       } else {
         values.birthDate = null
-      }
-
-      if (createByAdmin) {
-        await createUser(values)
-        return
       }
 
       if (currentUser) {
@@ -66,15 +50,8 @@ const UserProfileDetail = ({ createByAdmin }) => {
     },
   })
 
-  useEffect(() => {
-    if (isSuccess) {
-      customToast.success("createdSuccess")
-      navigate(-1)
-    }
-  }, [isSuccess, navigate])
-
   return (
-    <Grid item xs={12} md={createByAdmin ? 12 : 6}>
+    <Grid item xs={12} md={6}>
       <FormikProvider value={formik}>
         <Form autoComplete="on" noValidate>
           <Card>
@@ -84,17 +61,14 @@ const UserProfileDetail = ({ createByAdmin }) => {
             />
             <CardContent>
               <Grid container spacing={3}>
-                {createByAdmin && (
-                  <Grid item md={12} xs={12}>
-                    <FTextfield
-                      label={t("email")}
-                      name="email"
-                      variant="outlined"
-                      required={true}
-                      disabled={!createByAdmin}
-                    />
-                  </Grid>
-                )}
+                <Grid item md={12} xs={12}>
+                  <FTextfield
+                    label={t("email")}
+                    name="email"
+                    variant="outlined"
+                    required={true}
+                  />
+                </Grid>
 
                 <Grid item md={6} xs={12}>
                   <FTextfield
@@ -137,47 +111,22 @@ const UserProfileDetail = ({ createByAdmin }) => {
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  {createByAdmin ? (
-                    <>
-                      <FSelect
-                        label={t("role")}
-                        name="role"
-                        options={USER_ROLES}
-                        required={true}
-                      />
-                    </>
-                  ) : (
-                    <FTextfield
-                      label={t("role")}
-                      name="role"
-                      variant="outlined"
-                      disabled={true}
-                    />
-                  )}
+                  <FTextfield
+                    label={t("role")}
+                    name="role"
+                    variant="outlined"
+                    disabled={true}
+                  />
                 </Grid>
+
                 <Grid item md={6} xs={12}>
-                  {createByAdmin && (
-                    <>
-                      <FSelect
-                        label={t("status")}
-                        name="status"
-                        options={USER_STATUS}
-                        required={true}
-                        disabled={true}
-                      />
-                    </>
-                  )}
+                  <FTextfield
+                    label={t("lastLoginAt")}
+                    name="lastLoginAt"
+                    variant="outlined"
+                    disabled={true}
+                  />
                 </Grid>
-                {!createByAdmin && (
-                  <Grid item md={6} xs={12}>
-                    <FTextfield
-                      label={t("lastLoginAt")}
-                      name="lastLoginAt"
-                      variant="outlined"
-                      disabled={true}
-                    />
-                  </Grid>
-                )}
               </Grid>
             </CardContent>
             <Divider />

@@ -1,16 +1,16 @@
 import styled from "@emotion/styled"
 import { Drawer, ListItemButton, ListItemText } from "@mui/material"
-const drawerWidth = 200
+const drawerWidth = 220
 export const openedMixin = (theme) => {
   return {
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    [theme.breakpoints.up("xs")]: {
-      //width: `calc(${theme.spacing(22)} + 1px)`,
-      width: `${drawerWidth / 1.4}px`,
-    },
+    //[theme.breakpoints.up("xs")]: {
+    //  //width: `calc(${theme.spacing(22)} + 1px)`,
+    //  width: `${drawerWidth / 1.1}px`,
+    //},
     [theme.breakpoints.up("md")]: {
       width: drawerWidth,
     },

@@ -1,7 +1,6 @@
 import { Paper, Popper, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import React, { useEffect, useRef, useState } from "react"
-
 function isOverflown(element) {
   return (
     element.scrollHeight > element.clientHeight ||
@@ -14,7 +13,7 @@ const TableCellExpand = React.memo((props) => {
   if (value) {
     value = typeof value === "object" ? JSON.stringify(value) : value
   } else {
-    value = "-"
+    value = value ?? "-"
   }
   const cellDiv = useRef(null)
   const cellValue = useRef(null)
